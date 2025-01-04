@@ -7,12 +7,14 @@ import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 const Page = () => {
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/admin/dashboard',
     })
+    const searchParams = useSearchParams()
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -28,6 +30,7 @@ const Page = () => {
             email,
             password,
             password_confirmation: passwordConfirmation,
+            user_plan: searchParams.get('user_plan') ?? 'basic',
             setErrors,
         })
     }
@@ -36,7 +39,7 @@ const Page = () => {
         <form onSubmit={submitForm}>
             {/* Name */}
             <div>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Nom du restaurant</Label>
 
                 <Input
                     id="name"
@@ -69,7 +72,7 @@ const Page = () => {
 
             {/* Password */}
             <div className="mt-4">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Mot de passe</Label>
 
                 <Input
                     id="password"
@@ -86,9 +89,7 @@ const Page = () => {
 
             {/* Confirm Password */}
             <div className="mt-4">
-                <Label htmlFor="passwordConfirmation">
-                    Confirm Password
-                </Label>
+                <Label htmlFor="passwordConfirmation">Confirmation du mot de passe</Label>
 
                 <Input
                     id="passwordConfirmation"
@@ -111,10 +112,10 @@ const Page = () => {
                 <Link
                     href="/login"
                     className="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    Déjà inscrit ?
                 </Link>
 
-                <Button className="ml-4">Register</Button>
+                <Button className="ml-4">Inscription</Button>
             </div>
         </form>
     )

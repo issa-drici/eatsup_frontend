@@ -7,7 +7,7 @@ import { useState } from 'react'
 const Page = () => {
     const { logout, resendEmailVerification } = useAuth({
         middleware: 'auth',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/admin/dashboard',
     })
 
     const [status, setStatus] = useState(null)
@@ -37,7 +37,7 @@ const Page = () => {
                     type="button"
                     className="underline text-sm text-gray-600 hover:text-gray-900"
                     onClick={logout}>
-                    Logout
+                    Se déconnecter
                 </button>
             </div>
         </>

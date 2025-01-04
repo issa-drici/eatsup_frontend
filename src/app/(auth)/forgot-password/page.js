@@ -11,7 +11,7 @@ import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 const Page = () => {
     const { forgotPassword } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/admin/dashboard',
     })
 
     const [email, setEmail] = useState('')
@@ -27,9 +27,10 @@ const Page = () => {
     return (
         <>
             <div className="mb-4 text-sm text-gray-600">
-                Forgot your password? No problem. Just let us know your email
-                address and we will email you a password reset link that
-                will allow you to choose a new one.
+                Mot de passe oublié ? Pas de problème. Il suffit de nous
+                indiquer votre adresse email et nous vous enverrons un lien de
+                réinitialisation de mot de passe qui vous permettra de choisir
+                un nouveau mot de passe.
             </div>
 
             {/* Session Status */}
@@ -54,7 +55,7 @@ const Page = () => {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <Button>Email Password Reset Link</Button>
+                    <Button>Envoyer le lien de réinitialisation</Button>
                 </div>
             </form>
         </>
