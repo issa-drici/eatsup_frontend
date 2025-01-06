@@ -5,26 +5,26 @@ import CardStats from '@/components/CardStats'
 
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
-import { useCountMenuCategoriesByMenuId } from '@/services/menu-categories/useCountMenuCategoriesByMenuId'
-import { useCountMenuItemsByMenuId } from '@/services/menu-items/useCountMenuItemsByMenuId'
 import { PaintRoller, TableProperties } from 'lucide-react'
 import { CookingPot } from 'lucide-react'
 import CardButton from '@/components/CardButton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
+import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
+import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
 
 const Menu = () => {
     const { menuId } = useParams()
 
     const {
-        menuCategoriesCount,
-        isLoadingMenuCategoriesCount,
-        isFetchingMenuCategoriesCount,
+        data: menuCategoriesCount,
+        isLoading: isLoadingMenuCategoriesCount,
+        isFetching: isFetchingMenuCategoriesCount,
     } = useCountMenuCategoriesByMenuId(menuId)
 
     const {
-        menuItemsCount,
-        isLoadingMenuItemsCount,
-        isFetchingMenuItemsCount,
+        data: menuItemsCount,
+        isLoading: isLoadingMenuItemsCount,
+        isFetching: isFetchingMenuItemsCount,
     } = useCountMenuItemsByMenuId(menuId)
 
     return (

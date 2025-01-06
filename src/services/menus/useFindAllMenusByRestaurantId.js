@@ -10,5 +10,5 @@ export const useFindAllMenusByRestaurantId = restaurantId => {
 
     const menus = data?.data
 
-    return { menus, isLoading, isFetching }
+    return { data: menus, isLoading, isFetching }
 }

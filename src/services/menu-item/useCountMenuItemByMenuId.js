@@ -10,5 +10,5 @@ export const useCountMenuItemsByMenuId = menuId => {
 
     const menuItemsCount = data?.data
 
-    return { menuItemsCount, isLoading, isFetching }
+    return { data: menuItemsCount, isLoading, isFetching }
 }

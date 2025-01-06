@@ -1,8 +1,8 @@
 'use client'
 
-import { useFindAllMenusByRestaurantId } from '@/services/menus/useFindAllMenusByRestaurantId'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/auth'
+import { useFindAllMenusByRestaurantId } from '@/services/menus/useFindAllMenusByRestaurantId'
 
 // import { useAuth } from '@/hooks/auth'
 
@@ -10,9 +10,11 @@ const Menus = () => {
     const { user } = useAuth({ middleware: 'auth' })
     const router = useRouter()
 
-    const { menus, isLoading, isFetching } = useFindAllMenusByRestaurantId(
-        user?.restaurant?.id,
-    )
+    const {
+        data: menus,
+        isLoading,
+        isFetching,
+    } = useFindAllMenusByRestaurantId(user?.restaurant?.id)
 
     if (isLoading || isFetching) {
         return null

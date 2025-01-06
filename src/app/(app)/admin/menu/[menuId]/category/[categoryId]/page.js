@@ -1,11 +1,10 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import CardStats from '@/components/CardStats'
 
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
-import { EllipsisVertical, Pen, TableProperties, Trash } from 'lucide-react'
+import { EllipsisVertical, Pen, Trash } from 'lucide-react'
 import CardButton from '@/components/CardButton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import {
@@ -16,69 +15,58 @@ import {
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
-import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
-import { useFindAllMenuCategoriesByMenuId } from '@/services/menu-category/useFindAllMenuCategoriesByMenuId'
+import { useFindAllMenuItemsByMenuCategoryId } from '@/services/menu-item/useFindAllMenuItemsByMenuCategoryId'
+import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCategoryById'
 
-const Categories = () => {
-    const { menuId } = useParams()
-
-    const {
-        data: menuCategoriesCount,
-        isLoading: isLoadingMenuCategoriesCount,
-        isFetching: isFetchingMenuCategoriesCount,
-    } = useCountMenuCategoriesByMenuId(menuId)
+const Category = () => {
+    const { menuId, categoryId } = useParams()
 
     const {
-        data: menuCategories,
-        isLoading: isLoadingMenuCategories,
-        isFetching: isFetchingMenuCategories,
-    } = useFindAllMenuCategoriesByMenuId(menuId)
+        data: menuCategory,
+        isLoading: isLoadingMenuCategory,
+        isFetching: isFetchingMenuCategory,
+    } = useFindMenuCategoryById(categoryId)
+
+    const {
+        data: menuItems,
+        isLoading: isLoadingMenuItems,
+        isFetching: isFetchingMenuItems,
+    } = useFindAllMenuItemsByMenuCategoryId(categoryId)
 
     return (
         <>
-            <BreadcrumbCustom
-                items={[
-                    {
-                        title: 'Dashboard',
-                        href: '/admin/dashboard',
-                    },
-                    {
-                        title: 'Menu',
-                        href: `/admin/menu/${menuId}`,
-                    },
-                    {
-                        title: 'Catégories',
-                        href: `/admin/menu/${menuId}/categories`,
-                    },
-                ]}
-            />
+            {!isLoadingMenuCategory || !isFetchingMenuCategory ? (
+                <BreadcrumbCustom
+                    items={[
+                        {
+                            title: 'Dashboard',
+                            href: '/admin/dashboard',
+                        },
+                        {
+                            title: 'Menu',
+                            href: `/admin/menu/${menuId}`,
+                        },
+                        {
+                            title: 'Catégories',
+                            href: `/admin/menu/${menuId}/categories`,
+                        },
+                        {
+                            title: menuCategory?.name?.fr,
+                            href: `/admin/menu/${menuId}/categories`,
+                        },
+                    ]}
+                />
+            ) : null}
+
             <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4">
-                    {isLoadingMenuCategoriesCount ||
-                    isFetchingMenuCategoriesCount ? (
-                        <Skeleton className="h-20 w-full" />
-                    ) : (
-                        <CardStats
-                            title="Catégories"
-                            progression="30 derniers jours"
-                            value={menuCategoriesCount?.count}
-                            icon={
-                                <TableProperties
-                                    size={16}
-                                    className="text-slate-400"
-                                />
-                            }
-                        />
-                    )}
-                </div>
-                {isLoadingMenuCategories || isFetchingMenuCategories ? (
+                {isLoadingMenuItems || isFetchingMenuItems ? (
                     <>
                         <Skeleton className="h-20 w-full" />
                         <Skeleton className="h-20 w-full" />
                         <Skeleton className="h-20 w-full" />
                     </>
                 ) : (
-                    menuCategories?.map(category => (
+                    menuItems?.map(category => (
                         <div
                             key={category.id}
                             className="flex items-center gap-5">
@@ -119,4 +107,4 @@ const Categories = () => {
     )
 }
 
-export default Categories
+export default Category
