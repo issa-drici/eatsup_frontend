@@ -1,24 +1,25 @@
 'use client'
 
-
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import Image from 'next/image'
 
 const Qrcode = () => {
     return (
         <>
-            <BreadcrumbCustom
-                items={[
-                    {
-                        title: 'Dashboard',
-                        href: '/admin/dashboard',
-                    },
-                    {
-                        title: 'QRCode',
-                        href: `/admin/qrcode`,
-                    },
-                ]}
-            />
+            <div className="mb-4">
+                <BreadcrumbCustom
+                    items={[
+                        {
+                            title: 'Dashboard',
+                            href: '/admin/dashboard',
+                        },
+                        {
+                            title: 'QRCode',
+                            href: `/admin/qrcode`,
+                        },
+                    ]}
+                />
+            </div>
             <div className="w-full flex flex-col items-center justify-center py-10 px-5 bg-slate-100 rounded-md">
                 <Image
                     src="/images/eatsy/hello.png"

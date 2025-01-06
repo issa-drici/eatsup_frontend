@@ -10,13 +10,14 @@ import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItems,
+    DropdownMenuItem,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
 import { useFindAllMenuItemsByMenuCategoryId } from '@/services/menu-item/useFindAllMenuItemsByMenuCategoryId'
 import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCategoryById'
+import { cn } from '@/lib/utils'
 
 const Category = () => {
     const { menuId, categoryId } = useParams()
@@ -35,28 +36,30 @@ const Category = () => {
 
     return (
         <>
-            {!isLoadingMenuCategory || !isFetchingMenuCategory ? (
-                <BreadcrumbCustom
-                    items={[
-                        {
-                            title: 'Dashboard',
-                            href: '/admin/dashboard',
-                        },
-                        {
-                            title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
-                        },
-                        {
-                            title: 'Catégories',
-                            href: `/admin/menu/${menuId}/categories`,
-                        },
-                        {
-                            title: menuCategory?.name?.fr,
-                            href: `/admin/menu/${menuId}/categories`,
-                        },
-                    ]}
-                />
-            ) : null}
+            <div className="mb-4">
+                {!isLoadingMenuCategory || !isFetchingMenuCategory ? (
+                    <BreadcrumbCustom
+                        items={[
+                            {
+                                title: 'Dashboard',
+                                href: '/admin/dashboard',
+                            },
+                            {
+                                title: 'Menu',
+                                href: `/admin/menu/${menuId}`,
+                            },
+                            {
+                                title: 'Catégories',
+                                href: `/admin/menu/${menuId}/categories`,
+                            },
+                            {
+                                title: menuCategory?.name?.fr,
+                                href: `/admin/menu/${menuId}/categories`,
+                            },
+                        ]}
+                    />
+                ) : null}
+            </div>
 
             <div className="flex flex-col flex-wrap gap-4">
                 {isLoadingMenuItems || isFetchingMenuItems ? (
@@ -66,13 +69,15 @@ const Category = () => {
                         <Skeleton className="h-20 w-full" />
                     </>
                 ) : (
-                    menuItems?.map(category => (
+                    menuItems?.map(item => (
                         <div
-                            key={category.id}
-                            className="flex items-center gap-5">
+                            key={item.id}
+                            className="flex items-center gap-3">
                             <CardButton
-                                title={category.name?.fr}
-                                url={`/admin/menu/${menuId}/category/${category.id}`}
+                                title={item.name?.fr}
+                                subtitle={item.description?.fr}
+                                rightLabel={`${item.price}€`}
+                                url={`/admin/menu/${menuId}/category/${item.id}`}
                                 widthFull
                             />
                             <DropdownMenu>
@@ -80,23 +85,28 @@ const Category = () => {
                                     <Button
                                         variant="outline"
                                         size="icon"
-                                        className="shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200">
+                                        className={cn(
+                                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
+                                            item.description?.fr
+                                                ? 'h-[66px]'
+                                                : 'h-[46px]',
+                                        )}>
                                         <EllipsisVertical />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
-                                    <DropdownMenuItems>
+                                    <DropdownMenuItem>
                                         Modifier
                                         <DropdownMenuShortcut>
                                             <Pen width={10} />
                                         </DropdownMenuShortcut>
-                                    </DropdownMenuItems>
-                                    <DropdownMenuItems>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
                                         Supprimer
                                         <DropdownMenuShortcut>
                                             <Trash width={10} />
                                         </DropdownMenuShortcut>
-                                    </DropdownMenuItems>
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>

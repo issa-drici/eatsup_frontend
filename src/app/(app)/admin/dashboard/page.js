@@ -16,14 +16,16 @@ const Dashboard = () => {
 
     return (
         <>
-            <BreadcrumbCustom
-                items={[
-                    {
-                        title: 'Dashboard',
-                        href: '/admin/dashboard',
-                    },
-                ]}
-            />
+            <div className="mb-4">
+                <BreadcrumbCustom
+                    items={[
+                        {
+                            title: 'Dashboard',
+                            href: '/admin/dashboard',
+                        },
+                    ]}
+                />
+            </div>
 
             <div className="flex flex-col flex-wrap gap-4">
                 <div className="flex gap-4">

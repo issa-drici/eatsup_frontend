@@ -124,7 +124,15 @@ const CategoryCreate = () => {
                     </div>
                 </div>
 
-                <div className="flex justify-end">
+                <div className="flex justify-end gap-2">
+                    <Button
+                        variant="outline"
+                        onClick={event => {
+                            event.preventDefault()
+                            router.back()
+                        }}>
+                        Annuler
+                    </Button>
                     <Button type="submit">Créer la catégorie</Button>
                 </div>
             </form>

@@ -9,6 +9,7 @@ export default function CardButton({
     url,
     widthFull,
     disabled,
+    rightLabel,
 }) {
     if (disabled) {
         return (
@@ -42,7 +43,7 @@ export default function CardButton({
         <Link href={url} className={cn(widthFull && 'w-full')} asChild>
             <div
                 className={cn(
-                    'h-fit shadow-md border bg-white hover:shadow-inner border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer',
+                    'group relative overflow-hidden h-fit shadow-md border bg-white hover:shadow-inner border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer',
                     widthFull && 'w-full',
                 )}>
                 {icon}
@@ -54,6 +55,13 @@ export default function CardButton({
                         {subtitle}
                     </p>
                 </div>
+                {rightLabel ? (
+                    <div className="absolute top-0 right-0 bottom-0 flex items-center justify-center bg-slate-500 group-hover:bg-slate-400">
+                        <div className="-rotate-90 text-[9px] font-bold text-white">
+                            {rightLabel}
+                        </div>
+                    </div>
+                ) : null}
             </div>
         </Link>
     )

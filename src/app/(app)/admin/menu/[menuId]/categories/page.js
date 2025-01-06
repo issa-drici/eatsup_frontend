@@ -4,24 +4,20 @@ import { useParams } from 'next/navigation'
 
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
-import {
-    EllipsisVertical,
-    Pen,
-    Plus,
-    Trash,
-} from 'lucide-react'
+import { EllipsisVertical, Pen, Plus, Trash } from 'lucide-react'
 import CardButton from '@/components/CardButton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItems,
+    DropdownMenuItem,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
 import { useFindAllMenuCategoriesByMenuId } from '@/services/menu-category/useFindAllMenuCategoriesByMenuId'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 const Categories = () => {
     const { menuId } = useParams()
@@ -52,7 +48,7 @@ const Categories = () => {
                     ]}
                 />
                 <Link href={`/admin/menu/${menuId}/category/create`}>
-                    <Button>
+                    <Button size='sm'>
                         <Plus /> Nouveau
                     </Button>
                 </Link>
@@ -86,7 +82,7 @@ const Categories = () => {
                     menuCategories?.map(category => (
                         <div
                             key={category.id}
-                            className="flex items-center gap-5">
+                            className="flex items-center gap-2">
                             <CardButton
                                 title={category.name?.fr}
                                 subtitle={category.description?.fr}
@@ -98,23 +94,28 @@ const Categories = () => {
                                     <Button
                                         variant="outline"
                                         size="icon"
-                                        className="shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200">
+                                        className={cn(
+                                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
+                                            category.description?.fr
+                                                ? 'h-[66px]'
+                                                : 'h-[46px]',
+                                        )}>
                                         <EllipsisVertical />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
-                                    <DropdownMenuItems>
+                                    <DropdownMenuItem>
                                         Modifier
                                         <DropdownMenuShortcut>
                                             <Pen width={10} />
                                         </DropdownMenuShortcut>
-                                    </DropdownMenuItems>
-                                    <DropdownMenuItems>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
                                         Supprimer
                                         <DropdownMenuShortcut>
                                             <Trash width={10} />
                                         </DropdownMenuShortcut>
-                                    </DropdownMenuItems>
+                                    </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>

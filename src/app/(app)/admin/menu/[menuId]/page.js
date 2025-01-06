@@ -29,18 +29,20 @@ const Menu = () => {
 
     return (
         <>
-            <BreadcrumbCustom
-                items={[
-                    {
-                        title: 'Dashboard',
-                        href: '/admin/dashboard',
-                    },
-                    {
-                        title: 'Menu',
-                        href: `/admin/menu/${menuId}`,
-                    },
-                ]}
-            />
+            <div className="mb-4">
+                <BreadcrumbCustom
+                    items={[
+                        {
+                            title: 'Dashboard',
+                            href: '/admin/dashboard',
+                        },
+                        {
+                            title: 'Menu',
+                            href: `/admin/menu/${menuId}`,
+                        },
+                    ]}
+                />
+            </div>
             <div className="flex flex-col flex-wrap gap-4">
                 <div className="flex gap-4">
                     {isLoadingMenuCategoriesCount ||
@@ -63,7 +65,7 @@ const Menu = () => {
                         <Skeleton className="h-20 w-full" />
                     ) : (
                         <CardStats
-                            title="Élements"
+                            title="Éléments"
                             value={menuItemsCount?.count}
                             icon={
                                 <CookingPot
@@ -83,8 +85,8 @@ const Menu = () => {
                     }
                 />
                 <CardButton
-                    title="Élements"
-                    subtitle="Gérer les élements du menu"
+                    title="Éléments"
+                    subtitle="Gérer les éléments du menu"
                     url={`/admin/menu/${menuId}/items`}
                     icon={<CookingPot size={16} className="text-slate-900" />}
                 />

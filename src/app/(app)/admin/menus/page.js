@@ -62,10 +62,10 @@ const Menus = () => {
     //                                     />
     //                                     <div className="flex flex-col">
     //                                         <p className="text-sm text-slate-900 font-semibold">
-    //                                             Élements
+    //                                             Éléments
     //                                         </p>
     //                                         <p className="text-xs font-medium text-slate-600 leading-5">
-    //                                             Gérer les élements du menu
+    //                                             Gérer les éléments du menu
     //                                         </p>
     //                                     </div>
     //                                 </div>
