@@ -3,6 +3,7 @@
 import { useAuth } from '@/hooks/auth'
 import Navigation from '@/app/(app)/admin/Navigation'
 import Loading from '@/app/(app)/admin/Loading'
+import { Toaster } from '@/shadcn-components/ui/toaster'
 
 const AppLayout = ({ children }) => {
     const { user } = useAuth({ middleware: 'auth' })
@@ -24,6 +25,7 @@ const AppLayout = ({ children }) => {
                     </div>
                 </div>
             </main>
+            <Toaster />
         </div>
     )
 }

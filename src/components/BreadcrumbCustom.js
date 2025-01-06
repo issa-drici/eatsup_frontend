@@ -18,7 +18,7 @@ export function BreadcrumbCustom({ items }) {
     // Si un seul élément, retourner directement le BreadcrumbPage
     if (items.length === 1) {
         return (
-            <Breadcrumb className="mb-4">
+            <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
                         <BreadcrumbPage>{items[0].title}</BreadcrumbPage>
@@ -45,7 +45,7 @@ export function BreadcrumbCustom({ items }) {
     }
 
     return (
-        <Breadcrumb className="mb-4">
+        <Breadcrumb>
             <BreadcrumbList>
                 {/* Premier élément */}
                 <BreadcrumbItem>

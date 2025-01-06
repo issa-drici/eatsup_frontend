@@ -15,6 +15,11 @@ export async function getAllMenuCategoriesByMenuId(menuId) {
     return response.data
 }
 
+export async function postCreateMenuCategory(data, menuId) {
+    const response = await axios.post(`/api/menu/${menuId}/menuCategory/create`, data)
+    return response.data
+}
+
 export async function getMenuCategoryById(categoryId) {
     const response = await axios.get(`/api/menuCategory/${categoryId}`)
     return response.data
@@ -22,6 +27,13 @@ export async function getMenuCategoryById(categoryId) {
 
 export async function getMenuItemsByMenuCategoryId(categoryId) {
     const response = await axios.get(`/api/menuCategory/${categoryId}/items`)
+    return response.data
+}
+
+export async function getAllMenuItemsByMenuIdGroupedByCategoryName(menuId) {
+    const response = await axios.get(
+        `/api/menu/${menuId}/menuItems/groupedByCategoryName`,
+    )
     return response.data
 }
 

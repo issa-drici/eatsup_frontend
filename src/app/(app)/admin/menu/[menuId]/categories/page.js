@@ -1,11 +1,15 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import CardStats from '@/components/CardStats'
 
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
-import { EllipsisVertical, Pen, TableProperties, Trash } from 'lucide-react'
+import {
+    EllipsisVertical,
+    Pen,
+    Plus,
+    Trash,
+} from 'lucide-react'
 import CardButton from '@/components/CardButton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import {
@@ -16,17 +20,11 @@ import {
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
-import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
 import { useFindAllMenuCategoriesByMenuId } from '@/services/menu-category/useFindAllMenuCategoriesByMenuId'
+import Link from 'next/link'
 
 const Categories = () => {
     const { menuId } = useParams()
-
-    const {
-        data: menuCategoriesCount,
-        isLoading: isLoadingMenuCategoriesCount,
-        isFetching: isFetchingMenuCategoriesCount,
-    } = useCountMenuCategoriesByMenuId(menuId)
 
     const {
         data: menuCategories,
@@ -36,24 +34,31 @@ const Categories = () => {
 
     return (
         <>
-            <BreadcrumbCustom
-                items={[
-                    {
-                        title: 'Dashboard',
-                        href: '/admin/dashboard',
-                    },
-                    {
-                        title: 'Menu',
-                        href: `/admin/menu/${menuId}`,
-                    },
-                    {
-                        title: 'Catégories',
-                        href: `/admin/menu/${menuId}/categories`,
-                    },
-                ]}
-            />
+            <div className="flex justify-between items-center mb-4">
+                <BreadcrumbCustom
+                    items={[
+                        {
+                            title: 'Dashboard',
+                            href: '/admin/dashboard',
+                        },
+                        {
+                            title: 'Menu',
+                            href: `/admin/menu/${menuId}`,
+                        },
+                        {
+                            title: 'Catégories',
+                            href: `/admin/menu/${menuId}/categories`,
+                        },
+                    ]}
+                />
+                <Link href={`/admin/menu/${menuId}/category/create`}>
+                    <Button>
+                        <Plus /> Nouveau
+                    </Button>
+                </Link>
+            </div>
             <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4">
+                {/* <div className="flex gap-4">
                     {isLoadingMenuCategoriesCount ||
                     isFetchingMenuCategoriesCount ? (
                         <Skeleton className="h-20 w-full" />
@@ -70,7 +75,7 @@ const Categories = () => {
                             }
                         />
                     )}
-                </div>
+                </div> */}
                 {isLoadingMenuCategories || isFetchingMenuCategories ? (
                     <>
                         <Skeleton className="h-20 w-full" />
@@ -84,6 +89,7 @@ const Categories = () => {
                             className="flex items-center gap-5">
                             <CardButton
                                 title={category.name?.fr}
+                                subtitle={category.description?.fr}
                                 url={`/admin/menu/${menuId}/category/${category.id}`}
                                 widthFull
                             />
