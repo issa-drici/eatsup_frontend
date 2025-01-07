@@ -56,8 +56,8 @@ export default function CardButton({
                     </p>
                 </div>
                 {rightLabel ? (
-                    <div className="absolute top-0 right-0 bottom-0 flex items-center justify-center bg-slate-500 group-hover:bg-slate-400">
-                        <div className="-rotate-90 text-[9px] font-bold text-white">
+                    <div className="absolute top-0 right-0 bottom-0 w-7 flex items-center justify-center bg-slate-500 group-hover:bg-slate-400">
+                        <div className="-rotate-90 text-[10px] font-bold text-white">
                             {rightLabel}
                         </div>
                     </div>

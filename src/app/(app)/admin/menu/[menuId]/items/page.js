@@ -136,7 +136,7 @@ const Categories = () => {
                                     </div>
                                 ))}
 
-                                <Link href="/ttoto" className="w-full" asChild>
+                                <Link href={`/admin/category/${category.id}/item/create`} className="w-full" asChild>
                                     <div className="h-fit border border-dashed bg-slate-50 hover:bg-slate-100 border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer w-full">
                                         <div className="flex flex-row gap-1 items-center">
                                             <Plus width={15} />

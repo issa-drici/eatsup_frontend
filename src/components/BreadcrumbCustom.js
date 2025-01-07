@@ -45,8 +45,8 @@ export function BreadcrumbCustom({ items }) {
     }
 
     return (
-        <Breadcrumb className='h-8 flex items-center'>
-            <BreadcrumbList>
+        <Breadcrumb className='h-9 flex items-center'>
+            <BreadcrumbList className='gap-1'>
                 {/* Premier élément */}
                 <BreadcrumbItem>
                     <BreadcrumbLink href={firstItem.href}>

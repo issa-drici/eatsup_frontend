@@ -47,11 +47,11 @@ const Categories = () => {
                         },
                     ]}
                 />
-                <Link href={`/admin/menu/${menuId}/category/create`}>
-                    <Button size='sm'>
-                        <Plus /> Nouveau
-                    </Button>
-                </Link>
+                    <Link href={`/admin/menu/${menuId}/category/create`}>
+                        <Button>
+                            <Plus /> Nouveau
+                        </Button>
+                    </Link>
             </div>
             <div className="flex flex-col flex-wrap gap-4">
                 {/* <div className="flex gap-4">

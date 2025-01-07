@@ -18,6 +18,8 @@ import { Button } from '@/shadcn-components/ui/button'
 import { useFindAllMenuItemsByMenuCategoryId } from '@/services/menu-item/useFindAllMenuItemsByMenuCategoryId'
 import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCategoryById'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import { Plus } from 'lucide-react'
 
 const Category = () => {
     const { menuId, categoryId } = useParams()
@@ -36,7 +38,7 @@ const Category = () => {
 
     return (
         <>
-            <div className="mb-4">
+            <div className="flex justify-between items-center mb-4">
                 {!isLoadingMenuCategory || !isFetchingMenuCategory ? (
                     <BreadcrumbCustom
                         items={[
@@ -59,6 +61,11 @@ const Category = () => {
                         ]}
                     />
                 ) : null}
+                <Link href={`/admin/category/${categoryId}/item/create`}>
+                    <Button>
+                        <Plus /> Nouveau
+                    </Button>
+                </Link>
             </div>
 
             <div className="flex flex-col flex-wrap gap-4">
@@ -70,9 +77,7 @@ const Category = () => {
                     </>
                 ) : (
                     menuItems?.map(item => (
-                        <div
-                            key={item.id}
-                            className="flex items-center gap-3">
+                        <div key={item.id} className="flex items-center gap-3">
                             <CardButton
                                 title={item.name?.fr}
                                 subtitle={item.description?.fr}

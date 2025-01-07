@@ -41,3 +41,8 @@ export async function getMenuItemsByMenuIdCount(menuId) {
     const response = await axios.get(`/api/menu/${menuId}/menuItems/count`)
     return response.data
 }
+
+export async function postCreateMenuItem(data, categoryId) {
+    const response = await axios.post(`/api/menuCategory/${categoryId}/item/create`, data)
+    return response.data
+}
