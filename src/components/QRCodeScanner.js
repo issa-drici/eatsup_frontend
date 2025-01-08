@@ -7,13 +7,29 @@ import { Html5QrcodeScanner } from 'html5-qrcode'
 import { useEffect, useState } from 'react'
 
 export default function QRCodeScanner({ onScanSuccess }) {
-    const [cameraAllowed, setCameraAllowed] = useState(null)
+    const [cameraAllowed, setCameraAllowed] = useState(() => {
+        return JSON.parse(localStorage.getItem('cameraPermission')) || null
+    })
 
     useEffect(() => {
+        // Vérifie d'abord si on a déjà une permission stockée
+        const storedPermission = localStorage.getItem('cameraPermission')
+        if (storedPermission === 'true') {
+            setCameraAllowed(true)
+            return
+        }
+
+        // Demande la permission uniquement si on n'a pas déjà l'autorisation
         navigator.mediaDevices
             .getUserMedia({ video: true })
-            .then(() => setCameraAllowed(true))
-            .catch(() => setCameraAllowed(false))
+            .then(() => {
+                setCameraAllowed(true)
+                localStorage.setItem('cameraPermission', 'true')
+            })
+            .catch(() => {
+                setCameraAllowed(false)
+                localStorage.setItem('cameraPermission', 'false')
+            })
     }, [])
 
     useEffect(() => {

@@ -68,7 +68,7 @@ const SuperAdminDashboard = () => {
                     <CardButton
                         widthFull
                         title="Restaurants"
-                        subtitle="Accéder à la liste des restaurants"
+                        subtitle="Accéder aux restaurants"
                         url="/superadmin/restaurants"
                         icon={<Store size={16} className="text-slate-900" />}
                     />

@@ -10,7 +10,7 @@ const LoginLinks = () => {
         <div>
             {user ? (
                 <Link
-                    href="/admin/dashboard"
+                    href={user.role === 'admin' ? '/superadmin/dashboard' : '/admin/dashboard'}
                     className="ml-4 text-sm text-gray-700 underline"
                 >
                     Dashboard
