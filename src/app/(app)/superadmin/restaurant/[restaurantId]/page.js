@@ -2,18 +2,42 @@
 
 import { useParams } from 'next/navigation'
 import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
-import { Skeleton } from "@/shadcn-components/ui/skeleton"
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shadcn-components/ui/tabs"
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from '@/shadcn-components/ui/tabs'
 import { useFindAllQrCodesByRestaurantId } from '@/services/qr-code/useFindAllQrCodesByRestaurantId'
 import { useFindAllMenusByRestaurantId } from '@/services/menus/useFindAllMenusByRestaurantId'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/shadcn-components/ui/table"
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/shadcn-components/ui/table'
 import { useState } from 'react'
 import { useFindAllMenuItemsByMenuIdGroupedByCategoryName } from '@/services/menu-item/useFindAllMenuItemsByMenuIdGroupedByCategoryName'
 import CardButton from '@/components/CardButton'
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/shadcn-components/ui/sheet"
-import { Button } from "@/shadcn-components/ui/button"
-import { Plus, TableProperties, CookingPot, EllipsisVertical, Pen, Trash } from 'lucide-react'
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+} from '@/shadcn-components/ui/sheet'
+import { Button } from '@/shadcn-components/ui/button'
+import {
+    Plus,
+    TableProperties,
+    CookingPot,
+    EllipsisVertical,
+    Pen,
+    Trash,
+} from 'lucide-react'
 import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
 import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
 import {
@@ -26,20 +50,41 @@ import {
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import CardStats from '@/components/CardStats'
+import { QrCode } from 'lucide-react'
 
 export default function RestaurantPage() {
     const { restaurantId } = useParams()
     const [selectedMenuId, setSelectedMenuId] = useState(null)
     const [isSheetOpen, setIsSheetOpen] = useState(false)
-    
-    const { data: restaurant, isLoading } = useFindRestaurantById(restaurantId)
-    const { data: qrCodes, isLoading: isLoadingQrCodes, isFetching: isFetchingQrCodes } = useFindAllQrCodesByRestaurantId(restaurantId)
-    const { data: menus, isLoading: isLoadingMenus, isFetching: isFetchingMenus } = useFindAllMenusByRestaurantId(restaurantId)
-    const { data: menuItems, isLoading: isLoadingMenuItems, isFetching: isFetchingMenuItems } = useFindAllMenuItemsByMenuIdGroupedByCategoryName(selectedMenuId)
-    const { data: menuCategoriesCount, isLoading: isLoadingMenuCategoriesCount, isFetching: isFetchingMenuCategoriesCount } = useCountMenuCategoriesByMenuId(selectedMenuId)
-    const { data: menuItemsCount, isLoading: isLoadingMenuItemsCount, isFetching: isFetchingMenuItemsCount } = useCountMenuItemsByMenuId(selectedMenuId)
 
-    const handleMenuClick = (menuId) => {
+    const { data: restaurant, isLoading } = useFindRestaurantById(restaurantId)
+    const {
+        data: qrCodes,
+        isLoading: isLoadingQrCodes,
+        isFetching: isFetchingQrCodes,
+    } = useFindAllQrCodesByRestaurantId(restaurantId)
+    const {
+        data: menus,
+        isLoading: isLoadingMenus,
+        isFetching: isFetchingMenus,
+    } = useFindAllMenusByRestaurantId(restaurantId)
+    const {
+        data: menuItems,
+        isLoading: isLoadingMenuItems,
+        isFetching: isFetchingMenuItems,
+    } = useFindAllMenuItemsByMenuIdGroupedByCategoryName(selectedMenuId)
+    const {
+        data: menuCategoriesCount,
+        isLoading: isLoadingMenuCategoriesCount,
+        isFetching: isFetchingMenuCategoriesCount,
+    } = useCountMenuCategoriesByMenuId(selectedMenuId)
+    const {
+        data: menuItemsCount,
+        isLoading: isLoadingMenuItemsCount,
+        isFetching: isFetchingMenuItemsCount,
+    } = useCountMenuItemsByMenuId(selectedMenuId)
+
+    const handleMenuClick = menuId => {
         setSelectedMenuId(menuId)
         setIsSheetOpen(true)
     }
@@ -67,25 +112,54 @@ export default function RestaurantPage() {
                 <Skeleton className="h-[100px] w-full" />
             ) : (
                 <div className="p-6 bg-white rounded-lg shadow">
-                    <h2 className="text-2xl font-bold mb-4">{restaurant.name}</h2>
+                    <h2 className="text-2xl font-bold mb-4">
+                        {restaurant.name}
+                    </h2>
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <p className="text-sm text-gray-500">Plan</p>
-                            <p className="font-medium capitalize">{restaurant.owner.user_plan}</p>
+                            <p className="font-medium capitalize">
+                                {restaurant.owner.user_plan}
+                            </p>
                         </div>
                         <div>
                             <p className="text-sm text-gray-500">Statut</p>
-                            <p className="font-medium capitalize">{restaurant.owner.user_subscription_status}</p>
+                            <p className="font-medium capitalize">
+                                {restaurant.owner.user_subscription_status}
+                            </p>
                         </div>
                     </div>
                 </div>
             )}
 
             <Tabs defaultValue="qrcodes" className="w-full">
-                <TabsList>
-                    <TabsTrigger value="qrcodes">QR Codes</TabsTrigger>
-                    <TabsTrigger value="menus">Menus</TabsTrigger>
-                </TabsList>
+                <div className="flex justify-between items-center">
+                    <TabsList>
+                        <TabsTrigger value="qrcodes">QR Codes</TabsTrigger>
+                        <TabsTrigger value="menus">Menus</TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="qrcodes" className="m-0">
+                        <Link
+                            href={`/superadmin/configurate-qr-code/restaurant/${restaurantId}`}
+                            asChild>
+                            <Button>
+                                <QrCode className="m1-2 h-4 w-4" />
+                                Associer les QR codes
+                            </Button>
+                        </Link>
+                    </TabsContent>
+                    <TabsContent value="menus" className="m-0">
+                        {/* <Link
+                            href={`/superadmin/configurate-qr-code/restaurant/${restaurantId}`}
+                            asChild> */}
+                        <Button disabled>
+                            <Plus className="h-4 w-4" />
+                            Ajouter un menu
+                        </Button>
+                        {/* </Link> */}
+                    </TabsContent>
+                </div>
 
                 <TabsContent value="qrcodes">
                     {isLoadingQrCodes || isFetchingQrCodes ? (
@@ -103,8 +177,12 @@ export default function RestaurantPage() {
                                 {qrCodes?.map(qr => (
                                     <TableRow key={qr.id}>
                                         <TableCell>{qr.label}</TableCell>
-                                        <TableCell className="capitalize">{qr.qr_type}</TableCell>
-                                        <TableCell className="capitalize">{qr.status}</TableCell>
+                                        <TableCell className="capitalize">
+                                            {qr.qr_type}
+                                        </TableCell>
+                                        <TableCell className="capitalize">
+                                            {qr.status}
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -118,11 +196,10 @@ export default function RestaurantPage() {
                     ) : (
                         <div className="grid grid-cols-1 gap-4">
                             {menus?.map(menu => (
-                                <div 
-                                    key={menu.id} 
+                                <div
+                                    key={menu.id}
                                     onClick={() => handleMenuClick(menu.id)}
-                                    className="cursor-pointer"
-                                >
+                                    className="cursor-pointer">
                                     <CardButton
                                         title={menu.name.fr}
                                         subtitle="Cliquez pour voir les éléments"
@@ -140,10 +217,11 @@ export default function RestaurantPage() {
                     <SheetHeader>
                         <SheetTitle>Éléments du menu</SheetTitle>
                     </SheetHeader>
-                    
+
                     <div className="mt-8 flex flex-col flex-wrap gap-4">
                         <div className="flex gap-4">
-                            {isLoadingMenuCategoriesCount || isFetchingMenuCategoriesCount ? (
+                            {isLoadingMenuCategoriesCount ||
+                            isFetchingMenuCategoriesCount ? (
                                 <Skeleton className="h-20 w-full" />
                             ) : (
                                 <CardStats
@@ -158,7 +236,8 @@ export default function RestaurantPage() {
                                     }
                                 />
                             )}
-                            {isLoadingMenuItemsCount || isFetchingMenuItemsCount ? (
+                            {isLoadingMenuItemsCount ||
+                            isFetchingMenuItemsCount ? (
                                 <Skeleton className="h-20 w-full" />
                             ) : (
                                 <CardStats
@@ -182,7 +261,9 @@ export default function RestaurantPage() {
                             </>
                         ) : (
                             menuItems?.map(({ category, items }) => (
-                                <div key={category.id} className="flex flex-col gap-4">
+                                <div
+                                    key={category.id}
+                                    className="flex flex-col gap-4">
                                     <div className="flex items-center gap-5 font-medium">
                                         {category.name?.fr}
                                     </div>
@@ -193,20 +274,24 @@ export default function RestaurantPage() {
                                                 className="flex gap-2 items-center">
                                                 <CardButton
                                                     title={item.name.fr}
-                                                    subtitle={item.description?.fr}
+                                                    subtitle={
+                                                        item.description?.fr
+                                                    }
                                                     rightLabel={`${item.price}€`}
                                                     url={`/admin/menu/${selectedMenuId}/category/${category.id}`}
                                                     widthFull
                                                 />
 
                                                 <DropdownMenu>
-                                                    <DropdownMenuTrigger asChild>
+                                                    <DropdownMenuTrigger
+                                                        asChild>
                                                         <Button
                                                             variant="outline"
                                                             size="icon"
                                                             className={cn(
                                                                 'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                                                                item.description?.fr
+                                                                item.description
+                                                                    ?.fr
                                                                     ? 'h-[66px]'
                                                                     : 'h-[46px]',
                                                             )}>
@@ -217,13 +302,17 @@ export default function RestaurantPage() {
                                                         <DropdownMenuItem>
                                                             Modifier
                                                             <DropdownMenuShortcut>
-                                                                <Pen width={10} />
+                                                                <Pen
+                                                                    width={10}
+                                                                />
                                                             </DropdownMenuShortcut>
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem>
                                                             Supprimer
                                                             <DropdownMenuShortcut>
-                                                                <Trash width={10} />
+                                                                <Trash
+                                                                    width={10}
+                                                                />
                                                             </DropdownMenuShortcut>
                                                         </DropdownMenuItem>
                                                     </DropdownMenuContent>
