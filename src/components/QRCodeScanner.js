@@ -12,24 +12,22 @@ export default function QRCodeScanner({ onScanSuccess }) {
     })
 
     useEffect(() => {
-        // Vérifie d'abord si on a déjà une permission stockée
-        const storedPermission = localStorage.getItem('cameraPermission')
-        if (storedPermission === 'true') {
-            setCameraAllowed(true)
-            return
-        }
-
-        // Demande la permission uniquement si on n'a pas déjà l'autorisation
-        navigator.mediaDevices
-            .getUserMedia({ video: true })
-            .then(() => {
+        const initializeScanner = async () => {
+            try {
+                // Vérifie directement l'accès à la caméra
+                await navigator.mediaDevices.getUserMedia({ video: true })
                 setCameraAllowed(true)
                 localStorage.setItem('cameraPermission', 'true')
-            })
-            .catch(() => {
+            } catch (error) {
                 setCameraAllowed(false)
                 localStorage.setItem('cameraPermission', 'false')
-            })
+            }
+        }
+
+        // Si on n'a pas encore de permission, on l'initialise
+        if (cameraAllowed === null) {
+            initializeScanner()
+        }
     }, [])
 
     useEffect(() => {
@@ -40,8 +38,10 @@ export default function QRCodeScanner({ onScanSuccess }) {
             {
                 fps: 10,
                 qrbox: { width: 250, height: 250 },
+                showTorchButtonIfSupported: true,
+                rememberLastUsedCamera: true,
             },
-            false,
+            /* start scanner automatically */ true
         )
 
         const onSuccess = decodedText => {
