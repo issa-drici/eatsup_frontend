@@ -24,6 +24,8 @@ import { Trash } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
+import { CookingPot } from 'lucide-react'
+import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
 
 const Categories = () => {
     const { menuId } = useParams()
@@ -33,6 +35,12 @@ const Categories = () => {
         isLoading: isLoadingMenuCategoriesCount,
         isFetching: isFetchingMenuCategoriesCount,
     } = useCountMenuCategoriesByMenuId(menuId)
+
+    const {
+        data: menuItemsCount,
+        isLoading: isLoadingMenuItemsCount,
+        isFetching: isFetchingMenuItemsCount,
+    } = useCountMenuItemsByMenuId(menuId)
 
     const {
         data: menuItems,
@@ -72,6 +80,20 @@ const Categories = () => {
                             value={menuCategoriesCount?.count}
                             icon={
                                 <TableProperties
+                                    size={16}
+                                    className="text-slate-400"
+                                />
+                            }
+                        />
+                    )}
+                    {isLoadingMenuItemsCount || isFetchingMenuItemsCount ? (
+                        <Skeleton className="h-20 w-full" />
+                    ) : (
+                        <CardStats
+                            title="Éléments"
+                            value={menuItemsCount?.count}
+                            icon={
+                                <CookingPot
                                     size={16}
                                     className="text-slate-400"
                                 />
@@ -136,7 +158,10 @@ const Categories = () => {
                                     </div>
                                 ))}
 
-                                <Link href={`/admin/category/${category.id}/item/create`} className="w-full" asChild>
+                                <Link
+                                    href={`/admin/category/${category.id}/item/create`}
+                                    className="w-full"
+                                    asChild>
                                     <div className="h-fit border border-dashed bg-slate-50 hover:bg-slate-100 border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer w-full">
                                         <div className="flex flex-row gap-1 items-center">
                                             <Plus width={15} />

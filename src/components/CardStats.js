@@ -6,7 +6,7 @@ export default function CardStats({
     // progression,
 }) {
     return (
-        <div className="rounded-xl border bg-slate-50 text-card-foreground flex-1">
+        <div className="rounded-xl border bg-slate-50 text-card-foreground w-full">
             <div className="p-4 flex flex-row items-center justify-between space-y-0 pb-0">
                 <div className="tracking-tight text-sm font-medium">
                     {title}

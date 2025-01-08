@@ -104,9 +104,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     useEffect(() => {
-
-        if (middleware === 'guest' && redirectIfAuthenticated && user)
-            router.push(redirectIfAuthenticated)
+        if (middleware === 'guest' && redirectIfAuthenticated && user) {
+            if (user.role === 'admin') {
+                router.push('/superadmin/dashboard')
+            } else {
+                router.push(redirectIfAuthenticated)
+            }
+        }
 
         if (middleware === 'auth' && user && !user.email_verified_at)
             router.push('/verify-email')
@@ -114,8 +118,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         if (
             window.location.pathname === '/verify-email' &&
             user?.email_verified_at
-        )
-            router.push(redirectIfAuthenticated)
+        ) {
+            if (user.role === 'admin') {
+                router.push('/superadmin/dashboard')
+            } else {
+                router.push(redirectIfAuthenticated)
+            }
+        }
 
         if (middleware === 'auth' && error) logout()
     }, [user, error])
