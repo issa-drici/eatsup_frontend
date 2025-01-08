@@ -121,4 +121,14 @@ export async function getQrCodesByRestaurantId(restaurantId) {
     return response.data
 }
 
+export async function getAllRestaurants({ name, page, perPage }) {
+    const params = new URLSearchParams()
+    if (name) params.append('name', name)
+    if (page) params.append('page', page)
+    if (perPage) params.append('per_page', perPage)
+    
+    const response = await axios.get(`/api/restaurants?${params.toString()}`)
+    return response.data
+}
+
 
