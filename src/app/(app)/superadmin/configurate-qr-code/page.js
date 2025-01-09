@@ -1,7 +1,6 @@
 'use client'
 
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import { useFindAllRestaurantsWithoutQRCode } from '@/services/restaurant/useFindAllRestaurantsWithoutQRCode'
 import { useRouter } from 'next/navigation'
 import {
     Table,
@@ -12,6 +11,7 @@ import {
     TableRow,
 } from "@/shadcn-components/ui/table"
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import { useFindAllRestaurantsWithQRCodeCount } from '@/services/restaurant/useFindAllRestaurantsWithQRCodeCount'
 
 
 const SuperAdminDashboard = () => {
@@ -21,7 +21,7 @@ const SuperAdminDashboard = () => {
         data: restaurants,
         isLoading: isLoadingRestaurants,
         isFetching: isFetchingRestaurants,
-    } = useFindAllRestaurantsWithoutQRCode()
+    } = useFindAllRestaurantsWithQRCodeCount()
 
     const handleRowClick = restaurantId => {
         router.push(`/superadmin/configurate-qr-code/restaurant/${restaurantId}`)
@@ -69,7 +69,7 @@ const SuperAdminDashboard = () => {
                                 <TableHead>Nom du restaurant</TableHead>
                                 <TableHead>Plan</TableHead>
                                 <TableHead>Statut</TableHead>
-                                <TableHead>Nb QR</TableHead>
+                                <TableHead>QR manquants</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -93,7 +93,7 @@ const SuperAdminDashboard = () => {
                                     <TableCell>
                                         {getQrCodeCountByPlan(
                                             restaurant.owner.user_plan,
-                                        )}
+                                        ) - restaurant.qr_code_count}
                                     </TableCell>
                                 </TableRow>
                             ))}

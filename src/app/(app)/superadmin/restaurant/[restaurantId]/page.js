@@ -68,16 +68,19 @@ export default function RestaurantPage() {
         isLoading: isLoadingMenus,
         isFetching: isFetchingMenus,
     } = useFindAllMenusByRestaurantId(restaurantId)
+
     const {
         data: menuItems,
         isLoading: isLoadingMenuItems,
         isFetching: isFetchingMenuItems,
     } = useFindAllMenuItemsByMenuIdGroupedByCategoryName(selectedMenuId)
+
     const {
         data: menuCategoriesCount,
         isLoading: isLoadingMenuCategoriesCount,
         isFetching: isFetchingMenuCategoriesCount,
     } = useCountMenuCategoriesByMenuId(selectedMenuId)
+    
     const {
         data: menuItemsCount,
         isLoading: isLoadingMenuItemsCount,

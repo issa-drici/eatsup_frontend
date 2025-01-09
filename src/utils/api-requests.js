@@ -106,6 +106,15 @@ export async function getRestaurantById(restaurantId) {
     return response.data
 }
 
+/**
+ * Récupère tous les restaurants avec le nombre de QR codes liés
+ */
+export async function getAllRestaurantsWithQRCodeCount() {
+    const response = await axios.get(`/api/restaurants/with-qr-code-count`)
+    return response.data
+}
+
+
 
 // ====== QR CODE ENDPOINTS ======
 /**
