@@ -6,9 +6,11 @@ import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect, useRef, createRef } from 'react'
 import { Button } from '@/shadcn-components/ui/button'
 import Link from 'next/link'
-import { Card } from '@/shadcn-components/ui/card'
 import Image from 'next/image'
-import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import TitleBar from './components/TitleBar'
+import CategoryBar from './components/CategoryBar'
+import MenuCategory from './components/MenuCategory'
+import LoadingSkeleton from './components/LoadingSkeleton'
 
 // const labels = {
 //     share: {
@@ -116,121 +118,36 @@ const Menu = () => {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    useEffect(() => {
+        if (menuItems?.length > 0 && !activeSection) {
+            const firstCategoryId = menuItems[0].category.id
+            setActiveSection(firstCategoryId)
+        }
+    }, [menuItems, activeSection])
+
     return (
         <div className="relative bg-slate-100 min-h-[100dvh]">
             <div className="text-xs h-full pb-5">
-                <div
-                    className="flex justify-between items-center py-1 pl-3 pr-3 sticky top-0 z-50 bg-white"
-                    id="titleBar">
-                    <div className="flex items-center gap-x-0.5">
-                        <p className="text-lg font-semibold">Mon restaurant</p>
-                    </div>
-                </div>
+                <TitleBar />
 
-                {isLoadingMenuItems ||
-                isFetchingMenuItems ||
-                isLoadingQrcode ||
-                isFetchingQrcode ? (
-                    <div className="flex flex-col  gap-y-3">
-                        <div className="flex py-3 px-3 gap-x-1 sticky top-9 z-40 bg-slate-100 shadow-md mb-3 overflow-x-scroll">
-                            <Skeleton className="h-9 w-20" />
-                            <Skeleton className="h-9 w-20" />
-                            <Skeleton className="h-9 w-20" />
-                        </div>
-                        {[...Array(3)].map((_, i) => (
-                            <div key={i} className="px-3">
-                                <Skeleton className="h-6 w-32 mb-3" />
-                                <Card className="overflow-hidden flex p-0">
-                                    <Skeleton className="w-32 h-32" />
-                                    <div className="flex flex-col p-4 gap-1 flex-1">
-                                        <Skeleton className="h-4 w-3/4" />
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-16" />
-                                    </div>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
+                {isLoadingMenuItems || isFetchingMenuItems || isLoadingQrcode || isFetchingQrcode ? (
+                    <LoadingSkeleton />
                 ) : menuItems?.length > 0 ? (
                     <>
-                        <div
-                            className="flex px-3 py-3 gap-x-1 sticky top-9 z-40 bg-slate-100 shadow-md mb-3 overflow-x-scroll"
-                            id="categoryBar">
-                            {menuItems.map(({ category }) => (
-                                <Button
-                                    key={category.id}
-                                    className="px-2 py-1 h-fit"
-                                    variant={
-                                        activeSection === category.id
-                                            ? 'default'
-                                            : 'white'
-                                    }
-                                    onClick={() =>
-                                        scrollToSection(category.id)
-                                    }>
-                                    {category.name[activeLanguage]}
-                                </Button>
-                            ))}
-                        </div>
+                        <CategoryBar 
+                            menuItems={menuItems}
+                            activeSection={activeSection}
+                            scrollToSection={scrollToSection}
+                            activeLanguage={activeLanguage}
+                        />
                         <div className="flex flex-col px-3">
                             {menuItems.map((categoryData, index) => (
-                                <div key={categoryData.category.id}>
-                                    <div
-                                        id={categoryData.category.id}
-                                        ref={sectionRefs.current[index]}>
-                                        <p className="text-lg font-bold mb-3">
-                                            {
-                                                categoryData.category.name[
-                                                    activeLanguage
-                                                ]
-                                            }
-                                        </p>
-                                        <div className="flex flex-col gap-y-3">
-                                            {categoryData.items?.map(item => (
-                                                <Card
-                                                    className="overflow-hidden flex p-0"
-                                                    key={item.id}>
-                                                    {item.images?.[0] && (
-                                                        <Image
-                                                            src={item.images[0]}
-                                                            alt="imagePlat"
-                                                            className="w-32 h-32 object-cover"
-                                                            width={100}
-                                                            height={100}
-                                                        />
-                                                    )}
-                                                    <div className="flex flex-col p-4 gap-1">
-                                                        <div>
-                                                            <p className="text-sm font-medium text-slate-900">
-                                                                {
-                                                                    item.name[
-                                                                        activeLanguage
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                        {item.description?.[
-                                                            activeLanguage
-                                                        ] && (
-                                                            <p className="text-sm text-[#64748B]">
-                                                                {
-                                                                    item
-                                                                        .description[
-                                                                        activeLanguage
-                                                                    ]
-                                                                }
-                                                            </p>
-                                                        )}
-                                                        <p className="text-sm text-[#64748B]">
-                                                            {item.price} €
-                                                        </p>
-                                                    </div>
-                                                </Card>
-                                            ))}
-                                        </div>
-                                        <div className="w-full h-px bg-slate-200 my-5" />
-                                    </div>
-                                </div>
+                                <MenuCategory
+                                    key={categoryData.category.id}
+                                    categoryData={categoryData}
+                                    activeLanguage={activeLanguage}
+                                    sectionRef={sectionRefs.current[index]}
+                                />
                             ))}
                         </div>
                     </>
