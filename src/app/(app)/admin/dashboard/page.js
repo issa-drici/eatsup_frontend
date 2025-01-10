@@ -69,7 +69,7 @@ const Dashboard = () => {
                         widthFull
                         title="QRCode"
                         subtitle="Gérer mes QRCode"
-                        url="/admin/qrcode"
+                        url="/admin/qr-code"
                         icon={<QrCode size={16} className="text-slate-900" />}
                     />
                 </div>

@@ -15,7 +15,7 @@ const Qrcode = () => {
                         },
                         {
                             title: 'QRCode',
-                            href: `/admin/qrcode`,
+                            href: `/admin/qr-code`,
                         },
                     ]}
                 />

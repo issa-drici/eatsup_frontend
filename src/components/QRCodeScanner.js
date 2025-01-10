@@ -45,7 +45,7 @@ export default function QRCodeScanner({ onScanSuccess }) {
         )
 
         const onSuccess = decodedText => {
-            const uuid = decodedText.split('/qrcode/')[1]
+            const uuid = decodedText.split('/qr-code/')[1]
             onScanSuccess?.(uuid)
         }
 

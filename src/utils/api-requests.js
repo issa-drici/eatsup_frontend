@@ -35,7 +35,10 @@ export async function getAllMenuCategoriesByMenuId(menuId) {
  * @param {string} menuId - ID du menu
  */
 export async function postCreateMenuCategory(data, menuId) {
-    const response = await axios.post(`/api/menu/${menuId}/menuCategory/create`, data)
+    const response = await axios.post(
+        `/api/menu/${menuId}/menuCategory/create`,
+        data,
+    )
     return response.data
 }
 
@@ -84,7 +87,10 @@ export async function getMenuItemsByMenuIdCount(menuId) {
  * @param {string} categoryId - ID de la catégorie
  */
 export async function postCreateMenuItem(data, categoryId) {
-    const response = await axios.post(`/api/menuCategory/${categoryId}/item/create`, data)
+    const response = await axios.post(
+        `/api/menuCategory/${categoryId}/item/create`,
+        data,
+    )
     return response.data
 }
 
@@ -114,8 +120,6 @@ export async function getAllRestaurantsWithQRCodeCount() {
     return response.data
 }
 
-
-
 // ====== QR CODE ENDPOINTS ======
 /**
  * Associe un qr code à un restaurant
@@ -135,9 +139,16 @@ export async function getAllRestaurants({ name, page, perPage }) {
     if (name) params.append('name', name)
     if (page) params.append('page', page)
     if (perPage) params.append('per_page', perPage)
-    
+
     const response = await axios.get(`/api/restaurants?${params.toString()}`)
     return response.data
 }
 
-
+/**
+ * Récupère un QrCode par son ID
+ * @param {string} qrcodeId - ID du QrCode
+ */
+export async function getQrCodeById(qrcodeId) {
+    const response = await axios.get(`/api/qr-code/${qrcodeId}`)
+    return response.data
+}
