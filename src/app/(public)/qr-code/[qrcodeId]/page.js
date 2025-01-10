@@ -65,7 +65,13 @@ const Menu = () => {
     // eslint-disable-next-line no-unused-vars
     const [activeLanguage, setActiveLanguage] = useState('fr')
 
-    const sectionRefs = useRef(menuItems?.data?.map(() => createRef()) || [])
+    const sectionRefs = useRef([])
+
+    useEffect(() => {
+        if (menuItems?.length > 0) {
+            sectionRefs.current = menuItems.map(() => createRef())
+        }
+    }, [menuItems])
 
     const scrollToSection = sectionId => {
         const section = document.getElementById(sectionId)
