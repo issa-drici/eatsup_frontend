@@ -34,26 +34,18 @@ import {
     Plus,
     TableProperties,
     CookingPot,
-    EllipsisVertical,
-    Pen,
-    Trash,
 } from 'lucide-react'
 import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
 import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-} from '@/shadcn-components/ui/dropdown-menu'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 import CardStats from '@/components/CardStats'
 import { QrCode } from 'lucide-react'
+import MenuItem from '@/components/MenuItem'
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function RestaurantPage() {
     const { restaurantId } = useParams()
+    const queryClient = useQueryClient()
     const [selectedMenuId, setSelectedMenuId] = useState(null)
     const [isSheetOpen, setIsSheetOpen] = useState(false)
 
@@ -80,7 +72,7 @@ export default function RestaurantPage() {
         isLoading: isLoadingMenuCategoriesCount,
         isFetching: isFetchingMenuCategoriesCount,
     } = useCountMenuCategoriesByMenuId(selectedMenuId)
-    
+
     const {
         data: menuItemsCount,
         isLoading: isLoadingMenuItemsCount,
@@ -90,6 +82,10 @@ export default function RestaurantPage() {
     const handleMenuClick = menuId => {
         setSelectedMenuId(menuId)
         setIsSheetOpen(true)
+    }
+
+    const handleCallbackSuccess = async () => {
+        await queryClient.invalidateQueries(['menuItems', selectedMenuId])
     }
 
     return (
@@ -272,55 +268,15 @@ export default function RestaurantPage() {
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         {items.map(item => (
-                                            <div
+                                            <MenuItem
                                                 key={item.id}
-                                                className="flex gap-2 items-center">
-                                                <CardButton
-                                                    title={item.name.fr}
-                                                    subtitle={
-                                                        item.description?.fr
-                                                    }
-                                                    rightLabel={`${item.price}€`}
-                                                    url={`/admin/menu/${selectedMenuId}/category/${category.id}`}
-                                                    widthFull
-                                                />
-
-                                                <DropdownMenu>
-                                                    <DropdownMenuTrigger
-                                                        asChild>
-                                                        <Button
-                                                            variant="outline"
-                                                            size="icon"
-                                                            className={cn(
-                                                                'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                                                                item.description
-                                                                    ?.fr
-                                                                    ? 'h-[66px]'
-                                                                    : 'h-[46px]',
-                                                            )}>
-                                                            <EllipsisVertical />
-                                                        </Button>
-                                                    </DropdownMenuTrigger>
-                                                    <DropdownMenuContent>
-                                                        <DropdownMenuItem>
-                                                            Modifier
-                                                            <DropdownMenuShortcut>
-                                                                <Pen
-                                                                    width={10}
-                                                                />
-                                                            </DropdownMenuShortcut>
-                                                        </DropdownMenuItem>
-                                                        <DropdownMenuItem>
-                                                            Supprimer
-                                                            <DropdownMenuShortcut>
-                                                                <Trash
-                                                                    width={10}
-                                                                />
-                                                            </DropdownMenuShortcut>
-                                                        </DropdownMenuItem>
-                                                    </DropdownMenuContent>
-                                                </DropdownMenu>
-                                            </div>
+                                                item={item}
+                                                category={category}
+                                                menuId={selectedMenuId}
+                                                handleCallbackSuccess={
+                                                    handleCallbackSuccess
+                                                }
+                                            />
                                         ))}
 
                                         <Link

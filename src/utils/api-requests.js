@@ -152,3 +152,8 @@ export async function getQrCodeById(qrcodeId) {
     const response = await axios.get(`/api/qr-code/${qrcodeId}`)
     return response.data
 }
+
+export async function deleteMenuItemById(menuItemId) {
+    const response = await axios.delete(`/api/menuItem/${menuItemId}/delete`)
+    return response.data
+}
