@@ -1,7 +1,6 @@
 'use client'
 
 import { useFindAllMenuItemsByMenuIdGroupedByCategoryName } from '@/services/menu-item/useFindAllMenuItemsByMenuIdGroupedByCategoryName'
-import { useFindQrCodeById } from '@/services/qr-code/useFindQrCodeById'
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect, useRef, createRef } from 'react'
 import { Button } from '@/shadcn-components/ui/button'

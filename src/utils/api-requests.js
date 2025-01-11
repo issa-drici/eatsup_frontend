@@ -157,3 +157,8 @@ export async function deleteMenuItemById(menuItemId) {
     const response = await axios.delete(`/api/menuItem/${menuItemId}/delete`)
     return response.data
 }
+
+export async function deleteMenuCategoryById(menuCategoryId) {
+    const response = await axios.delete(`/api/menuCategory/${menuCategoryId}/delete`)
+    return response.data
+}

@@ -1,29 +1,19 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
-
-import { EllipsisVertical, Pen, Trash } from 'lucide-react'
-import CardButton from '@/components/CardButton'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-} from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
 import { useFindAllMenuItemsByMenuCategoryId } from '@/services/menu-item/useFindAllMenuItemsByMenuCategoryId'
 import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCategoryById'
-import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { Plus } from 'lucide-react'
+import MenuItem from '@/components/MenuItem'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Category = () => {
     const { menuId, categoryId } = useParams()
-
+    const queryClient = useQueryClient()
     const {
         data: menuCategory,
         isLoading: isLoadingMenuCategory,
@@ -35,6 +25,10 @@ const Category = () => {
         isLoading: isLoadingMenuItems,
         isFetching: isFetchingMenuItems,
     } = useFindAllMenuItemsByMenuCategoryId(categoryId)
+
+    const handleCallbackSuccess = () => {
+        queryClient.invalidateQueries(['menuItems', categoryId])
+    }
 
     return (
         <>
@@ -77,44 +71,13 @@ const Category = () => {
                     </>
                 ) : (
                     menuItems?.map(item => (
-                        <div key={item.id} className="flex items-center gap-3">
-                            <CardButton
-                                title={item.name?.fr}
-                                subtitle={item.description?.fr}
-                                rightLabel={`${item.price}€`}
-                                url={`/admin/menu/${menuId}/category/${item.id}`}
-                                widthFull
-                            />
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        className={cn(
-                                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                                            item.description?.fr
-                                                ? 'h-[66px]'
-                                                : 'h-[46px]',
-                                        )}>
-                                        <EllipsisVertical />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>
-                                        Modifier
-                                        <DropdownMenuShortcut>
-                                            <Pen width={10} />
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        Supprimer
-                                        <DropdownMenuShortcut>
-                                            <Trash width={10} />
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
+                        <MenuItem
+                            key={item.id}
+                            item={item}
+                            category={item.category_id}
+                            menuId={menuId}
+                            handleCallbackSuccess={handleCallbackSuccess}
+                        />
                     ))
                 )}
             </div>

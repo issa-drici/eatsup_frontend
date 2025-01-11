@@ -4,29 +4,27 @@ import { useParams } from 'next/navigation'
 
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
-import { EllipsisVertical, Pen, Plus, Trash } from 'lucide-react'
-import CardButton from '@/components/CardButton'
+import { Plus } from 'lucide-react'
 import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuShortcut,
-    DropdownMenuTrigger,
-} from '@/shadcn-components/ui/dropdown-menu'
 import { Button } from '@/shadcn-components/ui/button'
 import { useFindAllMenuCategoriesByMenuId } from '@/services/menu-category/useFindAllMenuCategoriesByMenuId'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
+import MenuCategory from '@/components/MenuCategory'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Categories = () => {
     const { menuId } = useParams()
+    const queryClient = useQueryClient()
 
     const {
         data: menuCategories,
         isLoading: isLoadingMenuCategories,
         isFetching: isFetchingMenuCategories,
     } = useFindAllMenuCategoriesByMenuId(menuId)
+
+    const handleCallbackSuccess = async () => {
+        await queryClient.invalidateQueries(['menuCategories', menuId])
+    }
 
     return (
         <>
@@ -47,11 +45,11 @@ const Categories = () => {
                         },
                     ]}
                 />
-                    <Link href={`/admin/menu/${menuId}/category/create`}>
-                        <Button>
-                            <Plus /> Nouveau
-                        </Button>
-                    </Link>
+                <Link href={`/admin/menu/${menuId}/category/create`}>
+                    <Button>
+                        <Plus /> Nouveau
+                    </Button>
+                </Link>
             </div>
             <div className="flex flex-col flex-wrap gap-4">
                 {/* <div className="flex gap-4">
@@ -80,45 +78,12 @@ const Categories = () => {
                     </>
                 ) : (
                     menuCategories?.map(category => (
-                        <div
+                        <MenuCategory
                             key={category.id}
-                            className="flex items-center gap-2">
-                            <CardButton
-                                title={category.name?.fr}
-                                subtitle={category.description?.fr}
-                                url={`/admin/menu/${menuId}/category/${category.id}`}
-                                widthFull
-                            />
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="outline"
-                                        size="icon"
-                                        className={cn(
-                                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                                            category.description?.fr
-                                                ? 'h-[66px]'
-                                                : 'h-[46px]',
-                                        )}>
-                                        <EllipsisVertical />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>
-                                        Modifier
-                                        <DropdownMenuShortcut>
-                                            <Pen width={10} />
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        Supprimer
-                                        <DropdownMenuShortcut>
-                                            <Trash width={10} />
-                                        </DropdownMenuShortcut>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
+                            category={category}
+                            menuId={menuId}
+                            handleCallbackSuccess={handleCallbackSuccess}
+                        />
                     ))
                 )}
             </div>
