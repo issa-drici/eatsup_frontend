@@ -1,3 +1,5 @@
+'use client'
+
 import CardStats from '@/components/CardStats'
 import { ChefHat } from 'lucide-react'
 import { ScanQrCode } from 'lucide-react'
@@ -8,11 +10,14 @@ import { Globe } from 'lucide-react'
 import { Store } from 'lucide-react'
 import { ChartColumnBig } from 'lucide-react'
 import { Settings } from 'lucide-react'
-
-// import { useAuth } from '@/hooks/auth'
+import { useCountQrCodeSessionsByRestaurantId } from '@/services/qr-code-session/useCountQrCodeSessionsByRestaurantId'
+import { useAuth } from '@/hooks/auth'
 
 const Dashboard = () => {
-    // const { user } = useAuth({ middleware: 'auth' })
+    const { user } = useAuth({ middleware: 'auth' })
+
+    const { data, isLoading, isFetching } =
+        useCountQrCodeSessionsByRestaurantId(user?.restaurant?.id)
 
     return (
         <>
@@ -31,19 +36,18 @@ const Dashboard = () => {
                 <div className="flex gap-4">
                     <CardStats
                         title="Nombre de scans"
-                        value="428"
+                        value={data?.count}
                         icon={
                             <ScanQrCode size={16} className="text-slate-400" />
                         }
                         subtitle="30 derniers jours"
+                        isLoading={isLoading || isFetching}
                     />
                     <CardStats
-                        title="Nombre de scans"
+                        title="Visites de site web"
                         value="12"
-                        icon={
-                            <ScanQrCode size={16} className="text-slate-400" />
-                        }
-                        subtitle="Aujourd'hui"
+                        icon={<Globe size={16} className="text-slate-400" />}
+                        subtitle="30 derniers jours"
                     />
                 </div>
                 {/* <CardStats

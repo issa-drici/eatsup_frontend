@@ -159,6 +159,28 @@ export async function deleteMenuItemById(menuItemId) {
 }
 
 export async function deleteMenuCategoryById(menuCategoryId) {
-    const response = await axios.delete(`/api/menuCategory/${menuCategoryId}/delete`)
+    const response = await axios.delete(
+        `/api/menuCategory/${menuCategoryId}/delete`,
+    )
+    return response.data
+}
+
+export async function getQrCodeSessionsCountByRestaurantId(restaurantId) {
+    const response = await axios.get(
+        `/api/restaurant/${restaurantId}/qrCodeSessions/count`,
+    )
+    return response.data
+}
+
+/**
+ * Crée une nouvelle session pour un QR code
+ * @param {object} data - Données de la session (scanned_at, ip_address, user_agent, location)
+ * @param {string} qrCodeId - ID du QR code
+ */
+export async function postCreateQrCodeSession(data, qrCodeId) {
+    const response = await axios.post(
+        `/api/qr-code/${qrCodeId}/qrCodeSession/create`,
+        data,
+    )
     return response.data
 }

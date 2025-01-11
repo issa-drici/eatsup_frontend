@@ -11,39 +11,7 @@ import TitleBar from './components/TitleBar'
 import CategoryBar from './components/CategoryBar'
 import MenuCategory from './components/MenuCategory'
 import LoadingSkeleton from './components/LoadingSkeleton'
-
-// const labels = {
-//     share: {
-//         fr: 'Partager',
-//         en: 'Share',
-//         es: 'Compartir',
-//         ar: 'مشاركة',
-//         de: 'Teilen',
-//         it: 'Condividi',
-//         pt: 'Compartilhar',
-//         ru: 'Поделиться',
-//     },
-//     discount: {
-//         fr: 'Je profite de -5% de réduction',
-//         en: "I'm enjoying a -5% discount",
-//         es: 'Estoy disfrutando de un descuento del -5%',
-//         ar: 'أستمتع بخصم قدره -5%',
-//         de: 'Ich genieße einen Rabatt von -5%',
-//         it: 'Sto approfittando di uno sconto del -5%',
-//         pt: 'Estou aproveitando um desconto de -5%',
-//         ru: 'Я пользуюсь скидкой -5%',
-//     },
-//     googleReview: {
-//         fr: 'Laisser un avis Google au restaurant',
-//         en: 'Leave a Google review for the restaurant',
-//         es: 'Dejar una reseña en Google para el restaurante',
-//         ar: 'اترك تقييمًا على Google للمطعم',
-//         de: 'Eine Google-Bewertung für das Restaurant hinterlassen',
-//         it: 'Lascia una recensione su Google per il ristorante',
-//         pt: 'Deixe uma avaliação no Google para o restaurante',
-//         ru: 'Оставьте отзыв о ресторане на Google',
-//     },
-// }
+import { useCreateQrCodeSession } from '@/services/qr-code-session/useCreateQrCodeSession'
 
 const Menu = () => {
     const { qrcodeId } = useParams()
@@ -130,6 +98,31 @@ const Menu = () => {
             setActiveSection(firstCategoryId)
         }
     }, [menuItems, activeSection])
+
+    const { mutate: createQrCodeSession } = useCreateQrCodeSession({
+        qrCodeId: qrcodeId,
+    })
+
+    useEffect(() => {
+        const createSession = async () => {
+            try {
+                // Récupérer l'IP via un service externe
+                const ipResponse = await fetch('https://api.ipify.org?format=json')
+                const ipData = await ipResponse.json()
+                
+                await createQrCodeSession({
+                    ip_address: ipData.ip,
+                    user_agent: window.navigator.userAgent,
+                    location: '',
+                })
+            } catch (error) {
+                // eslint-disable-next-line no-console
+                console.error('Erreur lors de la création de la session:', error)
+            }
+        }
+
+        createSession()
+    }, [])
 
     return (
         <div className="relative bg-slate-100 min-h-[100dvh]">

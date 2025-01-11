@@ -1,8 +1,11 @@
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
+
 export default function CardStats({
     title,
     value,
     icon,
     subtitle,
+    isLoading,
     // progression,
 }) {
     return (
@@ -19,7 +22,11 @@ export default function CardStats({
                 </div>
             )}
             <div className="flex flex-row items-center justify-between p-4 pt-2">
-                <div className="text-2xl font-bold">{value}</div>
+                {isLoading ? (
+                    <Skeleton className="h-10 w-28" />
+                ) : (
+                    <div className="text-2xl font-bold">{value}</div>
+                )}
                 {icon && !!subtitle && icon}
                 {/* {progression && (
                     <p className="text-xs text-muted-foreground">
