@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
                 <AuthCard
                     logo={
                         <Link href="/">
-                            <ApplicationLogo className="h-4 fill-current text-gray-500" />
+                            <ApplicationLogo className="w-auto h-4 fill-current text-gray-500" />
                         </Link>
                     }>
                     <Suspense fallback={<div>Chargement...</div>}>

@@ -4,8 +4,8 @@ const ApplicationLogo = props => (
     <Image
         src="/images/logo.png"
         alt="Logo Eatsup"
-        width={148}
-        height={17}
+        width={593}
+        height={68}
         {...props}
     />
 )
