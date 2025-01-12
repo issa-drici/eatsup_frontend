@@ -1,4 +1,5 @@
 import LoginLinks from '@/app/LoginLinks'
+import AnimatedBeamFicheRestaurant from '@/components/AnimatedBeamFicheRestaurant'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import Image from 'next/image'
 
@@ -22,8 +23,8 @@ const Home = () => {
                         </div>
                         <div className="text-lg">
                             Gagnez du temps en salle, offrez un accès continu au
-                            menu pour stimuler les ventes, et
-                            partagez l'excellence de votre établissement.
+                            menu pour stimuler les ventes, et partagez
+                            l'excellence de votre établissement.
                         </div>
                         <Image
                             src="/images/eatsy/hello.png"
@@ -32,6 +33,11 @@ const Home = () => {
                             width={351}
                             height={325}
                         />
+                        <AnimatedBeamFicheRestaurant />
+                        <div className="p-10 text-center">
+                            Footer avec les liens vers les pages de contact et
+                            les mentions légales
+                        </div>
                     </div>
                 </div>
             </div>

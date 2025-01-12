@@ -103,25 +103,41 @@ const Menu = () => {
         qrCodeId: qrcodeId,
     })
 
+    const handleCreateSession = async () => {
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json')
+            const ipData = await ipResponse.json()
+
+            await createQrCodeSession({
+                ip_address: ipData.ip,
+                user_agent: window.navigator.userAgent,
+                location: '',
+            })
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('Erreur lors de la création de la session:', error)
+        }
+    }
+
     useEffect(() => {
-        const createSession = async () => {
-            try {
-                // Récupérer l'IP via un service externe
-                const ipResponse = await fetch('https://api.ipify.org?format=json')
-                const ipData = await ipResponse.json()
-                
-                await createQrCodeSession({
-                    ip_address: ipData.ip,
-                    user_agent: window.navigator.userAgent,
-                    location: '',
-                })
-            } catch (error) {
-                // eslint-disable-next-line no-console
-                console.error('Erreur lors de la création de la session:', error)
+        // Création initiale de la session
+        handleCreateSession()
+
+        // Gestionnaire d'événement pour le focus
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                handleCreateSession()
             }
         }
 
-        createSession()
+        document.addEventListener('visibilitychange', handleVisibilityChange)
+
+        return () => {
+            document.removeEventListener(
+                'visibilitychange',
+                handleVisibilityChange,
+            )
+        }
     }, [])
 
     return (
@@ -129,11 +145,14 @@ const Menu = () => {
             <div className="text-xs h-full pb-5">
                 <TitleBar />
 
-                {isLoadingMenuItems || isFetchingMenuItems || isLoadingQrcode || isFetchingQrcode ? (
+                {isLoadingMenuItems ||
+                isFetchingMenuItems ||
+                isLoadingQrcode ||
+                isFetchingQrcode ? (
                     <LoadingSkeleton />
                 ) : menuItems?.length > 0 ? (
                     <>
-                        <CategoryBar 
+                        <CategoryBar
                             menuItems={menuItems}
                             activeSection={activeSection}
                             scrollToSection={scrollToSection}
