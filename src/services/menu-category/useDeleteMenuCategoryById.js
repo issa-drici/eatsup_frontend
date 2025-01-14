@@ -1,5 +1,3 @@
-'use client'
-
 import { useToast } from '@/hooks/use-toast'
 import { deleteMenuCategoryById } from '@/utils/api-requests'
 import { useMutation } from '@tanstack/react-query'

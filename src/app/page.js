@@ -74,6 +74,14 @@ const Home = () => {
             </div>
             <div className="flex flex-col p-4 pt-20 gap-16 bg-slate-100 w-full md:p-20 md:gap-36">
                 <div className="flex flex-col gap-4 md:flex-row md:gap-32 md:items-center md:max-w-screen-xl md:mx-auto">
+                    <Image
+                        src="/images/augmentez.png"
+                        alt="augmentez"
+                        className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
+                        width={2232}
+                        height={2461}
+                    />
+
                     <div className="flex flex-col gap-4 md:w-3/5">
                         <h2
                             className={`${outfitFont.className} text-slate-900 text-3xl font-bold text-center md:text-7xl md:text-left`}>
@@ -99,16 +107,15 @@ const Home = () => {
                             Essayer Gratuitement
                         </Link>
                     </div>
-
-                    <Image
-                        src="/images/augmentez.png"
-                        alt="augmentez"
-                        className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
-                        width={2232}
-                        height={2461}
-                    />
                 </div>
                 <div className="flex flex-col gap-4 md:flex-row-reverse md:gap-32 md:items-center md:max-w-screen-xl md:mx-auto">
+                    <Image
+                        src="/images/maximisez.png"
+                        alt="maximisez"
+                        className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
+                        width={2232}
+                        height={2460}
+                    />
                     <div className="flex flex-col gap-4 md:w-3/5">
                         <h2
                             className={`${outfitFont.className} text-slate-900 text-3xl font-bold text-center md:text-7xl md:text-left`}>
@@ -138,15 +145,15 @@ const Home = () => {
                             Essayer Gratuitement
                         </Link>
                     </div>
+                </div>
+                <div className="flex flex-col gap-4 md:flex-row md:gap-32 md:items-center md:max-w-screen-xl md:mx-auto">
                     <Image
-                        src="/images/maximisez.png"
-                        alt="maximisez"
+                        src="/images/simple.png"
+                        alt="simple"
                         className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
                         width={2232}
                         height={2460}
                     />
-                </div>
-                <div className="flex flex-col gap-4 md:flex-row md:gap-32 md:items-center md:max-w-screen-xl md:mx-auto">
                     <div className="flex flex-col gap-4 md:w-3/5">
                         <h2
                             className={`${outfitFont.className} text-slate-900 text-3xl font-bold text-center md:text-7xl md:text-left`}>
@@ -171,13 +178,6 @@ const Home = () => {
                             Essayer Gratuitement
                         </Link>
                     </div>
-                    <Image
-                        src="/images/simple.png"
-                        alt="simple"
-                        className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
-                        width={2232}
-                        height={2460}
-                    />
                 </div>
             </div>
             <div className="flex flex-col items-center gap-5 p-5 px-12 md:gap-16 md:max-w-screen-xl md:mx-auto">
@@ -287,7 +287,9 @@ const Home = () => {
                                 className={`${outfitFont.className} text-white font-bold text-center md:text-2xl md:tracking-tight`}>
                                 Expert
                             </p>
-                            <p className='text-white'>en moyenne le prix de deux menus</p>
+                            <p className="text-white">
+                                en moyenne le prix de deux menus
+                            </p>
                             <p
                                 className={`${outfitFont.className} text-white font-bold text-center mb-10 md:text-2xl md:tracking-tight`}>
                                 19.99€ par mois

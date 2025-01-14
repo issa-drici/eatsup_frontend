@@ -6,6 +6,7 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
@@ -24,12 +25,27 @@ import CardButton from './CardButton'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useDeleteMenuCategoryById } from '@/services/menu-category/useDeleteMenuCategoryById'
+import { Pen } from 'lucide-react'
+import { useUpdateMenuCategoryMoveUp } from '@/services/menu-category/useUpdateMenuCategoryMoveUp'
+import { useUpdateMenuCategoryMoveDown } from '@/services/menu-category/useUpdateMenuCategoryMoveDown'
+import { ArrowUp } from 'lucide-react'
+import { ArrowDown } from 'lucide-react'
 
-const MenuCategory = ({ category, menuId, handleCallbackSuccess }) => {
+const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLength }) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
     const { mutate: deleteMenuCategory } = useDeleteMenuCategoryById({
         handleCallbackSuccess,
+    })
+
+    const { mutate: moveUpMenuCategory } = useUpdateMenuCategoryMoveUp({
+        handleCallbackSuccess,
+        categoryId: category.id,
+    })
+
+    const { mutate: moveDownMenuCategory } = useUpdateMenuCategoryMoveDown({
+        handleCallbackSuccess,
+        categoryId: category.id,
     })
 
     const handleDeleteClick = () => {
@@ -39,6 +55,14 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess }) => {
     const handleConfirmDelete = async () => {
         await deleteMenuCategory(category.id)
         setIsDeleteDialogOpen(false)
+    }
+
+    const handleMoveUpClick = async () => {
+        await moveUpMenuCategory()
+    }
+
+    const handleMoveDownClick = async () => {
+        await moveDownMenuCategory()
     }
 
     return (
@@ -63,10 +87,33 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess }) => {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
+                <Link
+                        href={`/admin/menu/${menuId}/category/${category.id}/update`}
+                        asChild>
+                        <DropdownMenuItem>
+                            Modifier
+                            <DropdownMenuShortcut>
+                                <Pen width={10} />
+                            </DropdownMenuShortcut>
+                        </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuItem onClick={handleDeleteClick}>
                         Supprimer
                         <DropdownMenuShortcut>
                             <Trash width={10} />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleMoveUpClick} disabled={category.sort_order === 1}>
+                        Monter
+                        <DropdownMenuShortcut>
+                            <ArrowUp width={12} />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleMoveDownClick} disabled={category.sort_order === categoriesLength}>
+                        Descendre
+                        <DropdownMenuShortcut>
+                            <ArrowDown width={12} />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
                 </DropdownMenuContent>

@@ -25,12 +25,25 @@ import CardButton from './CardButton'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useDeleteMenuItemById } from '@/services/menu-item/useDeleteMenuItemById'
+import { useUpdateMenuItemMoveUp } from '@/services/menu-item/useUpdateMenuItemMoveUp'
+import { useUpdateMenuItemMoveDown } from '@/services/menu-item/useUpdateMenuItemMoveDown'
 
-const MenuItem = ({ item, category, menuId, handleCallbackSuccess }) => {
+const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
     const { mutate: deleteMenuItem } = useDeleteMenuItemById({
         handleCallbackSuccess,
+    })
+
+
+    const { mutate: moveUpMenuItem } = useUpdateMenuItemMoveUp({
+        handleCallbackSuccess,
+        itemId: item.id,
+    })
+
+    const { mutate: moveDownMenuItem } = useUpdateMenuItemMoveDown({
+        handleCallbackSuccess,
+        itemId: item.id,
     })
 
     const handleDeleteClick = () => {
@@ -40,6 +53,14 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess }) => {
     const handleConfirmDelete = async () => {
         await deleteMenuItem(item.id)
         setIsDeleteDialogOpen(false)
+    }
+
+    const handleMoveUpClick = async () => {
+        await moveUpMenuItem()
+    }
+
+    const handleMoveDownClick = async () => {
+        await moveDownMenuItem()
     }
 
     return (
@@ -82,13 +103,13 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess }) => {
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleMoveUpClick} disabled={item.sort_order === 1}>
                         Monter
                         <DropdownMenuShortcut>
                             <ArrowUp width={12} />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleMoveDownClick} disabled={item.sort_order === itemsLength}>
                         Descendre
                         <DropdownMenuShortcut>
                             <ArrowDown width={12} />

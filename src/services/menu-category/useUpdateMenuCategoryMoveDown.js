@@ -1,20 +1,19 @@
 import { useToast } from '@/hooks/use-toast'
-import { postCreateMenuItem } from '@/utils/api-requests'
+import { putMenuCategoryMoveDown } from '@/utils/api-requests'
 import { useMutation } from '@tanstack/react-query'
 
-export const useCreateMenuItem = ({ handleCallbackSuccess, categoryId }) => {
+export const useUpdateMenuCategoryMoveDown = ({
+    handleCallbackSuccess,
+    categoryId,
+}) => {
     const { toast } = useToast()
 
     return useMutation({
-        mutationFn: data => postCreateMenuItem(data, categoryId),
+        mutationFn: data => putMenuCategoryMoveDown(data, categoryId),
         onSuccess: async () => {
             if (handleCallbackSuccess !== undefined) {
                 handleCallbackSuccess()
             }
-            toast({
-                title: 'Élément créé avec succès',
-                description: 'L\'élément a été ajouté à votre menu',
-            })
             return true
         },
         onError: async error => {
@@ -25,4 +24,4 @@ export const useCreateMenuItem = ({ handleCallbackSuccess, categoryId }) => {
             return false
         },
     })
-} 
+}

@@ -43,6 +43,19 @@ export async function postCreateMenuCategory(data, menuId) {
 }
 
 /**
+ * Met à jour une catégorie
+ * @param {object} data - Données de la catégorie
+ * @param {string} categoryId - ID de la catégorie
+ */
+export async function putUpdateMenuCategory(data, categoryId) {
+    const response = await axios.put(
+        `/api/menuCategory/${categoryId}/update`,
+        data,
+    )
+    return response.data
+}
+
+/**
  * Récupère une catégorie par son ID
  * @param {string} categoryId - ID de la catégorie
  */
@@ -50,6 +63,34 @@ export async function getMenuCategoryById(categoryId) {
     const response = await axios.get(`/api/menuCategory/${categoryId}`)
     return response.data
 }
+
+/**
+ * Met à jour un item
+ * @param {object} data - Données de l'item
+ * @param {string} categoryId - ID de la catégorie
+ */
+export async function putMenuCategoryMoveUp(data, categoryId) {
+    const response = await axios.put(
+        `/api/menuCategory/${categoryId}/moveUp`,
+        data,
+    )
+    return response.data
+}
+
+/**
+ * Met à jour un item
+ * @param {object} data - Données de l'item
+ * @param {string} categoryId - ID de la catégorie
+ */
+export async function putMenuCategoryMoveDown(data, categoryId) {
+    const response = await axios.put(
+        `/api/menuCategory/${categoryId}/moveDown`,
+        data,
+    )
+    return response.data
+}
+
+
 
 // ====== MENU ITEM ENDPOINTS ======
 /**
@@ -91,6 +132,54 @@ export async function postCreateMenuItem(data, categoryId) {
         `/api/menuCategory/${categoryId}/item/create`,
         data,
     )
+    return response.data
+}
+
+/**
+ * Met à jour un item
+ * @param {object} data - Données de l'item
+ * @param {string} itemId - ID de l'item
+ */
+export async function putUpdateMenuItem(data, itemId) {
+    const response = await axios.put(
+        `/api/menuItem/${itemId}/update`,
+        data,
+    )
+    return response.data
+}
+
+/**
+ * Met à jour un item
+ * @param {object} data - Données de l'item
+ * @param {string} itemId - ID de l'item
+ */
+export async function putMenuItemMoveUp(data, itemId) {
+    const response = await axios.put(
+        `/api/menuItem/${itemId}/moveUp`,
+        data,
+    )
+    return response.data
+}
+
+/**
+ * Met à jour un item
+ * @param {object} data - Données de l'item
+ * @param {string} itemId - ID de l'item
+ */
+export async function putMenuItemMoveDown(data, itemId) {
+    const response = await axios.put(
+        `/api/menuItem/${itemId}/moveDown`,
+        data,
+    )
+    return response.data
+}
+
+/**
+ * Récupère un item par son ID
+ * @param {string} itemId - ID de la catégorie
+ */
+export async function getMenuItemById(itemId) {
+    const response = await axios.get(`/api/menuItem/${itemId}`)
     return response.data
 }
 

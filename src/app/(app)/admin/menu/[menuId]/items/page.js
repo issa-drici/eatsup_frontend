@@ -111,6 +111,7 @@ const Categories = () => {
                                         key={item.id}
                                         item={item}
                                         category={category}
+                                        itemsLength={items.length}
                                         menuId={menuId}
                                         handleCallbackSuccess={handleCallbackSuccess}
                                     />
