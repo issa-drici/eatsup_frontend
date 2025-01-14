@@ -82,7 +82,7 @@ const Dashboard = () => {
                         widthFull
                         title="Restaurant"
                         subtitle="Gérer mon restaurant"
-                        url="/admin/restaurant"
+                        url={`/admin/restaurant/${user?.restaurant?.id}/update`}
                         icon={<Store size={16} className="text-slate-900" />}
                     />
                     <CardButton
@@ -96,10 +96,9 @@ const Dashboard = () => {
                 <div className="flex gap-4 w-full">
                     <CardButton
                         widthFull
-                        disabled
                         title="Site internet"
                         subtitle="Gérer mon site internet"
-                        url="/admin/site-internet"
+                        url="/admin/website"
                         icon={<Globe size={16} className="text-slate-600" />}
                     />
                     <CardButton

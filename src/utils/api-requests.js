@@ -273,3 +273,21 @@ export async function postCreateQrCodeSession(data, qrCodeId) {
     )
     return response.data
 }
+
+/**
+ * Met à jour un restaurant
+ * @param {FormData} data - Données du restaurant (incluant le logo)
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function putUpdateRestaurant(data, restaurantId) {
+    const response = await axios.put(
+        `/api/restaurant/${restaurantId}/update`,
+        data,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }
+    )
+    return response.data
+}
