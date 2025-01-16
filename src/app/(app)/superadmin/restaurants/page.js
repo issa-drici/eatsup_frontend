@@ -102,7 +102,7 @@ export default function SuperadminRestaurants() {
                                 >
                                     <TableCell className='w-10'>
                                         <Avatar>
-                                            <AvatarImage src={restaurant.logo_url} alt={restaurant.name} />
+                                            <AvatarImage src={restaurant.logo?.url} alt={restaurant.name} />
                                             <AvatarFallback>{restaurant.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                                         </Avatar>
                                     </TableCell>

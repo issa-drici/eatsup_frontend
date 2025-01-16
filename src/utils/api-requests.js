@@ -279,8 +279,8 @@ export async function postCreateQrCodeSession(data, qrCodeId) {
  * @param {FormData} data - Données du restaurant (incluant le logo)
  * @param {string} restaurantId - ID du restaurant
  */
-export async function putUpdateRestaurant(data, restaurantId) {
-    const response = await axios.put(
+export async function postUpdateRestaurant(data, restaurantId) {
+    const response = await axios.post(
         `/api/restaurant/${restaurantId}/update`,
         data,
         {
@@ -289,5 +289,15 @@ export async function putUpdateRestaurant(data, restaurantId) {
             },
         }
     )
+    return response.data
+}
+
+
+/**
+ * Récupère un menu par son ID
+ * @param {string} menuId - ID du menu
+ */
+export async function getMenuById(menuId) {
+    const response = await axios.get(`/api/menu/${menuId}`)
     return response.data
 }

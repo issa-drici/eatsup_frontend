@@ -36,22 +36,16 @@ const RestaurantUpdate = () => {
 
     useEffect(() => {
         if (restaurant) {
-            console.log('Restaurant data loaded:', restaurant) // Debug log
             setFormData({
                 name: restaurant.name || '',
                 address: restaurant.address || '',
                 phone: restaurant.phone || '',
-                logo_url: restaurant.logo_url || '',
+                logo_url: restaurant.logo?.url || '',
                 social_links: restaurant.social_links || {},
                 google_info: restaurant.google_info || {}
             })
         }
     }, [restaurant])
-
-    // Ajoutons des logs pour déboguer
-    useEffect(() => {
-        console.log('Current formData:', formData)
-    }, [formData])
 
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['restaurants', restaurantId])
@@ -74,19 +68,16 @@ const RestaurantUpdate = () => {
             formDataToSend.append('address', formData.address)
             formDataToSend.append('phone', formData.phone)
             formDataToSend.append('social_links', JSON.stringify(formData.social_links))
-            formDataToSend.append('google_info', JSON.stringify(formData.google_info))
             
             // Gestion du logo
-            if (logoFile) {
-                // Si un nouveau fichier a été sélectionné
-                formDataToSend.append('logo', logoFile)
+            if (logoFile instanceof File) {  // Vérification explicite que c'est bien un fichier
+                formDataToSend.append('logo', logoFile, logoFile.name)  // Ajout du nom du fichier
             } else if (formData.logo_url) {
-                // Si on garde le logo existant
                 formDataToSend.append('logo_url', formData.logo_url)
             } else {
-                // Si on a supprimé le logo ou qu'il n'y en a pas
                 formDataToSend.append('remove_logo', 'true')
             }
+
 
             await updateRestaurant(formDataToSend)
         } catch (error) {

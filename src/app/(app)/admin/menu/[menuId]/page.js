@@ -20,6 +20,7 @@ import {
     TooltipTrigger,
 } from '@/shadcn-components/ui/tooltip'
 import { useState } from 'react'
+import { useFindMenuById } from '@/services/menus/useFindMenuById'
 
 const Menu = () => {
     const { menuId } = useParams()
@@ -36,6 +37,12 @@ const Menu = () => {
         isLoading: isLoadingMenuItemsCount,
         isFetching: isFetchingMenuItemsCount,
     } = useCountMenuItemsByMenuId(menuId)
+
+    const {
+        data: menu,
+        isLoading: isLoadingMenu,
+        isFetching: isFetchingMenu,
+    } = useFindMenuById(menuId)
 
     return (
         <>
@@ -142,13 +149,18 @@ const Menu = () => {
                             </Tooltip>
                         </TooltipProvider>
                     </div>
-                    <CardButton
-                        title="Afficher"
-                        subtitle="Afficher le menu"
-                        url={`/menu/${menuId}`}
-                        icon={<Eye size={16} className="text-slate-900" />}
-                        widthFull
-                    />
+                    {isLoadingMenu || isFetchingMenu ? (
+                        <Skeleton className="h-20 w-full" />
+                        
+                    ) : (
+                        <CardButton
+                            title="Afficher"
+                            subtitle="Afficher le menu"
+                            url={`/restaurant/${menu?.restaurant_id}/menu/${menuId}`}
+                            icon={<Eye size={16} className="text-slate-900" />}
+                            widthFull
+                        />
+                    )}
                 </div>
             </div>
         </>
