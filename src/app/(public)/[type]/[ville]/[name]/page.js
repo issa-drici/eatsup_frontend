@@ -4,11 +4,11 @@ import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { Skeleton } from "@/shadcn-components/ui/skeleton"
 import Link from 'next/link'
-import { useGetPublicWebsiteByRestaurantId } from '@/services/website/useGetWebsiteByRestaurantId copy'
+import { useFindWebsiteBySlugPublic } from '@/services/website/useFindWebsiteBySlugPublic'
 
 const PublicWebsite = () => {
-    const { restaurantId } = useParams()
-    const { data: website, isLoading } = useGetPublicWebsiteByRestaurantId(restaurantId)
+    const { type: typeSlug, ville: citySlug, name: nameSlug } = useParams()
+    const { data: website, isLoading } = useFindWebsiteBySlugPublic(typeSlug, citySlug, nameSlug)
 
     const renderOpeningHours = () => {
         if (!website?.opening_hours) return null
@@ -99,7 +99,7 @@ const PublicWebsite = () => {
                         ))}
                     </p>
                     <Link
-                        href={`/restaurant/${restaurantId}/menu`}
+                        href={`/restaurant/${website.restaurant?.id}/menu/${website.menu_id}`}
                         className="w-full max-w-md bg-white text-black py-3 px-4 rounded-lg text-center font-medium"
                     >
                         Consulter notre menu

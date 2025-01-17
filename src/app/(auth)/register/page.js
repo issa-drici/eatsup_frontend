@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation'
 const Page = () => {
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/admin/dashboard',
+        redirectIfAuthenticated: '/register/address',
     })
     const searchParams = useSearchParams()
 

@@ -334,3 +334,16 @@ export async function getPublicWebsiteByRestaurantId(restaurantId) {
     const response = await axios.get(`/api/public/restaurant/${restaurantId}/website`)
     return response.data
 }
+
+/**
+ * Récupère le site web public d'un restaurant par ses slugs
+ * @param {string} typeSlug - Slug du type de restaurant
+ * @param {string} citySlug - Slug de la ville
+ * @param {string} nameSlug - Slug du nom du restaurant
+ */
+export async function getPublicWebsiteBySlug(typeSlug, citySlug, nameSlug) {
+    const response = await axios.get(
+        `/api/public/type/${typeSlug}/ville/${citySlug}/name/${nameSlug}/website`
+    )
+    return response.data
+}
