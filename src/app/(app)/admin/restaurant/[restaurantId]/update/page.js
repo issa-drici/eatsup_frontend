@@ -13,6 +13,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Skeleton } from "@/shadcn-components/ui/skeleton"
 import { Search } from 'lucide-react'
 import Image from 'next/image'
+import { FileUploadInput } from '@/components/FileUploadInput'
 
 const RestaurantUpdate = () => {
     const { restaurantId } = useParams()
@@ -127,16 +128,6 @@ const RestaurantUpdate = () => {
         setGoogleSearchQuery('')
     }
 
-    const handleLogoChange = (e) => {
-        const file = e.target.files[0]
-        if (file) {
-            setLogoFile(file)
-            const previewUrl = URL.createObjectURL(file)
-            setLogoPreview(previewUrl)
-            // On ne met pas à jour formData.logo_url car ce sera géré par le backend
-        }
-    }
-
     return (
         <>
             <div className="mb-4">
@@ -214,103 +205,20 @@ const RestaurantUpdate = () => {
                             <Skeleton className="h-40 w-full mt-1" />
                         ) : (
                             <div className="mt-2">
-                                <div className="space-y-4">
-                                    <label 
-                                        htmlFor="logo" 
-                                        className="group relative flex flex-col items-center justify-center w-full h-64 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
-                                    >
-                                        {(logoPreview || formData.logo_url) ? (
-                                            <div className="absolute inset-0 w-full h-full">
-                                                <Image
-                                                    src={logoPreview || formData.logo_url}
-                                                    alt="Logo preview"
-                                                    fill
-                                                    className="object-contain p-4"
-                                                />
-                                                {/* Overlay desktop uniquement */}
-                                                <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-60 transition-all items-center justify-center hidden md:flex rounded-lg">
-                                                    <div className="text-white text-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                        <p className="font-semibold">Cliquez pour changer</p>
-                                                        <p className="text-sm">ou glissez une nouvelle image</p>
-                                                    </div>
-                                                </div>
-                                                {/* Bouton supprimer desktop uniquement */}
-                                                <Button
-                                                    type="button"
-                                                    variant="destructive"
-                                                    size="sm"
-                                                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
-                                                    onClick={(e) => {
-                                                        e.preventDefault()
-                                                        e.stopPropagation()
-                                                        setLogoPreview(null)
-                                                        setLogoFile(null)
-                                                        setFormData(prev => ({
-                                                            ...prev,
-                                                            logo_url: ''
-                                                        }))
-                                                    }}
-                                                >
-                                                    Supprimer
-                                                </Button>
-                                            </div>
-                                        ) : (
-                                            <div className="flex flex-col items-center justify-center p-6">
-                                                <svg className="w-10 h-10 mb-4 text-gray-500 group-hover:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                                </svg>
-                                                <p className="mb-2 text-sm text-gray-500 group-hover:text-gray-600">
-                                                    <span className="font-semibold">
-                                                        <span className="hidden md:inline">Cliquez pour uploader</span>
-                                                        <span className="md:hidden">Touchez pour uploader</span>
-                                                    </span>
-                                                    <span className="hidden md:inline"> ou glissez-déposez</span>
-                                                </p>
-                                                <p className="text-xs text-gray-500 group-hover:text-gray-600">PNG, JPG (MAX. 2MB)</p>
-                                            </div>
-                                        )}
-                                        <Input
-                                            id="logo"
-                                            type="file"
-                                            onChange={handleLogoChange}
-                                            accept="image/*"
-                                            className="hidden"
-                                        />
-                                    </label>
-
-                                    {/* Contrôles mobile uniquement */}
-                                    {(logoPreview || formData.logo_url) && (
-                                        <div className="flex flex-col gap-2 md:hidden">
-                                            <p className="text-sm text-slate-600 text-center">
-                                                Touchez l'image pour la changer
-                                            </p>
-                                            <Button
-                                                type="button"
-                                                variant="destructive"
-                                                size="sm"
-                                                className="w-full"
-                                                onClick={(e) => {
-                                                    e.preventDefault()
-                                                    e.stopPropagation()
-                                                    setLogoPreview(null)
-                                                    setLogoFile(null)
-                                                    setFormData(prev => ({
-                                                        ...prev,
-                                                        logo_url: ''
-                                                    }))
-                                                }}
-                                            >
-                                                Supprimer le logo
-                                            </Button>
-                                        </div>
-                                    )}
-                                    
-                                    {logoFile && (
-                                        <p className="text-sm text-gray-500">
-                                            Fichier sélectionné : {logoFile.name}
-                                        </p>
-                                    )}
-                                </div>
+                                <FileUploadInput
+                                    id="logo"
+                                    value={logoFile}
+                                    existingImages={formData.logo_url ? [{ id: 'logo', url: formData.logo_url }] : []}
+                                    onChange={file => {
+                                        setLogoFile(file)
+                                    }}
+                                    onRemove={() => {
+                                        setLogoFile(null)
+                                        setFormData(prev => ({ ...prev, logo_url: null }))
+                                    }}
+                                    accept="image/*"
+                                    maxSize="2MB"
+                                />
                             </div>
                         )}
                     </div>

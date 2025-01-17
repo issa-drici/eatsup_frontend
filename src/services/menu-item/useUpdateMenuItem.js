@@ -1,5 +1,5 @@
 import { useToast } from '@/hooks/use-toast'
-import { putUpdateMenuItem } from '@/utils/api-requests'
+import { postUpdateMenuItem } from '@/utils/api-requests'
 import { useMutation } from '@tanstack/react-query'
 
 export const useUpdateMenuItem = ({
@@ -9,7 +9,7 @@ export const useUpdateMenuItem = ({
     const { toast } = useToast()
 
     return useMutation({
-        mutationFn: data => putUpdateMenuItem(data, itemId),
+        mutationFn: data => postUpdateMenuItem(data, itemId),
         onSuccess: async () => {
             if (handleCallbackSuccess !== undefined) {
                 handleCallbackSuccess()

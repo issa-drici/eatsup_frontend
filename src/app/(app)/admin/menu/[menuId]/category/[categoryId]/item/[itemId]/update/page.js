@@ -11,7 +11,8 @@ import Input from '@/components/Input'
 import TextArea from '@/components/TextArea'
 import InputError from '@/components/InputError'
 import { useQueryClient } from '@tanstack/react-query'
-import { Skeleton } from "@/shadcn-components/ui/skeleton"
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import { FileUploadInput } from '@/components/FileUploadInput'
 
 const ItemUpdate = () => {
     const { categoryId, itemId } = useParams()
@@ -31,8 +32,15 @@ const ItemUpdate = () => {
         is_active: true,
         sort_order: 0,
     })
+    const [imageFiles, setImageFiles] = useState([])
+    const [imagesToRemove, setImagesToRemove] = useState([])
+    const [existingImages, setExistingImages] = useState([])
 
-    const { data: menuItem, isLoading, isFetching } = useFindMenuItemById(itemId)
+    const {
+        data: menuItem,
+        isLoading,
+        isFetching,
+    } = useFindMenuItemById(itemId)
 
     useEffect(() => {
         if (menuItem) {
@@ -45,10 +53,13 @@ const ItemUpdate = () => {
                 },
                 price: menuItem.price || '',
                 allergens: menuItem.allergens || '',
-                images: menuItem.images || [],
                 is_active: menuItem.is_active ?? true,
                 sort_order: menuItem.sort_order || 0,
             })
+
+            if (menuItem.images && menuItem.images.length > 0) {
+                setExistingImages(menuItem.images)
+            }
         }
     }, [menuItem])
 
@@ -66,7 +77,31 @@ const ItemUpdate = () => {
         e.preventDefault()
 
         try {
-            await updateMenuItem(formData)
+            const formDataToSend = new FormData()
+
+            // Ajout des champs textuels
+            formDataToSend.append('name', JSON.stringify(formData.name))
+            formDataToSend.append('description', JSON.stringify(formData.description))
+            formDataToSend.append('price', formData.price)
+            formDataToSend.append('allergens', formData.allergens)
+            formDataToSend.append('is_active', formData.is_active)
+            formDataToSend.append('sort_order', formData.sort_order)
+
+            // Gestion des images à supprimer
+            if (imagesToRemove.length > 0) {
+                imagesToRemove.forEach(imageId => {
+                    formDataToSend.append('remove_images[]', imageId)
+                })
+            }
+
+            // Gestion des nouvelles images
+            if (imageFiles.length > 0) {
+                imageFiles.forEach(file => {
+                    formDataToSend.append('images[]', file)
+                })
+            }
+
+            await updateMenuItem(formDataToSend)
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
@@ -120,7 +155,7 @@ const ItemUpdate = () => {
                 <div className="space-y-4">
                     <div>
                         <Label htmlFor="name">Nom*</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoading || isFetching ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -140,7 +175,7 @@ const ItemUpdate = () => {
 
                     <div>
                         <Label>Description</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoading || isFetching ? (
                             <Skeleton className="h-24 w-full mt-1" />
                         ) : (
                             <TextArea
@@ -160,7 +195,7 @@ const ItemUpdate = () => {
 
                     <div>
                         <Label htmlFor="price">Prix*</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoading || isFetching ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -179,8 +214,37 @@ const ItemUpdate = () => {
                     </div>
 
                     <div>
+                        <Label htmlFor="images">Images du plat</Label>
+                        {isLoading || isFetching ? (
+                            <Skeleton className="h-40 w-full mt-1" />
+                        ) : (
+                            <div className="mt-2">
+                                <FileUploadInput
+                                    id="images"
+                                    multiple
+                                    value={imageFiles}
+                                    existingImages={existingImages}
+                                    onChange={files => {
+                                        setImageFiles(prev => [...prev, ...files])
+                                    }}
+                                    onRemove={({ type, id, index }) => {
+                                        if (type === 'existing') {
+                                            setImagesToRemove(prev => [...prev, id])
+                                            setExistingImages(prev => prev.filter((_, i) => i !== index))
+                                        } else {
+                                            setImageFiles(prev => prev.filter((_, i) => i !== index))
+                                        }
+                                    }}
+                                    accept="image/*"
+                                    maxSize="5MB"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div>
                         <Label htmlFor="allergens">Allergènes</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoading || isFetching ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -188,7 +252,11 @@ const ItemUpdate = () => {
                                 type="text"
                                 value={formData.allergens}
                                 onChange={e =>
-                                    handleChange('allergens', null, e.target.value)
+                                    handleChange(
+                                        'allergens',
+                                        null,
+                                        e.target.value,
+                                    )
                                 }
                                 className="mt-1 w-full"
                             />

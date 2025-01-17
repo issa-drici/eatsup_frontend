@@ -14,10 +14,10 @@ const MenuItem = ({ item, activeLanguage }) => {
                 className="overflow-hidden flex p-0 cursor-pointer hover:shadow-md transition-shadow"
                 onClick={() => setIsDialogOpen(true)}
             >
-                {item.images?.[0] && (
+                {item.images && item.images.length > 0 && (
                     <Image
-                        src={item.images[0]}
-                        alt="imagePlat"
+                        src={item.images[0].url}
+                        alt={item.name[activeLanguage]}
                         className="w-32 h-32 object-cover"
                         width={100}
                         height={100}

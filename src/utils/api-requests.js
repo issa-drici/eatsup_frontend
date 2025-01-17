@@ -90,8 +90,6 @@ export async function putMenuCategoryMoveDown(data, categoryId) {
     return response.data
 }
 
-
-
 // ====== MENU ITEM ENDPOINTS ======
 /**
  * Récupère tous les items d'une catégorie
@@ -124,27 +122,33 @@ export async function getMenuItemsByMenuIdCount(menuId) {
 
 /**
  * Crée un nouvel item dans une catégorie
- * @param {object} data - Données de l'item
+ * @param {FormData} data - Données de l'item
  * @param {string} categoryId - ID de la catégorie
  */
 export async function postCreateMenuItem(data, categoryId) {
     const response = await axios.post(
         `/api/menuCategory/${categoryId}/item/create`,
         data,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        },
     )
     return response.data
 }
 
 /**
  * Met à jour un item
- * @param {object} data - Données de l'item
+ * @param {FormData} data - Données de l'item
  * @param {string} itemId - ID de l'item
  */
-export async function putUpdateMenuItem(data, itemId) {
-    const response = await axios.put(
-        `/api/menuItem/${itemId}/update`,
-        data,
-    )
+export async function postUpdateMenuItem(data, itemId) {
+    const response = await axios.post(`/api/menuItem/${itemId}/update`, data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
     return response.data
 }
 
@@ -154,10 +158,7 @@ export async function putUpdateMenuItem(data, itemId) {
  * @param {string} itemId - ID de l'item
  */
 export async function putMenuItemMoveUp(data, itemId) {
-    const response = await axios.put(
-        `/api/menuItem/${itemId}/moveUp`,
-        data,
-    )
+    const response = await axios.put(`/api/menuItem/${itemId}/moveUp`, data)
     return response.data
 }
 
@@ -167,10 +168,7 @@ export async function putMenuItemMoveUp(data, itemId) {
  * @param {string} itemId - ID de l'item
  */
 export async function putMenuItemMoveDown(data, itemId) {
-    const response = await axios.put(
-        `/api/menuItem/${itemId}/moveDown`,
-        data,
-    )
+    const response = await axios.put(`/api/menuItem/${itemId}/moveDown`, data)
     return response.data
 }
 
@@ -287,11 +285,10 @@ export async function postUpdateRestaurant(data, restaurantId) {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-        }
+        },
     )
     return response.data
 }
-
 
 /**
  * Récupère un menu par son ID

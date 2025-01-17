@@ -10,12 +10,14 @@ import Input from '@/components/Input'
 import TextArea from '@/components/TextArea'
 import InputError from '@/components/InputError'
 import { useQueryClient } from '@tanstack/react-query'
+import { FileUploadInput } from '@/components/FileUploadInput'
 
 const ItemCreate = () => {
     const { categoryId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [imageFiles, setImageFiles] = useState([])
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -25,7 +27,6 @@ const ItemCreate = () => {
         },
         price: '',
         allergens: '',
-        images: [],
         is_active: true,
         sort_order: 0,
     })
@@ -45,7 +46,27 @@ const ItemCreate = () => {
         e.preventDefault()
 
         try {
-            await createMenuItem(formData)
+            const formDataToSend = new FormData()
+
+            // Ajout des champs textuels
+            formDataToSend.append('name', JSON.stringify(formData.name))
+            formDataToSend.append(
+                'description',
+                JSON.stringify(formData.description),
+            )
+            formDataToSend.append('price', formData.price)
+            formDataToSend.append('allergens', formData.allergens)
+            formDataToSend.append('is_active', formData.is_active)
+            formDataToSend.append('sort_order', formData.sort_order)
+
+            // Ajout des images
+            if (imageFiles.length > 0) {
+                imageFiles.forEach(file => {
+                    formDataToSend.append('images[]', file)
+                })
+            }
+
+            await createMenuItem(formDataToSend)
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
@@ -146,6 +167,28 @@ const ItemCreate = () => {
                     </div>
 
                     <div>
+                        <Label htmlFor="images">Images du plat</Label>
+                        <div className="mt-2">
+                            <FileUploadInput
+                                id="images"
+                                multiple
+                                value={imageFiles}
+                                onChange={files => {
+                                    setImageFiles(prev => [...prev, ...files])
+                                }}
+                                onRemove={({ type, index }) => {
+                                    setImageFiles(prev =>
+                                        prev.filter((_, i) => i !== index),
+                                    )
+                                }}
+                                accept="image/*"
+                                maxSize="5MB"
+                            />
+                        </div>
+                        <InputError messages={errors.images} className="mt-2" />
+                    </div>
+
+                    <div>
                         <Label htmlFor="allergens">Allergènes</Label>
                         <Input
                             id="allergens"
@@ -174,6 +217,8 @@ const ItemCreate = () => {
                             className="mt-1"
                         />
                     </div>
+
+                   
                 </div>
 
                 <div className="flex justify-end gap-2">
