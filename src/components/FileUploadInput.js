@@ -42,9 +42,6 @@ export const FileUploadInput = ({
         return null
     }
 
-    // Détermine si on doit afficher les contrôles de suppression en mode single
-    const showSingleRemoveControls = !multiple && (value || existingImages.length > 0)
-
     return (
         <div className="space-y-4">
             <label 
@@ -59,10 +56,21 @@ export const FileUploadInput = ({
                             fill
                             className="object-contain p-4"
                         />
-                        <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-60 transition-all items-center justify-center hidden md:flex rounded-lg">
+                        <div className="absolute inset-0 hidden md:flex bg-black bg-opacity-0 hover:bg-opacity-60 transition-all flex-col items-center justify-center rounded-lg">
                             <div className="text-white text-center p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <p className="font-semibold">Cliquez pour changer</p>
                                 <p className="text-sm">ou glissez une nouvelle image</p>
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        e.stopPropagation()
+                                        onRemove({ type: 'existing', id: existingImages[0]?.id })
+                                    }}
+                                    className="mt-2 px-3 py-1 bg-red-500 rounded text-sm hover:bg-red-600 transition-colors"
+                                >
+                                    Supprimer
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -138,7 +146,7 @@ export const FileUploadInput = ({
             )}
 
             {/* Contrôles mobile uniquement pour le mode single */}
-            {showSingleRemoveControls && (
+            {!multiple && hasFiles && (
                 <div className="flex flex-col gap-2 md:hidden">
                     <p className="text-sm text-slate-600 text-center">
                         Touchez l'image pour la changer

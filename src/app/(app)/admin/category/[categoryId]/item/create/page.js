@@ -176,7 +176,7 @@ const ItemCreate = () => {
                                 onChange={files => {
                                     setImageFiles(prev => [...prev, ...files])
                                 }}
-                                onRemove={({ type, index }) => {
+                                onRemove={({ index }) => {
                                     setImageFiles(prev =>
                                         prev.filter((_, i) => i !== index),
                                     )

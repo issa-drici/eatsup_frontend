@@ -12,7 +12,6 @@ import InputError from '@/components/InputError'
 import { useQueryClient } from '@tanstack/react-query'
 import { Skeleton } from "@/shadcn-components/ui/skeleton"
 import { Search } from 'lucide-react'
-import Image from 'next/image'
 import { FileUploadInput } from '@/components/FileUploadInput'
 
 const RestaurantUpdate = () => {
@@ -30,7 +29,6 @@ const RestaurantUpdate = () => {
     })
     const [googleSearchQuery, setGoogleSearchQuery] = useState('')
     const [googleSearchResults, setGoogleSearchResults] = useState([])
-    const [logoPreview, setLogoPreview] = useState(null)
     const [logoFile, setLogoFile] = useState(null)
 
     const { data: restaurant, isLoading, isFetching } = useFindRestaurantById(restaurantId)

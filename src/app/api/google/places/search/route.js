@@ -27,12 +27,8 @@ export async function GET(request) {
 
         const data = await response.json()
         
-        // Ajout de logs pour déboguer
-        console.log('Response status:', response.status)
-        console.log('Raw API response:', data)
 
         if (!data.places) {
-            console.error('No places data in response:', data)
             return NextResponse.json({ error: 'Invalid API response', details: data }, { status: 500 })
         }
 
@@ -45,7 +41,6 @@ export async function GET(request) {
 
         return NextResponse.json(formattedResults)
     } catch (error) {
-        console.error('Erreur détaillée lors de la recherche Google Places:', error)
         return NextResponse.json({ 
             error: 'Failed to fetch places', 
             message: error.message,
