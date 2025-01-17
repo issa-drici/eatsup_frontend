@@ -98,7 +98,7 @@ const Dashboard = () => {
                         widthFull
                         title="Site internet"
                         subtitle="Gérer mon site internet"
-                        url="/admin/website"
+                        url={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
                         icon={<Globe size={16} className="text-slate-600" />}
                     />
                     <CardButton

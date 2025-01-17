@@ -207,6 +207,15 @@ export async function getAllRestaurantsWithQRCodeCount() {
     return response.data
 }
 
+/**
+ * Récupère le site web d'un restaurant par son ID
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function getWebsiteByRestaurantId(restaurantId) {
+    const response = await axios.get(`/api/restaurant/${restaurantId}/website`)
+    return response.data
+}
+
 // ====== QR CODE ENDPOINTS ======
 /**
  * Associe un qr code à un restaurant
@@ -296,5 +305,32 @@ export async function postUpdateRestaurant(data, restaurantId) {
  */
 export async function getMenuById(menuId) {
     const response = await axios.get(`/api/menu/${menuId}`)
+    return response.data
+}
+
+/**
+ * Met à jour le site web d'un restaurant
+ * @param {FormData} data - Données du site web
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function postUpdateWebsite(data, restaurantId) {
+    const response = await axios.post(
+        `/api/restaurant/${restaurantId}/website/update`,
+        data,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        },
+    )
+    return response.data
+}
+
+/**
+ * Récupère le site web public d'un restaurant
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function getPublicWebsiteByRestaurantId(restaurantId) {
+    const response = await axios.get(`/api/public/restaurant/${restaurantId}/website`)
     return response.data
 }
