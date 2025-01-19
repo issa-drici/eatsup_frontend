@@ -1,6 +1,6 @@
 'use client'
 
-import Button from '@/components/Button'
+
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { Button } from '@/shadcn-components/ui/button'
 
 const Page = () => {
     const { register } = useAuth({
@@ -21,9 +22,11 @@ const Page = () => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const submitForm = event => {
         event.preventDefault()
+        setIsLoading(true)
 
         register({
             name,
@@ -115,7 +118,7 @@ const Page = () => {
                     Déjà inscrit ?
                 </Link>
 
-                <Button className="ml-4">Inscription</Button>
+                <Button type='submit' className="ml-4" isLoading={isLoading}>Inscription</Button>
             </div>
         </form>
     )

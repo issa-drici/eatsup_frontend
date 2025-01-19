@@ -112,8 +112,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             }
         }
 
-        if (middleware === 'auth' && user && !user.email_verified_at)
+        if (middleware === 'auth' && user && !user.email_verified_at) {
             router.push('/verify-email')
+        }
 
         if (
             window.location.pathname === '/verify-email' &&

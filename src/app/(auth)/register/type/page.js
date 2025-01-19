@@ -3,7 +3,16 @@
 import Button from '@/components/Button'
 import { useUpdateRestaurant } from '@/services/restaurant/useUpdateRestaurant'
 import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
-import { UtensilsCrossed, Soup, Coffee, Beef, ChefHat, Pizza, Store, Sandwich } from 'lucide-react'
+import {
+    UtensilsCrossed,
+    Soup,
+    Coffee,
+    Beef,
+    ChefHat,
+    Pizza,
+    Store,
+    Sandwich,
+} from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/auth'
@@ -19,7 +28,11 @@ const RESTAURANT_TYPES = [
     { label: 'Libanais', value: 'libanais', icon: Soup },
     { label: 'Indien', value: 'indien', icon: Sandwich },
     { label: 'Grillades/Barbecue', value: 'grillades-barbecue', icon: Beef },
-    { label: 'Buffet à volonté', value: 'buffet-a-volonte', icon: UtensilsCrossed },
+    {
+        label: 'Buffet à volonté',
+        value: 'buffet-a-volonte',
+        icon: UtensilsCrossed,
+    },
     { label: 'Bistrot', value: 'bistrot', icon: Coffee },
     { label: 'Gastronomique', value: 'gastronomique', icon: ChefHat },
     { label: 'Healthy', value: 'healthy', icon: Sandwich },
@@ -65,17 +78,13 @@ const RestaurantTypePage = () => {
             formDataToSend.append('postal_code', restaurant.postal_code || '')
             formDataToSend.append('city', restaurant.city || '')
             formDataToSend.append('phone', restaurant.phone || '')
-            formDataToSend.append('social_links', JSON.stringify(restaurant.social_links || {}))
-        }
-
-        try {
-            await updateRestaurant(formDataToSend)
-        } catch (error) {
-            console.error(
-                'Erreur lors de la mise à jour du type de restaurant:',
-                error,
+            formDataToSend.append(
+                'social_links',
+                JSON.stringify(restaurant.social_links || {}),
             )
         }
+
+        await updateRestaurant(formDataToSend)
     }
 
     return (
@@ -93,20 +102,27 @@ const RestaurantTypePage = () => {
                             onClick={() => setSelectedType(type.value)}
                             className={`
                                 rounded-md cursor-pointer transition-all
-                                ${selectedType === type.value 
-                                    ? 'text-primary bg-primary/10' 
-                                    : 'hover:text-primary'}
+                                ${
+                                    selectedType === type.value
+                                        ? 'text-primary bg-primary/10'
+                                        : 'hover:text-primary'
+                                }
                             `}>
                             <div className="flex items-center gap-2 md:gap-3">
-                                <div className={`
+                                <div
+                                    className={`
                                     p-1.5 md:p-2 rounded-lg transition-all
-                                    ${selectedType === type.value 
-                                        ? 'bg-primary text-white' 
-                                        : 'bg-primary/10 text-primary'}
+                                    ${
+                                        selectedType === type.value
+                                            ? 'bg-primary text-white'
+                                            : 'bg-primary/10 text-primary'
+                                    }
                                 `}>
                                     <Icon className="w-5 h-5 md:w-6 md:h-6" />
                                 </div>
-                                <span className="font-medium text-sm md:text-base">{type.label}</span>
+                                <span className="font-medium text-sm md:text-base">
+                                    {type.label}
+                                </span>
                             </div>
                         </div>
                     )

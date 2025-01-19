@@ -347,3 +347,26 @@ export async function getPublicWebsiteBySlug(typeSlug, citySlug, nameSlug) {
     )
     return response.data
 }
+
+// ====== SUBSCRIPTION ENDPOINTS ======
+
+/**
+ * Récupère les plans d'abonnement disponibles
+ */
+export async function getSubscriptionPlans() {
+    const response = await axios.get('/api/subscription/plans')
+    return response.data
+}
+
+/**
+ * Crée un nouvel abonnement
+ * @param {string} priceId - ID du prix Stripe
+ * @param {string} paymentMethodId - ID de la méthode de paiement Stripe
+ */
+export async function subscribe(priceId, paymentMethodId) {
+    const response = await axios.post('/api/subscribe', {
+        price_id: priceId,
+        payment_method_id: paymentMethodId
+    })
+    return response.data
+}

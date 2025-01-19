@@ -35,6 +35,26 @@ const Navigation = ({ user }) => {
                                 active={usePathname() === '/admin/dashboard'}>
                                 Dashboard
                             </NavLink>
+                            <NavLink
+                                href='/admin/menus'
+                                active={usePathname().includes('/admin/menu/')}>
+                                Menu
+                            </NavLink>
+                            <NavLink
+                                href={`/admin/restaurant/${user?.restaurant?.id}/update`}
+                                active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website/update')}>
+                                Restaurant
+                            </NavLink>
+                            <NavLink
+                                href="/admin/qr-code"
+                                active={usePathname() === '/admin/qr-code'}>
+                                QRCode
+                            </NavLink>
+                            <NavLink
+                                href={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
+                                active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/website/update')}>
+                                Website
+                            </NavLink>
                         </div>
                     </div>
 
@@ -102,54 +122,90 @@ const Navigation = ({ user }) => {
             </div>
 
             {/* Responsive Navigation Menu */}
-            {open && (
-                <div className="block sm:hidden">
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href={user.role === 'admin' ? '/superadmin/dashboard' : '/admin/dashboard'}
-                            active={usePathname() === '/admin/dashboard'}>
-                            Dashboard
-                        </ResponsiveNavLink>
+            <div 
+                className="absolute top-16 inset-x-0 bottom-0 bg-black/80 z-40 sm:hidden transition-opacity duration-200"
+                style={{ 
+                    opacity: open ? 1 : 0,
+                    visibility: open ? 'visible' : 'hidden'
+                }}
+                onClick={() => setOpen(false)}
+            />
+            <div 
+                className="absolute top-16 left-0 right-0 bg-white z-50 rounded-b-lg sm:hidden transform transition-all duration-200 ease-out origin-top"
+                style={{
+                    transform: `scaleY(${open ? 1 : 0})`,
+                    opacity: open ? 1 : 0,
+                    visibility: open ? 'visible' : 'hidden'
+                }}
+            >
+                <div className="pt-2 pb-3 space-y-1">
+                    <ResponsiveNavLink
+                        href={user.role === 'admin' ? '/superadmin/dashboard' : '/admin/dashboard'}
+                        active={usePathname() === '/admin/dashboard'}
+                        onClick={() => setOpen(false)}>
+                        Dashboard
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href='/admin/menus'
+                        active={usePathname().includes('/admin/menu/')}
+                        onClick={() => setOpen(false)}>
+                        Menu
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={`/admin/restaurant/${user?.restaurant?.id}/update`}
+                        active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website/update')}
+                        onClick={() => setOpen(false)}>
+                        Restaurant
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href="/admin/qr-code"
+                        active={usePathname() === '/admin/qr-code'}
+                        onClick={() => setOpen(false)}>
+                        QRCode
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
+                        active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/website/update')}
+                        onClick={() => setOpen(false)}>
+                        Website
+                    </ResponsiveNavLink>
+                </div>
+
+                <div className="pt-4 pb-1 border-t border-gray-200">
+                    <div className="flex items-center px-4">
+                        <div className="flex-shrink-0">
+                            <svg
+                                className="h-10 w-10 fill-current text-gray-400"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                />
+                            </svg>
+                        </div>
+
+                        <div className="ml-3">
+                            <div className="font-medium text-base text-gray-800">
+                                {user?.name}
+                            </div>
+                            <div className="font-medium text-sm text-gray-500">
+                                {user?.email}
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Responsive Settings Options */}
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="flex items-center px-4">
-                            <div className="flex-shrink-0">
-                                <svg
-                                    className="h-10 w-10 fill-current text-gray-400"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                    />
-                                </svg>
-                            </div>
-
-                            <div className="ml-3">
-                                <div className="font-medium text-base text-gray-800">
-                                    {user?.name}
-                                </div>
-                                <div className="font-medium text-sm text-gray-500">
-                                    {user?.email}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            {/* Authentication */}
-                            <ResponsiveNavButton onClick={logout}>
-                                Se déconnecter
-                            </ResponsiveNavButton>
-                        </div>
+                    <div className="mt-3 space-y-1 bg-slate-50">
+                        <ResponsiveNavButton onClick={logout}>
+                            Se déconnecter
+                        </ResponsiveNavButton>
                     </div>
                 </div>
-            )}
+            </div>
         </nav>
     )
 }
