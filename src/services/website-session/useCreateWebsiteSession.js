@@ -1,11 +1,11 @@
-import { postCreateQrCodeSession } from '@/utils/api-requests'
+import { postCreateWebsiteSession } from '@/utils/api-requests'
 import { useMutation } from '@tanstack/react-query'
 
-export const useCreateQrCodeSession = ({ qrCodeId }) => {
+export const useCreateWebsiteSession = ({ websiteId }) => {
     return useMutation({
         mutationFn: data => {
-            if (qrCodeId) {
-                return postCreateQrCodeSession(data, qrCodeId)
+            if (websiteId) {
+                return postCreateWebsiteSession(data, websiteId)
             }
             return null
         },

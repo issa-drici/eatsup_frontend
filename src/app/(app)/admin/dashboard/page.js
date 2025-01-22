@@ -10,13 +10,23 @@ import { useCountQrCodeSessionsByRestaurantId } from '@/services/qr-code-session
 import { useAuth } from '@/hooks/auth'
 import { useSubscription } from '@/hooks/useSubscription'
 import { TrialBanner } from '@/components/TrialBanner'
+import { useCountWebsiteSessionsByRestaurantId } from '@/services/website-session/useCountWebsiteSessionsByRestaurantId'
 
 const Dashboard = () => {
     const { user } = useAuth({ middleware: 'auth' })
     const { isTrialing } = useSubscription()
 
-    const { data, isLoading, isFetching } =
-        useCountQrCodeSessionsByRestaurantId(user?.restaurant?.id)
+    const {
+        data: qrCodeSessions,
+        isLoading: isQrCodeSessionsLoading,
+        isFetching: isQrCodeSessionsFetching,
+    } = useCountQrCodeSessionsByRestaurantId(user?.restaurant?.id)
+
+    const {
+        data: websiteSessions,
+        isLoading: isWebsiteSessionsLoading,
+        isFetching: isWebsiteSessionsFetching,
+    } = useCountWebsiteSessionsByRestaurantId(user?.restaurant?.id)
 
     return (
         <>
@@ -35,18 +45,24 @@ const Dashboard = () => {
                 <div className="flex gap-4">
                     <CardStats
                         title="Nombre de scans"
-                        value={data?.count}
+                        value={qrCodeSessions?.count}
                         icon={
                             <ScanQrCode size={16} className="text-slate-400" />
                         }
                         subtitle="30 derniers jours"
-                        isLoading={isLoading || isFetching}
+                        isLoading={
+                            isQrCodeSessionsLoading || isQrCodeSessionsFetching
+                        }
                     />
                     <CardStats
                         title="Visites de site web"
-                        value="0"
+                        value={websiteSessions?.count}
                         icon={<Globe size={16} className="text-slate-400" />}
                         subtitle="30 derniers jours"
+                        isLoading={
+                            isWebsiteSessionsLoading ||
+                            isWebsiteSessionsFetching
+                        }
                     />
                 </div>
                 {/* <CardStats

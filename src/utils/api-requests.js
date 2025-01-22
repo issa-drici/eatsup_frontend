@@ -383,3 +383,24 @@ export async function postUpdateMenu(data, menuId, restaurantId) {
     )
     return response.data
 }
+
+
+/**
+ * Crée une nouvelle session pour un site web
+ * @param {object} data - Données de la session (scanned_at, ip_address, user_agent, location)
+ * @param {string} websiteId - ID du site web
+ */
+export async function postCreateWebsiteSession(data, websiteId) {
+    const response = await axios.post(
+        `/api/website/${websiteId}/websiteSession/create`,
+        data,
+    )
+    return response.data
+}
+
+export async function getWebsiteSessionsCountByRestaurantId(restaurantId) {
+    const response = await axios.get(
+        `/api/restaurant/${restaurantId}/websiteSessions/count`,
+    )
+    return response.data
+}
