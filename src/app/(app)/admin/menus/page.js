@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/auth'
-import { useFindAllMenusByRestaurantId } from '@/services/menus/useFindAllMenusByRestaurantId'
+import { useFindAllMenusByRestaurantId } from '@/services/menu/useFindAllMenusByRestaurantId'
 
 // import { useAuth } from '@/hooks/auth'
 

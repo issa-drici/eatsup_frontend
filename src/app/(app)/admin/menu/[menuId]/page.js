@@ -20,9 +20,11 @@ import {
     TooltipTrigger,
 } from '@/shadcn-components/ui/tooltip'
 import { useState } from 'react'
-import { useFindMenuById } from '@/services/menus/useFindMenuById'
+import { useFindMenuById } from '@/services/menu/useFindMenuById'
+import { useAuth } from '@/hooks/auth'
 
 const Menu = () => {
+    const { user } = useAuth({ middleware: 'auth' })
     const { menuId } = useParams()
     const [isOpenTooltipCopy, setIsOpenTooltipCopy] = useState(false)
 
@@ -110,7 +112,7 @@ const Menu = () => {
                 <CardButton
                     title="Apparence"
                     subtitle="Changer l'apparence du menu"
-                    url={`/admin/menu/${menuId}/appearance`}
+                    url={`/admin/restaurant/${user?.restaurant_id}/menu/${menuId}/update`}
                     icon={<PaintRoller size={16} className="text-slate-900" />}
                 />
                 <div className="flex gap-4">
@@ -151,7 +153,6 @@ const Menu = () => {
                     </div>
                     {isLoadingMenu || isFetchingMenu ? (
                         <Skeleton className="h-20 w-full" />
-                        
                     ) : (
                         <CardButton
                             title="Afficher"

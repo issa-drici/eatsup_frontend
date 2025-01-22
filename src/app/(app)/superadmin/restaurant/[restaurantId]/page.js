@@ -11,7 +11,7 @@ import {
     TabsTrigger,
 } from '@/shadcn-components/ui/tabs'
 import { useFindAllQrCodesByRestaurantId } from '@/services/qr-code/useFindAllQrCodesByRestaurantId'
-import { useFindAllMenusByRestaurantId } from '@/services/menus/useFindAllMenusByRestaurantId'
+import { useFindAllMenusByRestaurantId } from '@/services/menu/useFindAllMenusByRestaurantId'
 import {
     Table,
     TableBody,

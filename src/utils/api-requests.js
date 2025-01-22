@@ -370,3 +370,16 @@ export async function subscribe(priceId, paymentMethodId) {
     })
     return response.data
 }
+
+export async function postUpdateMenu(data, menuId, restaurantId) {
+    const response = await axios.post(
+        `/api/restaurant/${restaurantId}/menu/${menuId}/update`,
+        data,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        },
+    )
+    return response.data
+}
