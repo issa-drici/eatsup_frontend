@@ -54,7 +54,7 @@ const Categories = () => {
                             href: `/admin/menu/${menuId}`,
                         },
                         {
-                            title: 'Éléments',
+                            title: 'Articles',
                             href: `/admin/menu/${menuId}/items`,
                         },
                     ]}
@@ -82,7 +82,7 @@ const Categories = () => {
                         <Skeleton className="h-20 w-full" />
                     ) : (
                         <CardStats
-                            title="Éléments"
+                            title="Articles"
                             value={menuItemsCount?.count}
                             icon={
                                 <CookingPot
@@ -125,7 +125,7 @@ const Categories = () => {
                                         <div className="flex flex-row gap-1 items-center">
                                             <Plus width={15} />
                                             <p className="text-sm text-slate-900 font-normal">
-                                                Ajouter un élément ici
+                                                Ajouter un article ici
                                             </p>
                                         </div>
                                     </div>

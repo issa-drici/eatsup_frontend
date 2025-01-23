@@ -42,7 +42,7 @@ const Navigation = ({ user }) => {
                             </NavLink>
                             <NavLink
                                 href={`/admin/restaurant/${user?.restaurant?.id}/update`}
-                                active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website/update')}>
+                                active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website')}>
                                 Restaurant
                             </NavLink>
                             <NavLink
@@ -153,7 +153,7 @@ const Navigation = ({ user }) => {
                     </ResponsiveNavLink>
                     <ResponsiveNavLink
                         href={`/admin/restaurant/${user?.restaurant?.id}/update`}
-                        active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website/update')}
+                        active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website')}
                         onClick={() => setOpen(false)}>
                         Restaurant
                     </ResponsiveNavLink>

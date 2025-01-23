@@ -123,7 +123,7 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
                     <AlertDialogHeader>
                         <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Cette action supprimera définitivement l'élément "{item.name.fr}" de votre menu.
+                            Cette action supprimera définitivement l'article "{item.name.fr}" de votre menu.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

@@ -290,7 +290,7 @@ const ItemUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Modifier l'élément</Button>
+                    <Button type="submit">Modifier l'article</Button>
                 </div>
             </form>
         </>

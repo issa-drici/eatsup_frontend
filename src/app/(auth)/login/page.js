@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -9,6 +8,7 @@ import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
+import { Button } from '@/shadcn-components/ui/button'
 
 const Login = () => {
     const router = useRouter()
@@ -116,6 +116,14 @@ const Login = () => {
                     <Button className="ml-3">Connexion</Button>
                 </div>
             </form>
+            <div className="text-sm text-gray-600 mt-4 text-center">
+                Pas encore de compte ?{' '}
+                <Link
+                    href="/register"
+                    className="underline text-gray-600 hover:text-gray-900">
+                    S'inscrire
+                </Link>
+            </div>
         </>
     )
 }

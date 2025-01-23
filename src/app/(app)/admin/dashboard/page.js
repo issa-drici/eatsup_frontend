@@ -11,6 +11,8 @@ import { useAuth } from '@/hooks/auth'
 import { useSubscription } from '@/hooks/useSubscription'
 import { TrialBanner } from '@/components/TrialBanner'
 import { useCountWebsiteSessionsByRestaurantId } from '@/services/website-session/useCountWebsiteSessionsByRestaurantId'
+import { useGetWebsiteByRestaurantId } from '@/services/website/useGetWebsiteByRestaurantId'
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
 const Dashboard = () => {
     const { user } = useAuth({ middleware: 'auth' })
@@ -27,6 +29,12 @@ const Dashboard = () => {
         isLoading: isWebsiteSessionsLoading,
         isFetching: isWebsiteSessionsFetching,
     } = useCountWebsiteSessionsByRestaurantId(user?.restaurant?.id)
+
+    const {
+        data: website,
+        isLoading: isWebsiteLoading,
+        isFetching: isWebsiteFetching,
+    } = useGetWebsiteByRestaurantId(user?.restaurant?.id)
 
     return (
         <>
@@ -100,13 +108,19 @@ const Dashboard = () => {
                         url={`/admin/restaurant/${user?.restaurant?.id}/update`}
                         icon={<Store size={16} className="text-slate-900" />}
                     />
-                    <CardButton
-                        widthFull
-                        title="Site internet"
-                        subtitle="Gérer mon site internet"
-                        url={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
-                        icon={<Globe size={16} className="text-slate-600" />}
-                    />
+                    {isWebsiteLoading || isWebsiteFetching ? (
+                        <Skeleton className="h-20 w-full" />
+                    ) : (
+                        <CardButton
+                            widthFull
+                            title="Site internet"
+                            subtitle="Gérer mon site internet"
+                            url={`/admin/restaurant/${user?.restaurant?.id}/website/${website?.id}`}
+                            icon={
+                                <Globe size={16} className="text-slate-600" />
+                            }
+                        />
+                    )}
                 </div>
                 {/* <div className="flex gap-4 w-full">
                 <CardButton

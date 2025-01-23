@@ -131,7 +131,7 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLengt
                         </AlertDialogTitle>
                         <AlertDialogDescription>
                             {category.items_count > 0
-                                ? "Cette catégorie contient des éléments. Vous ne pouvez pas la supprimer tant qu'ils ne sont pas supprimés."
+                                ? "Cette catégorie contient des articles. Vous ne pouvez pas la supprimer tant qu'ils ne sont pas supprimés."
                                 : 'Cette action supprimera définitivement la catégorie'}
                         </AlertDialogDescription>
                     </AlertDialogHeader>

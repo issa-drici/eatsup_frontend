@@ -230,7 +230,7 @@ const ItemCreate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Créer l'élément</Button>
+                    <Button type="submit">Créer l'article</Button>
                 </div>
             </form>
         </>

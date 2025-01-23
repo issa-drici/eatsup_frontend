@@ -15,7 +15,7 @@ import {
 } from '@/shadcn-components/ui/dropdown-menu'
 
 export function BreadcrumbCustom({ items }) {
-    // Si un seul élément, retourner directement le BreadcrumbPage
+    // Si un seul article, retourner directement le BreadcrumbPage
     if (items.length === 1) {
         return (
             <Breadcrumb>
@@ -39,7 +39,7 @@ export function BreadcrumbCustom({ items }) {
         // Si exactement 3 items, afficher les trois sans ellipsis
         middleItems = items.slice(1, -1)
     } else if (items.length > 3) {
-        // Si plus de 3 items, mettre tous les éléments intermédiaires (sauf l'avant-dernier) dans le dropdown
+        // Si plus de 3 items, mettre tous les articles intermédiaires (sauf l'avant-dernier) dans le dropdown
         middleItems = [penultimateItem]
         dropdownItems = items.slice(1, -2)
     }
@@ -47,14 +47,14 @@ export function BreadcrumbCustom({ items }) {
     return (
         <Breadcrumb className='h-9 flex items-center'>
             <BreadcrumbList className='gap-1'>
-                {/* Premier élément */}
+                {/* Premier article */}
                 <BreadcrumbItem>
                     <BreadcrumbLink href={firstItem.href}>
                         {firstItem.title}
                     </BreadcrumbLink>
                 </BreadcrumbItem>
 
-                {/* Séparateur après le premier élément */}
+                {/* Séparateur après le premier article */}
                 {items.length > 1 && <BreadcrumbSeparator />}
 
                 {/* DropdownMenu si plus de 4 items */}
@@ -81,7 +81,7 @@ export function BreadcrumbCustom({ items }) {
                     </>
                 )}
 
-                {/* Affichage des éléments intermédiaires visibles après l'ellipsis ou tous les éléments si items.length <= 4 */}
+                {/* Affichage des articles intermédiaires visibles après l'ellipsis ou tous les articles si items.length <= 4 */}
                 {middleItems.map((item, index) => (
                     <BreadcrumbItem key={index}>
                         <BreadcrumbLink href={item.href}>
@@ -90,10 +90,10 @@ export function BreadcrumbCustom({ items }) {
                     </BreadcrumbItem>
                 ))}
 
-                {/* Séparateur si des éléments intermédiaires existent */}
+                {/* Séparateur si des articles intermédiaires existent */}
                 {middleItems.length > 0 && <BreadcrumbSeparator />}
 
-                {/* Dernier élément sans lien */}
+                {/* Dernier article sans lien */}
                 <BreadcrumbItem>
                     <BreadcrumbPage>{lastItem.title}</BreadcrumbPage>
                 </BreadcrumbItem>

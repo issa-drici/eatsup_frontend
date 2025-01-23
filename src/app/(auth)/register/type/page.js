@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import { useUpdateRestaurant } from '@/services/restaurant/useUpdateRestaurant'
 import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
 import {
@@ -16,6 +15,7 @@ import {
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/auth'
+import { Button } from '@/shadcn-components/ui/button'
 
 const RESTAURANT_TYPES = [
     { label: 'Fast-food', value: 'fast-food', icon: Store },

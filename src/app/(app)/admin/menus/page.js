@@ -28,7 +28,7 @@ const Menus = () => {
         // <Skeleton className="h-full w-full" />
     }
 
-    router.push(`/admin/menu/${menus[0].id}`)
+    router.push(`/admin/restaurant/${user?.restaurant?.id}//menu/${menus[0].id}`)
 
     return null
     // (
@@ -62,10 +62,10 @@ const Menus = () => {
     //                                     />
     //                                     <div className="flex flex-col">
     //                                         <p className="text-sm text-slate-900 font-semibold">
-    //                                             Éléments
+    //                                             Articles
     //                                         </p>
     //                                         <p className="text-xs font-medium text-slate-600 leading-5">
-    //                                             Gérer les éléments du menu
+    //                                             Gérer les articles du menu
     //                                         </p>
     //                                     </div>
     //                                 </div>

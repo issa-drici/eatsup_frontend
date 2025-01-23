@@ -4,7 +4,7 @@ import ApplicationLogo from '@/components/ApplicationLogo'
 import { Suspense } from 'react'
 
 export const metadata = {
-    title: 'Laravel',
+    title: 'Eatsup - votre menu qui propulse vos ventes',
 }
 
 const Layout = ({ children }) => {

@@ -84,7 +84,7 @@ const Menu = () => {
                         <Skeleton className="h-20 w-full" />
                     ) : (
                         <CardStats
-                            title="Éléments"
+                            title="Articles"
                             value={menuItemsCount?.count}
                             icon={
                                 <CookingPot
@@ -104,15 +104,15 @@ const Menu = () => {
                     }
                 />
                 <CardButton
-                    title="Éléments"
-                    subtitle="Gérer les éléments du menu"
+                    title="Articles"
+                    subtitle="Gérer les articles du menu"
                     url={`/admin/menu/${menuId}/items`}
                     icon={<CookingPot size={16} className="text-slate-900" />}
                 />
                 <CardButton
                     title="Apparence"
                     subtitle="Changer l'apparence du menu"
-                    url={`/admin/restaurant/${user?.restaurant_id}/menu/${menuId}/update`}
+                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/update`}
                     icon={<PaintRoller size={16} className="text-slate-900" />}
                 />
                 <div className="flex gap-4">
@@ -125,7 +125,7 @@ const Menu = () => {
                                         onClick={() => {
                                             setIsOpenTooltipCopy(true)
                                             navigator.clipboard.writeText(
-                                                `https://www.eatsup.fr/menu/${menuId}`,
+                                                `https://www.eatsup.fr/restaurant/${menu?.restaurant_id}/menu/${menuId}`,
                                             )
                                             setTimeout(() => {
                                                 setIsOpenTooltipCopy(false)

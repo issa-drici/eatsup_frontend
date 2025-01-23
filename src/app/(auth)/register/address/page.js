@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -9,6 +8,7 @@ import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantBy
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/auth'
+import { Button } from '@/shadcn-components/ui/button'
 
 const AddressPage = () => {
     const { user } = useAuth({

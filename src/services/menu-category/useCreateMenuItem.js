@@ -12,8 +12,8 @@ export const useCreateMenuItem = ({ handleCallbackSuccess, categoryId }) => {
                 handleCallbackSuccess()
             }
             toast({
-                title: 'Élément créé avec succès',
-                description: 'L\'élément a été ajouté à votre menu',
+                title: 'Article créé avec succès',
+                description: 'L\'article a été ajouté à votre menu',
             })
             return true
         },

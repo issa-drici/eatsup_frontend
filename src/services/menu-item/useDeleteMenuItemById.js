@@ -12,8 +12,8 @@ export const useDeleteMenuItemById = ({ handleCallbackSuccess }) => {
                 handleCallbackSuccess()
             }
             toast({
-                title: 'Élément supprimé avec succès',
-                description: "L'élément a été supprimé de votre menu",
+                title: 'Article supprimé avec succès',
+                description: "L'article a été supprimé de votre menu",
             })
             return true
         },

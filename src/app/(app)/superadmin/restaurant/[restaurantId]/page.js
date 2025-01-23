@@ -201,7 +201,7 @@ export default function RestaurantPage() {
                                     className="cursor-pointer">
                                     <CardButton
                                         title={menu.name.fr}
-                                        subtitle="Cliquez pour voir les éléments"
+                                        subtitle="Cliquez pour voir les articles"
                                         widthFull
                                     />
                                 </div>
@@ -214,7 +214,7 @@ export default function RestaurantPage() {
             <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                 <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
                     <SheetHeader>
-                        <SheetTitle>Éléments du menu</SheetTitle>
+                        <SheetTitle>Articles du menu</SheetTitle>
                     </SheetHeader>
 
                     <div className="mt-8 flex flex-col flex-wrap gap-4">
@@ -240,7 +240,7 @@ export default function RestaurantPage() {
                                 <Skeleton className="h-20 w-full" />
                             ) : (
                                 <CardStats
-                                    title="Éléments"
+                                    title="Articles"
                                     value={menuItemsCount?.count}
                                     icon={
                                         <CookingPot
@@ -286,7 +286,7 @@ export default function RestaurantPage() {
                                                 <div className="flex flex-row gap-1 items-center">
                                                     <Plus width={15} />
                                                     <p className="text-sm text-slate-900 font-normal">
-                                                        Ajouter un élément ici
+                                                        Ajouter un article ici
                                                     </p>
                                                 </div>
                                             </div>
