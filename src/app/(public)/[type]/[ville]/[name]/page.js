@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useFindWebsiteBySlugPublic } from '@/services/website/useFindWebsiteBySlugPublic'
 import { useEffect } from 'react'
 import { useCreateWebsiteSession } from '@/services/website-session/useCreateWebsiteSession'
+import { useFindAllMenusByRestaurantId } from '@/services/menu/useFindAllMenusByRestaurantId'
 
 const PublicWebsite = () => {
     const { type: typeSlug, ville: citySlug, name: nameSlug } = useParams()
@@ -15,6 +16,12 @@ const PublicWebsite = () => {
         citySlug,
         nameSlug,
     )
+
+    const {
+        data: menus,
+        isLoading: isLoadingMenus,
+        isFetching: isFetchingMenus,
+    } = useFindAllMenusByRestaurantId(website?.restaurant_id)
 
     const renderOpeningHours = () => {
         if (!website?.opening_hours) return null
@@ -153,11 +160,15 @@ const PublicWebsite = () => {
                                 </span>
                             ))}
                     </p>
-                    <Link
-                        href={`/restaurant/${website.restaurant?.id}/menu/${website.menu_id}`}
-                        className="w-full max-w-md bg-white text-black py-3 px-4 rounded-lg text-center font-medium">
-                        Consulter notre menu
-                    </Link>
+                    {isLoadingMenus || isFetchingMenus ? (
+                        <Skeleton className="h-20 w-full" />
+                    ) : (
+                        <Link
+                            href={`/restaurant/${website.restaurant_id}/menu/${menus[0]?.id}`}
+                            className="w-full max-w-md bg-white text-black py-3 px-4 rounded-lg text-center font-medium">
+                            Consulter notre menu
+                        </Link>
+                    )}
                 </div>
             </div>
 
