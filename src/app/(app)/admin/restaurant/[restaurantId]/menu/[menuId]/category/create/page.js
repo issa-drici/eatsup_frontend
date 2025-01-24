@@ -12,7 +12,7 @@ import InputError from '@/components/InputError'
 import { useQueryClient } from '@tanstack/react-query'
 
 const CategoryCreate = () => {
-    const { menuId } = useParams()
+    const { restaurantId, menuId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
@@ -27,7 +27,7 @@ const CategoryCreate = () => {
 
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['menuCategories', menuId])
-        router.push(`/admin/menu/${menuId}/categories`)
+        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/categories`)
     }
 
     const { mutate: createMenuCategory } = useCreateMenuCategory({
@@ -75,15 +75,15 @@ const CategoryCreate = () => {
                         },
                         {
                             title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },
                         {
                             title: 'Catégories',
-                            href: `/admin/menu/${menuId}/categories`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/categories`,
                         },
                         {
                             title: 'Créer',
-                            href: `/admin/menu/${menuId}/category/create`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/create`,
                         },
                     ]}
                 />

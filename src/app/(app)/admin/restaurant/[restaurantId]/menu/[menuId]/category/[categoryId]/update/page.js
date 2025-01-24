@@ -14,7 +14,7 @@ import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCat
 import { Skeleton } from "@/shadcn-components/ui/skeleton"
 
 const CategoryUpdate = () => {
-    const { menuId, categoryId } = useParams()
+    const { restaurantId, menuId, categoryId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
@@ -44,7 +44,7 @@ const CategoryUpdate = () => {
 
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['menuCategories', menuId])
-        router.push(`/admin/menu/${menuId}/categories`)
+        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/categories`)
     }
 
     const { mutate: updateMenuCategory } = useUpdateMenuCategory({
@@ -92,15 +92,15 @@ const CategoryUpdate = () => {
                         },
                         {
                             title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },
                         {
                             title: 'Catégories',
-                            href: `/admin/menu/${menuId}/categories`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/categories`,
                         },
                         {
                             title: 'Modifier',
-                            href: `/admin/menu/${menuId}/category/${categoryId}/update`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/update`,
                         },
                     ]}
                 />

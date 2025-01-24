@@ -28,7 +28,7 @@ const Menus = () => {
         // <Skeleton className="h-full w-full" />
     }
 
-    router.push(`/admin/restaurant/${user?.restaurant?.id}//menu/${menus[0].id}`)
+    router.push(`/admin/restaurant/${user?.restaurant?.id}/menu/${menus[0].id}`)
 
     return null
     // (

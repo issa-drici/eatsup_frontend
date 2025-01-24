@@ -158,6 +158,7 @@ const Menu = () => {
                                     categoryData={categoryData}
                                     activeLanguage={activeLanguage}
                                     sectionRef={sectionRefs.current[index]}
+                                    restaurantId={restaurantId}
                                 />
                             ))}
                         </div>

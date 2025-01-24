@@ -101,10 +101,6 @@ const MenuUpdate = () => {
                             href: '/admin/dashboard',
                         },
                         {
-                            title: 'Restaurant',
-                            href: `/admin/restaurant/${restaurantId}`,
-                        },
-                        {
                             title: 'Menu',
                             href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },

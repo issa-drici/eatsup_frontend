@@ -15,7 +15,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import MenuItem from '@/components/MenuItem'
 
 const Categories = () => {
-    const { menuId } = useParams()
+    const { restaurantId, menuId } = useParams()
     const queryClient = useQueryClient()
 
     const {
@@ -51,11 +51,11 @@ const Categories = () => {
                         },
                         {
                             title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },
                         {
                             title: 'Articles',
-                            href: `/admin/menu/${menuId}/items`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/items`,
                         },
                     ]}
                 />
@@ -113,12 +113,13 @@ const Categories = () => {
                                         category={category}
                                         itemsLength={items.length}
                                         menuId={menuId}
+                                        restaurantId={restaurantId}
                                         handleCallbackSuccess={handleCallbackSuccess}
                                     />
                                 ))}
 
                                 <Link
-                                    href={`/admin/category/${category.id}/item/create`}
+                                    href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/item/create`}
                                     className="w-full"
                                     asChild>
                                     <div className="h-fit border border-dashed bg-slate-50 hover:bg-slate-100 border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer w-full">

@@ -13,7 +13,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { FileUploadInput } from '@/components/FileUploadInput'
 
 const ItemCreate = () => {
-    const { categoryId } = useParams()
+    const { restaurantId, menuId, categoryId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
@@ -102,15 +102,15 @@ const ItemCreate = () => {
                         },
                         {
                             title: 'Catégorie',
-                            href: `/admin/category/${categoryId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
                         },
                         {
                             title: 'Items',
-                            href: `/admin/category/${categoryId}/items`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/items`,
                         },
                         {
                             title: 'Créer',
-                            href: `/admin/category/${categoryId}/item/create`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/item/create`,
                         },
                     ]}
                 />

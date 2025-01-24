@@ -13,7 +13,7 @@ import MenuCategory from '@/components/MenuCategory'
 import { useQueryClient } from '@tanstack/react-query'
 
 const Categories = () => {
-    const { menuId } = useParams()
+    const { restaurantId, menuId } = useParams()
     const queryClient = useQueryClient()
 
     const {
@@ -37,15 +37,15 @@ const Categories = () => {
                         },
                         {
                             title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },
                         {
                             title: 'Catégories',
-                            href: `/admin/menu/${menuId}/categories`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/categories`,
                         },
                     ]}
                 />
-                <Link href={`/admin/menu/${menuId}/category/create`}>
+                <Link href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/create`}>
                     <Button>
                         <Plus /> Nouveau
                     </Button>
@@ -82,6 +82,7 @@ const Categories = () => {
                             key={category.id}
                             category={category}
                             menuId={menuId}
+                            restaurantId={restaurantId}
                             categoriesLength={menuCategories.length}
                             handleCallbackSuccess={handleCallbackSuccess}
                         />

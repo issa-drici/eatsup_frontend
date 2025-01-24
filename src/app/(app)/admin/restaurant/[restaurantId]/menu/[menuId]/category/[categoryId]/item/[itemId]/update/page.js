@@ -15,7 +15,7 @@ import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { FileUploadInput } from '@/components/FileUploadInput'
 
 const ItemUpdate = () => {
-    const { categoryId, itemId } = useParams()
+    const { restaurantId, menuId, categoryId, itemId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
@@ -137,15 +137,15 @@ const ItemUpdate = () => {
                         },
                         {
                             title: 'Catégorie',
-                            href: `/admin/category/${categoryId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
                         },
                         {
                             title: 'Items',
-                            href: `/admin/category/${categoryId}/items`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/items`,
                         },
                         {
                             title: 'Modifier',
-                            href: `/admin/category/${categoryId}/item/${itemId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/item/${itemId}`,
                         },
                     ]}
                 />

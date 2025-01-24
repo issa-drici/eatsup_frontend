@@ -31,7 +31,7 @@ import { useUpdateMenuCategoryMoveDown } from '@/services/menu-category/useUpdat
 import { ArrowUp } from 'lucide-react'
 import { ArrowDown } from 'lucide-react'
 
-const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLength }) => {
+const MenuCategory = ({ category, menuId, restaurantId, handleCallbackSuccess, categoriesLength }) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
     const { mutate: deleteMenuCategory } = useDeleteMenuCategoryById({
@@ -70,7 +70,7 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLengt
             <CardButton
                 title={category.name?.fr}
                 subtitle={category.description?.fr}
-                url={`/admin/menu/${menuId}/category/${category.id}`}
+                url={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}`}
                 widthFull
             />
 
@@ -88,7 +88,7 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLengt
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                 <Link
-                        href={`/admin/menu/${menuId}/category/${category.id}/update`}
+                        href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/update`}
                         asChild>
                         <DropdownMenuItem>
                             Modifier
@@ -140,7 +140,7 @@ const MenuCategory = ({ category, menuId, handleCallbackSuccess, categoriesLengt
                         {category.items_count > 0 ? (
                             <AlertDialogAction>
                             <Link
-                                href={`/admin/menu/${menuId}/category/${category.id}`}
+                                href={`/admin/restaurant/${category?.restaurant_id}/menu/${menuId}/category/${category.id}`}
                                 asChild>
                                     Aller vers la catégorie
                             </Link>

@@ -25,7 +25,7 @@ import { useAuth } from '@/hooks/auth'
 
 const Menu = () => {
     const { user } = useAuth({ middleware: 'auth' })
-    const { menuId } = useParams()
+    const { restaurantId, menuId } = useParams()
     const [isOpenTooltipCopy, setIsOpenTooltipCopy] = useState(false)
 
     const {
@@ -57,7 +57,7 @@ const Menu = () => {
                         },
                         {
                             title: 'Menu',
-                            href: `/admin/menu/${menuId}`,
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
                         },
                     ]}
                 />
@@ -98,7 +98,7 @@ const Menu = () => {
                 <CardButton
                     title="Catégories"
                     subtitle="Gérer les catégories du menu"
-                    url={`/admin/menu/${menuId}/categories`}
+                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/categories`}
                     icon={
                         <TableProperties size={16} className="text-slate-900" />
                     }
@@ -106,7 +106,7 @@ const Menu = () => {
                 <CardButton
                     title="Articles"
                     subtitle="Gérer les articles du menu"
-                    url={`/admin/menu/${menuId}/items`}
+                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/items`}
                     icon={<CookingPot size={16} className="text-slate-900" />}
                 />
                 <CardButton
@@ -117,6 +117,7 @@ const Menu = () => {
                 />
                 <div className="flex gap-4">
                     <div className="w-full">
+                        {console.log(menu)}
                         <TooltipProvider>
                             <Tooltip open={isOpenTooltipCopy}>
                                 <TooltipTrigger asChild>

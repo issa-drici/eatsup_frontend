@@ -20,7 +20,7 @@ import {
 } from '@/shadcn-components/ui/accordion'
 
 const WebsiteUpdate = () => {
-    const { restaurantId } = useParams()
+    const { restaurantId, websiteId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
     const [formData, setFormData] = useState({
@@ -159,11 +159,11 @@ const WebsiteUpdate = () => {
                         },
                         {
                             title: 'Site web',
-                            href: `/admin/restaurant/${restaurantId}/website`,
+                            href: `/admin/restaurant/${restaurantId}/website/${websiteId}`,
                         },
                         {
                             title: 'Modifier',
-                            href: `/admin/restaurant/${restaurantId}/website/update`,
+                            href: `/admin/restaurant/${restaurantId}/website/${websiteId}/update`,
                         },
                     ]}
                 />

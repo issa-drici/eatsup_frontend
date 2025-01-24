@@ -137,7 +137,7 @@ const RestaurantUpdate = () => {
                         },
                         {
                             title: 'Restaurant',
-                            href: `/admin/restaurant/${restaurantId}`,
+                            // href: `/admin/restaurant/${restaurantId}`,
                         },
                         {
                             title: 'Modifier',

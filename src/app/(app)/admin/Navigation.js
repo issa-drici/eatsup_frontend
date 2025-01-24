@@ -37,7 +37,7 @@ const Navigation = ({ user }) => {
                             </NavLink>
                             <NavLink
                                 href='/admin/menus'
-                                active={usePathname().includes('/admin/menu/')}>
+                                active={usePathname().includes('/menu/')}>
                                 Menu
                             </NavLink>
                             <NavLink
@@ -147,7 +147,7 @@ const Navigation = ({ user }) => {
                     </ResponsiveNavLink>
                     <ResponsiveNavLink
                         href='/admin/menus'
-                        active={usePathname().includes('/admin/menu/')}
+                        active={usePathname().includes('/menu/')}
                         onClick={() => setOpen(false)}>
                         Menu
                     </ResponsiveNavLink>

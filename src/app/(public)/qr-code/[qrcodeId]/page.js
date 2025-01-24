@@ -165,6 +165,7 @@ const Menu = () => {
                                     categoryData={categoryData}
                                     activeLanguage={activeLanguage}
                                     sectionRef={sectionRefs.current[index]}
+                                    restaurantId={qrcode?.restaurant_id}
                                 />
                             ))}
                         </div>

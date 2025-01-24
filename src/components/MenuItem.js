@@ -19,7 +19,7 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "@/shadcn-components/ui/alert-dialog"
+} from '@/shadcn-components/ui/alert-dialog'
 import { EllipsisVertical, Pen, Trash, ArrowUp, ArrowDown } from 'lucide-react'
 import CardButton from './CardButton'
 import Link from 'next/link'
@@ -28,13 +28,19 @@ import { useDeleteMenuItemById } from '@/services/menu-item/useDeleteMenuItemByI
 import { useUpdateMenuItemMoveUp } from '@/services/menu-item/useUpdateMenuItemMoveUp'
 import { useUpdateMenuItemMoveDown } from '@/services/menu-item/useUpdateMenuItemMoveDown'
 
-const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }) => {
+const MenuItem = ({
+    item,
+    category,
+    menuId,
+    restaurantId,
+    handleCallbackSuccess,
+    itemsLength,
+}) => {
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
     const { mutate: deleteMenuItem } = useDeleteMenuItemById({
         handleCallbackSuccess,
     })
-
 
     const { mutate: moveUpMenuItem } = useUpdateMenuItemMoveUp({
         handleCallbackSuccess,
@@ -69,7 +75,7 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
                 title={item.name.fr}
                 subtitle={item.description.fr}
                 rightLabel={`${item.price}€`}
-                url={`/admin/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
+                url={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
                 widthFull
             />
 
@@ -87,7 +93,7 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <Link
-                        href={`/admin/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
+                        href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
                         asChild>
                         <DropdownMenuItem>
                             Modifier
@@ -103,13 +109,17 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleMoveUpClick} disabled={item.sort_order === 1}>
+                    <DropdownMenuItem
+                        onClick={handleMoveUpClick}
+                        disabled={item.sort_order === 1}>
                         Monter
                         <DropdownMenuShortcut>
                             <ArrowUp width={12} />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleMoveDownClick} disabled={item.sort_order === itemsLength}>
+                    <DropdownMenuItem
+                        onClick={handleMoveDownClick}
+                        disabled={item.sort_order === itemsLength}>
                         Descendre
                         <DropdownMenuShortcut>
                             <ArrowDown width={12} />
@@ -118,17 +128,22 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+            <AlertDialog
+                open={isDeleteDialogOpen}
+                onOpenChange={setIsDeleteDialogOpen}>
                 <AlertDialogContent className="max-w-xs rounded-lg md:max-w-md">
                     <AlertDialogHeader>
                         <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Cette action supprimera définitivement l'article "{item.name.fr}" de votre menu.
+                            Cette action supprimera définitivement l'article "
+                            {item.name.fr}" de votre menu.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleConfirmDelete} className="bg-red-500 hover:bg-red-600">
+                        <AlertDialogAction
+                            onClick={handleConfirmDelete}
+                            className="bg-red-500 hover:bg-red-600">
                             Supprimer
                         </AlertDialogAction>
                     </AlertDialogFooter>
@@ -138,4 +153,4 @@ const MenuItem = ({ item, category, menuId, handleCallbackSuccess, itemsLength }
     )
 }
 
-export default MenuItem 
+export default MenuItem
