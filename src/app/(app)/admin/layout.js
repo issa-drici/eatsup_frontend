@@ -4,9 +4,23 @@ import { useAuth } from '@/hooks/auth'
 import Navigation from '@/app/(app)/admin/Navigation'
 import Loading from '@/app/(app)/admin/Loading'
 import { Toaster } from '@/shadcn-components/ui/toaster'
+import { redirect } from 'next/navigation'
 
 const AppLayout = ({ children }) => {
-    const { user } = useAuth({ middleware: 'auth' })
+    const { user, isLoading } = useAuth({ middleware: 'auth' })
+
+    if (
+        !isLoading &&
+        !user?.restaurant?.address &&
+        !user?.restaurant?.postal_code &&
+        !user?.restaurant?.city
+    ) {
+        redirect('/register/address')
+    }
+
+    if (!isLoading && !user?.restaurant?.type_slug) {
+        redirect('/register/type')
+    }
 
     if (!user) {
         return <Loading />

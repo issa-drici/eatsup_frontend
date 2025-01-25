@@ -117,7 +117,6 @@ const Menu = () => {
                 />
                 <div className="flex gap-4">
                     <div className="w-full">
-                        {console.log(menu)}
                         <TooltipProvider>
                             <Tooltip open={isOpenTooltipCopy}>
                                 <TooltipTrigger asChild>

@@ -89,6 +89,8 @@ const AddressPage = () => {
         }))
     }
 
+    const isFormValid = formData.address && formData.city && formData.postal_code
+
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -134,7 +136,7 @@ const AddressPage = () => {
             </div>
 
             <div className="flex justify-end">
-                <Button type="submit">
+                <Button type="submit" disabled={!isFormValid}>
                     Continuer
                 </Button>
             </div>

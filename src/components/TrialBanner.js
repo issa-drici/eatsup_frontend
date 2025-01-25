@@ -8,17 +8,20 @@ export const TrialBanner = () => {
     if (!isTrialing) return null
 
     return (
-        <div className="bg-violet-600 text-white p-3 rounded-lg mt-4">
-            <div className="flex justify-between items-center gap-4">
+        <div className="bg-violet-600 text-white p-3 rounded-lg mt-4 relative">
+            <div className="flex flex-col gap-2 sm:flex-row justify-between sm:items-center sm:gap-4">
                 <div className="flex items-center gap-3">
                     <div>
                         <div className="flex items-center gap-2">
-                            <p className="font-medium">Période d'essai en cours</p>
-                            <span className="bg-violet-200 text-violet-900 text-xs font-medium px-2 py-0.5 rounded-full">
+                            <p className="font-medium hidden sm:block">Période d'essai en cours</p>
+                            <span className="absolute bottom-3 right-3 sm:static bg-violet-200 text-violet-900 text-xs font-medium px-2 py-0.5 rounded-full">
                                 {trialDaysLeft}j restants
                             </span>
                         </div>
-                        <p className="text-sm text-violet-200">
+                        <p className="sm:hidden text-sm font-bold sm:text-violet-200">
+                            🎁 Recevez une affiche QR code offerte !
+                        </p>
+                        <p className="hidden sm:block text-sm sm:text-violet-200">
                             🎁 Souscrivez maintenant et recevez une affiche QR code offerte !
                         </p>
                     </div>

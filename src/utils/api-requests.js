@@ -10,6 +10,15 @@ export async function getMenusByRestaurantId(restaurantId) {
     return response.data
 }
 
+/**
+ * Récupère le premier menu d'un restaurant
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function getFirstMenuByRestaurantId(restaurantId) {
+    const response = await axios.get(`/api/public/restaurant/${restaurantId}/menu/first`)
+    return response.data
+}
+
 // ====== MENU CATEGORY ENDPOINTS ======
 /**
  * Récupère le nombre de catégories d'un menu

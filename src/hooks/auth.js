@@ -1,11 +1,12 @@
 import useSWR from 'swr'
 import axios from '@/lib/axios'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
     const params = useParams()
+    const [isLoading, setIsLoading] = useState(true)
 
     const {
         data: user,
@@ -14,10 +15,13 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     } = useSWR('/api/user', () =>
         axios
             .get('/api/user')
-            .then(res => res.data)
+            .then(res => {
+                setIsLoading(false)
+                return res.data
+            })
             .catch(error => {
+                setIsLoading(false)
                 if (error.response.status !== 409) throw error
-
                 router.push('/verify-email')
             }),
     )
@@ -138,5 +142,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         resetPassword,
         resendEmailVerification,
         logout,
+        isLoading,
     }
 }

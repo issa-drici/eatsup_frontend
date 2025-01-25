@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useFindWebsiteBySlugPublic } from '@/services/website/useFindWebsiteBySlugPublic'
 import { useEffect } from 'react'
 import { useCreateWebsiteSession } from '@/services/website-session/useCreateWebsiteSession'
-import { useFindAllMenusByRestaurantId } from '@/services/menu/useFindAllMenusByRestaurantId'
+import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
 
 const PublicWebsite = () => {
     const { type: typeSlug, ville: citySlug, name: nameSlug } = useParams()
@@ -18,10 +18,10 @@ const PublicWebsite = () => {
     )
 
     const {
-        data: menus,
-        isLoading: isLoadingMenus,
-        isFetching: isFetchingMenus,
-    } = useFindAllMenusByRestaurantId(website?.restaurant_id)
+        data: menu,
+        isLoading: isLoadingMenu,
+        isFetching: isFetchingMenu,
+    } = useFindFirstMenuByRestaurantId(website?.restaurant_id)
 
     const renderOpeningHours = () => {
         if (!website?.opening_hours) return null
@@ -139,7 +139,7 @@ const PublicWebsite = () => {
                 <Image
                     src={
                         website.presentation_image?.url ||
-                        '/images/default-restaurant.jpg'
+                        '/images/restaurant.jpg'
                     }
                     alt="Présentation"
                     fill
@@ -160,11 +160,11 @@ const PublicWebsite = () => {
                                 </span>
                             ))}
                     </p>
-                    {isLoadingMenus || isFetchingMenus ? (
+                    {isLoadingMenu || isFetchingMenu ? (
                         <Skeleton className="h-20 w-full" />
                     ) : (
                         <Link
-                            href={`/restaurant/${website.restaurant_id}/menu/${menus[0]?.id}`}
+                            href={`/restaurant/${website.restaurant_id}/menu/${menu?.id}`}
                             className="w-full max-w-md bg-white text-black py-3 px-4 rounded-lg text-center font-medium">
                             Consulter notre menu
                         </Link>
@@ -175,11 +175,11 @@ const PublicWebsite = () => {
             <div className="p-6 space-y-8">
                 <section>
                     <h2 className="text-xl font-bold mb-4">Nous contacter</h2>
-                    {website.phone && (
+                    {website.restaurant?.phone && (
                         <a
-                            href={`tel:${website.phone}`}
-                            className="text-lg hover:underline">
-                            {website.phone}
+                            href={`tel:${website.restaurant?.phone}`}
+                            className="text-lg text-blue-600 underline">
+                            {website.restaurant?.phone}
                         </a>
                     )}
                 </section>
