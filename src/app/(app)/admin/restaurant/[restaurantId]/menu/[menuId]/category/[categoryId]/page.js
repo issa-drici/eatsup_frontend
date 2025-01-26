@@ -61,7 +61,6 @@ const Category = () => {
                     </Button>
                 </Link>
             </div>
-
             <div className="flex flex-col flex-wrap gap-4">
                 {isLoadingMenuItems || isFetchingMenuItems ? (
                     <>
@@ -74,7 +73,7 @@ const Category = () => {
                         <MenuItem
                             key={item.id}
                             item={item}
-                            category={item.category_id}
+                            categoryId={item.category_id}
                             menuId={menuId}
                             restaurantId={restaurantId}
                             handleCallbackSuccess={handleCallbackSuccess}

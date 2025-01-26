@@ -263,7 +263,7 @@ const ItemUpdate = () => {
                         )}
                     </div>
 
-                    <div>
+                    <div className='hidden'>
                         <Label htmlFor="is_active">Actif</Label>
                         <Input
                             id="is_active"

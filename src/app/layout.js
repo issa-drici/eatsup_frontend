@@ -1,7 +1,7 @@
 import { Nunito } from 'next/font/google'
 import '@/app/global.css'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
-import Script from 'next/script'
+// import Script from 'next/script'
 
 const nunitoFont = Nunito({
     subsets: ['latin'],
@@ -11,13 +11,13 @@ const nunitoFont = Nunito({
 const RootLayout = ({ children }) => {
     return (
         <html lang="fr" className={nunitoFont.className}>
-            <head>
-                <Script
+            {/*<head>
+               <Script
                     defer
                     data-domain="eatsup.fr"
                     src="https://analytics.eatsup.fr/js/script.hash.outbound-links.pageview-props.tagged-events.js"
-                />
-            </head>
+                /> 
+            </head> */}
             <body className="antialiased">
                 <ReactQueryProvider>{children}</ReactQueryProvider>
             </body>

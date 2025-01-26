@@ -30,7 +30,7 @@ import { useUpdateMenuItemMoveDown } from '@/services/menu-item/useUpdateMenuIte
 
 const MenuItem = ({
     item,
-    category,
+    categoryId,
     menuId,
     restaurantId,
     handleCallbackSuccess,
@@ -75,7 +75,7 @@ const MenuItem = ({
                 title={item.name.fr}
                 subtitle={item.description.fr}
                 rightLabel={`${item.price}€`}
-                url={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
+                url={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/item/${item.id}/update`}
                 widthFull
             />
 
@@ -93,7 +93,7 @@ const MenuItem = ({
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <Link
-                        href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/item/${item.id}/update`}
+                        href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/item/${item.id}/update`}
                         asChild>
                         <DropdownMenuItem>
                             Modifier

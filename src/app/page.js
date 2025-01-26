@@ -207,16 +207,21 @@ const Home = () => {
                         </div>
                     </div>
                     {[
-                        'Menu accessible 24h/24',
                         'Menu facile à lire',
-                        'Menu propre et hygiénique',
-                        'Photos des plats',
-                        'Traduction en plusieurs langues',
-                        'Modification instantanée',
-                        'Statistiques de consultation',
                         'Composition et allergènes',
+                        'Photos des plats',
+                        'Contact avec le client',
+                        'Disponible partout',
+                        'Disponible 24h/24',
+                        'Traduction en pusieurs langues',
+                        'Affiche des offres temporaires',
+                        'Partage en 3 clics',
+                        'Récolte d\'avis Google',
+                        'Modification gratuite et instantanée',
+                        'Menu propre et hygiénique',
+                        'Statistiques de consultation',
                         'Partage sur les réseaux sociaux',
-                        'Site web offert',
+                        'Site Web offert',
                     ].map((avantage, index) => (
                         <div
                             key={index}
@@ -225,10 +230,11 @@ const Home = () => {
                                 {avantage}
                             </p>
                             <div
-                                className={`flex justify-center items-center p-2 ${index % 2 === 0 ? 'bg-violet-800' : 'bg-violet-600'} ${index === 9 ? 'rounded-b-xl' : ''}`}>
+                                className={`flex justify-center items-center p-2 ${index % 2 === 0 ? 'bg-violet-800' : 'bg-violet-600'} ${index === 17 ? 'rounded-b-xl' : ''}`}>
                                 <Check className="w-6 h-6 text-white" />
                             </div>
-                            <div className={`flex justify-center items-center p-2`}>
+                            <div
+                                className={`flex justify-center items-center p-2`}>
                                 {index < 3 ? (
                                     <Check className="w-6 h-6 text-slate-900" />
                                 ) : (
