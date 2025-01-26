@@ -1,6 +1,7 @@
 import { Nunito } from 'next/font/google'
 import '@/app/global.css'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
+import CookieConsent from '@/components/CookieConsent'
 // import Script from 'next/script'
 
 const nunitoFont = Nunito({
@@ -19,7 +20,10 @@ const RootLayout = ({ children }) => {
                 /> 
             </head> */}
             <body className="antialiased">
-                <ReactQueryProvider>{children}</ReactQueryProvider>
+                <ReactQueryProvider>
+                    {children}
+                    <CookieConsent />
+                </ReactQueryProvider>
             </body>
         </html>
     )

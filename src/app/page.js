@@ -4,6 +4,13 @@ import { Check, X } from 'lucide-react'
 import { Outfit } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
+import Footer from '@/components/Footer'
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from '@/shadcn-components/ui/accordion'
 
 export const metadata = {
     title: 'Eatsup - votre menu qui propulse vos ventes',
@@ -185,7 +192,7 @@ const Home = () => {
                 <div className="flex flex-col items-center w-full">
                     <h2
                         className={`${outfitFont.className} text-white text-3xl font-extrabold text-center md:text-7xl md:tracking-tight md:max-w-4xl`}>
-                        “Le menu papier me suffit”
+                        "Le menu papier me suffit"
                     </h2>
                     <p className="text-white text-center font-medium mt-5 md:text-left md:text-xl">
                         Vous et vos clients sont déjà habitués à votre menu
@@ -214,9 +221,9 @@ const Home = () => {
                         'Disponible partout',
                         'Disponible 24h/24',
                         'Traduction en pusieurs langues',
-                        'Affiche des offres temporaires',
+                        // 'Affiche des offres temporaires',
                         'Partage en 3 clics',
-                        'Récolte d\'avis Google',
+                        "Récolte d'avis Google",
                         'Modification gratuite et instantanée',
                         'Menu propre et hygiénique',
                         'Statistiques de consultation',
@@ -230,12 +237,12 @@ const Home = () => {
                                 {avantage}
                             </p>
                             <div
-                                className={`flex justify-center items-center p-2 ${index % 2 === 0 ? 'bg-violet-800' : 'bg-violet-600'} ${index === 17 ? 'rounded-b-xl' : ''}`}>
+                                className={`flex justify-center items-center p-2 ${index % 2 === 0 ? 'bg-violet-800' : 'bg-violet-600'} ${index === 13 ? 'rounded-b-xl' : ''}`}>
                                 <Check className="w-6 h-6 text-white" />
                             </div>
                             <div
                                 className={`flex justify-center items-center p-2`}>
-                                {index < 3 ? (
+                                {index < 4 ? (
                                     <Check className="w-6 h-6 text-slate-900" />
                                 ) : (
                                     <X className="w-6 h-6 text-slate-900" />
@@ -413,7 +420,7 @@ const Home = () => {
                                     Premium
                                 </p>
                                 <p className="text-white">
-                                    en moyenne le prix d'un menu + dessert
+                                    en moyenne le prix d'un menu
                                 </p>
                                 <p
                                     className={`${outfitFont.className} text-white font-bold text-center text-2xl md:text-3xl md:tracking-tight`}>
@@ -557,126 +564,123 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <div className="relative flex flex-col items-center w-full p-4 py-16 gap-16 bg-slate-100 md:p-20 md:gap-20">
+                <div className="flex flex-col items-center w-full gap-10 md:gap-56 md:max-w-screen-xl md:mx-auto md:flex-row">
+                    <div className="flex flex-col items-center gap-8 md:items-start md:gap-16">
+                        <h2
+                            className={`${outfitFont.className} text-slate-900 text-3xl font-bold text-center md:text-7xl md:text-left`}>
+                            Foire aux questions
+                        </h2>
+                        <Image
+                            src="/images/eatsy/asking.png"
+                            alt="faq"
+                            className="w-28 h-auto md:w-36"
+                            width={313}
+                            height={373}
+                        />
+                    </div>
+                    <Accordion
+                        type="single"
+                        collapsible
+                        className="w-full max-w-screen-md">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger>
+                                Comment fonctionne le menu digital ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Les clients scannent le QR code sur leur table
+                                avec leur smartphone. Le menu s'affiche
+                                instantanément, sans téléchargement
+                                d'application nécessaire.
+                            </AccordionContent>
+                        </AccordionItem>
 
-            <div className="flex flex-col w-full p-4 pt-20 gap-16 bg-slate-100 md:p-20 md:gap-36">
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>
+                                Puis-je modifier mon menu facilement ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Oui, vous pouvez modifier votre menu à tout
+                                moment depuis votre espace personnel. Les
+                                modifications sont instantanées et illimitées.
+                            </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger>
+                                Que se passe-t-il si un client n'a pas de
+                                smartphone ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Nous vous recommandons de garder quelques menus
+                                papier en réserve pour ces situations
+                                exceptionnelles.
+                            </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="item-4">
+                            <AccordionTrigger>
+                                Le menu fonctionne-t-il sans connexion internet
+                                ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Une connexion internet est nécessaire pour le
+                                premier chargement. Ensuite, le menu reste
+                                accessible même sans connexion.
+                            </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="item-5">
+                            <AccordionTrigger>
+                                Comment sont gérées les traductions ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Le menu est automatiquement traduit dans
+                                plusieurs langues grâce à notre système de
+                                traduction intégré.
+                            </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="item-6">
+                            <AccordionTrigger>
+                                Combien de temps pour mettre en place le menu ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                La mise en place prend environ 30 minutes. Vous
+                                recevrez vos QR codes par email sous 24h.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
                 <div className="w-full flex flex-col items-center bg-violet-500 p-8 rounded-[28px] md:gap-10 md:px-28 md:py-16 md:max-w-screen-xl md:mx-auto">
                     <div className="flex flex-col items-center w-full">
                         <h1
                             className={`${outfitFont.className} text-white text-3xl font-extrabold text-center md:text-7xl md:tracking-tight md:max-w-4xl`}>
-                            Augmentez vos revenus avec un menu digital
+                            La dernière étape pour faire exploser votre CA
                         </h1>
                         <p className="text-white text-center font-medium mt-5 md:text-left md:text-xl">
-                            Attirez plus de clients, simplifiez les commandes et
-                            maximisez vos bénéfices
+                            Configurez dès maintenant votre menu digital ainsi
+                            que votre site internet OFFERT pour doubler votre visibilité ✨
+                        </p>
+                        <Link
+                            href="#pricing"
+                            className="hover:scale-95 transition-all bg-white px-4 py-2 rounded-[6px] w-full text-center font-medium mt-6 mb-2 md:w-fit md:min-w-72">
+                            Essayer Gratuitement
+                        </Link>
+                        <p className="text-white text-xs sm:text-sm">
+                            Sans engagement, sans carte bancaire
                         </p>
                     </div>
                 </div>
+                <Image
+                    src="/images/eatsy/come-here.png"
+                    alt="menu-digital"
+                    className="absolute bottom-0 right-2 w-24 h-auto md:w-48 md:h-auto md:right-24"
+                    width={969}
+                    height={853}
+                />
             </div>
-            <div className="flex flex-col w-full items-center p-4 py-10 bg-slate-900 gap-5 md:p-20">
-                <div className="flex flex-col w-full items-center gap-5 md:flex-row md:justify-between">
-                    <Image
-                        src="/images/logo-white.png"
-                        alt="Logo Eatsup"
-                        className="w-36 h-auto"
-                        width={593}
-                        height={85}
-                    />
-                    <div className="flex flex-col w-full items-center gap-3 md:flex-row md:w-fit md:gap-10">
-                        <Link
-                            href="#pricing"
-                            className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
-                            Menu démo
-                        </Link>
-                        <Link
-                            href="#pricing"
-                            className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
-                            Tarifs
-                        </Link>
-                        <Link
-                            href="#pricing"
-                            className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
-                            FAQ
-                        </Link>
-                        <Link
-                            href="#pricing"
-                            className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
-                            Politique de confidentialité
-                        </Link>
-                        <Link
-                            href="#pricing"
-                            className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
-                            Conditions d'utilisation
-                        </Link>
-                    </div>
-                </div>
-
-                <div className="w-full h-px bg-slate-700 my-5" />
-                <div className="flex items-center gap-4 md:ml-auto">
-                    <Link
-                        href="#pricing"
-                        className="hover:scale-90 transition-all duration-150"
-                        asChild>
-                        <Image
-                            src="/icons/tiktok.png"
-                            alt="Logo Eatsup"
-                            className="w-6 h-auto"
-                            width={73}
-                            height={73}
-                        />
-                    </Link>
-                    <Link
-                        href="#pricing"
-                        className="hover:scale-90 transition-all duration-150"
-                        asChild>
-                        <Image
-                            src="/icons/facebook.png"
-                            alt="Logo Eatsup"
-                            className="w-6 h-auto"
-                            width={74}
-                            height={73}
-                        />
-                    </Link>
-                    <Link
-                        href="#pricing"
-                        className="hover:scale-90 transition-all duration-150"
-                        asChild>
-                        <Image
-                            src="/icons/x.png"
-                            alt="Logo Eatsup"
-                            className="w-6 h-auto"
-                            width={74}
-                            height={73}
-                        />
-                    </Link>
-                    <Link
-                        href="#pricing"
-                        className="hover:scale-90 transition-all duration-150"
-                        asChild>
-                        <Image
-                            src="/icons/linkedin.png"
-                            alt="Logo Eatsup"
-                            className="w-6 h-auto"
-                            width={73}
-                            height={73}
-                        />
-                    </Link>
-                    <Link
-                        href="#pricing"
-                        className="hover:scale-90 transition-all duration-150"
-                        asChild>
-                        <Image
-                            src="/icons/instagram.png"
-                            alt="Logo Eatsup"
-                            className="w-6 h-auto"
-                            width={73}
-                            height={73}
-                        />
-                    </Link>
-                </div>
-                <p className="text-slate-300 text-xs mt-3 md:mr-auto">
-                    © Eatsup - 2025 | Made with ❤️ in 🇫🇷
-                </p>
-            </div>
+            <Footer />
         </div>
     )
 }

@@ -5,30 +5,38 @@
 
 import { Html5QrcodeScanner } from 'html5-qrcode'
 import { useEffect, useState } from 'react'
+import { useCookieConsent } from '@/hooks/useCookieConsent'
 
 export default function QRCodeScanner({ onScanSuccess }) {
+    const { canUseStorage } = useCookieConsent()
+    
     const [cameraAllowed, setCameraAllowed] = useState(() => {
-        return JSON.parse(localStorage.getItem('cameraPermission')) || null
+        if (canUseStorage()) {
+            return JSON.parse(localStorage.getItem('cameraPermission')) || null
+        }
+        return null
     })
 
     useEffect(() => {
         const initializeScanner = async () => {
             try {
-                // Vérifie directement l'accès à la caméra
                 await navigator.mediaDevices.getUserMedia({ video: true })
                 setCameraAllowed(true)
-                localStorage.setItem('cameraPermission', 'true')
+                if (canUseStorage()) {
+                    localStorage.setItem('cameraPermission', 'true')
+                }
             } catch (error) {
                 setCameraAllowed(false)
-                localStorage.setItem('cameraPermission', 'false')
+                if (canUseStorage()) {
+                    localStorage.setItem('cameraPermission', 'false')
+                }
             }
         }
 
-        // Si on n'a pas encore de permission, on l'initialise
         if (cameraAllowed === null) {
             initializeScanner()
         }
-    }, [])
+    }, [canUseStorage])
 
     useEffect(() => {
         if (!cameraAllowed) return
