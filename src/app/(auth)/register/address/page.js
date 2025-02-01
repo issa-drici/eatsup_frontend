@@ -112,10 +112,16 @@ const AddressPage = () => {
                     <Label htmlFor="postal_code">Code postal*</Label>
                     <Input
                         id="postal_code"
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        maxLength={7}
                         value={formData.postal_code}
                         className="block mt-1 w-full"
-                        onChange={e => handleChange('postal_code', e.target.value)}
+                        onChange={e => {
+                            const value = e.target.value.replace(/[^0-9]/g, '')
+                            handleChange('postal_code', value)
+                        }}
                         required
                     />
                     <InputError messages={errors.postal_code} className="mt-2" />
