@@ -8,6 +8,8 @@ import { useFindWebsiteBySlugPublic } from '@/services/website/useFindWebsiteByS
 import { useEffect } from 'react'
 import { useCreateWebsiteSession } from '@/services/website-session/useCreateWebsiteSession'
 import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
+import { Button } from '@/shadcn-components/ui/button'
+import { Share } from 'lucide-react'
 
 const PublicWebsite = () => {
     const { type: typeSlug, ville: citySlug, name: nameSlug } = useParams()
@@ -134,6 +136,16 @@ const PublicWebsite = () => {
 
     return (
         <div className="min-h-screen bg-white text-slate-900">
+            <div className="flex justify-end p-1">
+                <Link
+                    href={`sms:&body=J'ai trop aimé le restaurant ${website.title?.fr}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
+                    asChild>
+                    <Button variant="ghost">
+                        Partager
+                        <Share className="w-4 h-4" />
+                    </Button>
+                </Link>
+            </div>
             <div className="relative h-72">
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 <Image

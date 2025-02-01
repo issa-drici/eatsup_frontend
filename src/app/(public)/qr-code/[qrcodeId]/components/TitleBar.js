@@ -1,4 +1,7 @@
+import { Button } from '@/shadcn-components/ui/button'
+import { Share } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect } from 'react'
 
 const TitleBar = ({ restaurant }) => {
@@ -29,6 +32,14 @@ const TitleBar = ({ restaurant }) => {
                     {restaurant?.name || 'Mon restaurant'}
                 </p>
             </div>
+                <Link
+                    href={`sms:&body=J'ai trop aimé le restaurant ${restaurant.name}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
+                    asChild>
+                    <Button variant="ghost">
+                        Partager
+                        <Share className="w-4 h-4" />
+                    </Button>
+                </Link>
         </div>
     )
 }
