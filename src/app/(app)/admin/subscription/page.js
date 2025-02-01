@@ -38,7 +38,7 @@ const SubscriptionPage = () => {
 
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 max-w-3xl mx-auto mb-6">
                     <h3 className="font-semibold text-red-800 mb-2 text-sm">
-                        Vous perdrez ceci avec le forfait Basic gratuit :
+                        Le forfait Basic (gratuit) est limité à :
                     </h3>
                     <div className="grid grid-cols-2 gap-2 text-sm text-red-700">
                         <div className="flex items-center">
