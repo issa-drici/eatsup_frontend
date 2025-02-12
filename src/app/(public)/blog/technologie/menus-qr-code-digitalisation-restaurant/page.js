@@ -1,16 +1,10 @@
-import BlogCard from '@/components/BlogCard'
 import { Badge } from '@/shadcn-components/ui/badge'
 
-import { Outfit } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import TableOfContents from './components/TableOfContents'
 
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
-
-export default function Blog() {
+export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
     return (
         <div className="w-full">
             {/* Bannière hero */}
