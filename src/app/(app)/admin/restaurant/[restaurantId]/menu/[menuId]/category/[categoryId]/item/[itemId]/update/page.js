@@ -45,12 +45,8 @@ const ItemUpdate = () => {
     useEffect(() => {
         if (menuItem) {
             setFormData({
-                name: {
-                    fr: menuItem.name?.fr || '',
-                },
-                description: {
-                    fr: menuItem.description?.fr || '',
-                },
+                name: menuItem.name,
+                description: menuItem.description,
                 price: menuItem.price || '',
                 allergens: menuItem.allergens || '',
                 is_active: menuItem.is_active ?? true,

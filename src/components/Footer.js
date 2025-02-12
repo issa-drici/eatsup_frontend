@@ -14,6 +14,11 @@ const Footer = () => {
                 />
                 <div className="flex flex-col w-full items-center gap-3 md:flex-row md:w-fit md:gap-10">
                     <Link
+                        href="/blog"
+                        className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
+                        Blog
+                    </Link>
+                    <Link
                         href="#pricing"
                         className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
                         Menu démo
@@ -111,4 +116,4 @@ const Footer = () => {
     )
 }
 
-export default Footer 
+export default Footer
