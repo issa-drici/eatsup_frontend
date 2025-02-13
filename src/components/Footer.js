@@ -5,13 +5,15 @@ const Footer = () => {
     return (
         <div className="flex flex-col w-full items-center p-4 py-10 bg-slate-900 gap-5 md:p-20">
             <div className="flex flex-col w-full items-center gap-5 md:flex-row md:justify-between">
-                <Image
-                    src="/images/logo-white.png"
-                    alt="Logo Eatsup"
-                    className="w-36 h-auto"
-                    width={593}
-                    height={85}
-                />
+                <Link href="/">
+                    <Image
+                        src="/images/logo-white.png"
+                        alt="Logo Eatsup"
+                        className="w-36 h-auto"
+                        width={593}
+                        height={85}
+                    />
+                </Link>
                 <div className="flex flex-col w-full items-center gap-3 md:flex-row md:w-fit md:gap-10">
                     <Link
                         href="/blog"
@@ -29,7 +31,7 @@ const Footer = () => {
                         Tarifs
                     </Link>
                     <Link
-                        href="#pricing"
+                        href="#faq"
                         className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
                         FAQ
                     </Link>

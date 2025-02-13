@@ -19,7 +19,7 @@ const LoginLinks = () => {
                 <>
                     <Link
                         href="/login"
-                        className="text-sm text-gray-700 hover:text-gray-500 underline"
+                        className="text-sm text-gray-700 hover:text-gray-500 hover:underline"
                     >
                         Connexion
                     </Link>

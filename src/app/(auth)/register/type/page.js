@@ -16,6 +16,12 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/auth'
 import { Button } from '@/shadcn-components/ui/button'
+import { Outfit } from 'next/font/google'
+import Image from 'next/image'
+
+const outfitFont = Outfit({
+    subsets: ['latin'],
+})
 
 const RESTAURANT_TYPES = [
     { label: 'Fast-food', value: 'fast-food', icon: Store },
@@ -88,19 +94,30 @@ const RestaurantTypePage = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-8">
-            <h2 className="text-xl font-bold text-center mb-6">
-                Quel type de restaurant gérez-vous ?
+        <div className="w-full sm:max-w-md">
+            <Image
+                src="/images/eatsy/hello-violet.png"
+                alt="Register page"
+                className="mx-auto mb-10 "
+                width={150}
+                height={150}
+            />
+            <h2 className={`${outfitFont.className} text-2xl font-bold`}>
+                Quel est le type de votre restaurant ? 🍴
             </h2>
-
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-                {RESTAURANT_TYPES.map(type => {
-                    const Icon = type.icon
-                    return (
-                        <div
-                            key={type.value}
-                            onClick={() => setSelectedType(type.value)}
-                            className={`
+            <p className="text-slate-500 text-sm mb-8">
+                Cela permettra de vous référencer correctement sur Google ainsi
+                que sur la plateforme Eatsup.
+            </p>
+            <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                    {RESTAURANT_TYPES.map(type => {
+                        const Icon = type.icon
+                        return (
+                            <div
+                                key={type.value}
+                                onClick={() => setSelectedType(type.value)}
+                                className={`
                                 rounded-md cursor-pointer transition-all
                                 ${
                                     selectedType === type.value
@@ -108,9 +125,9 @@ const RestaurantTypePage = () => {
                                         : 'hover:text-primary'
                                 }
                             `}>
-                            <div className="flex items-center gap-2 md:gap-3">
-                                <div
-                                    className={`
+                                <div className="flex items-center gap-2 md:gap-3">
+                                    <div
+                                        className={`
                                     p-1.5 md:p-2 rounded-lg transition-all
                                     ${
                                         selectedType === type.value
@@ -118,23 +135,24 @@ const RestaurantTypePage = () => {
                                             : 'bg-primary/10 text-primary'
                                     }
                                 `}>
-                                    <Icon className="w-5 h-5 md:w-6 md:h-6" />
+                                        <Icon className="w-5 h-5 md:w-6 md:h-6" />
+                                    </div>
+                                    <span className="font-medium text-sm md:text-base">
+                                        {type.label}
+                                    </span>
                                 </div>
-                                <span className="font-medium text-sm md:text-base">
-                                    {type.label}
-                                </span>
                             </div>
-                        </div>
-                    )
-                })}
-            </div>
+                        )
+                    })}
+                </div>
 
-            <div className="flex justify-end">
-                <Button type="submit" disabled={!selectedType}>
-                    Continuer
-                </Button>
-            </div>
-        </form>
+                <div className="flex justify-end">
+                    <Button type="submit" disabled={!selectedType}>
+                        Continuer
+                    </Button>
+                </div>
+            </form>
+        </div>
     )
 }
 

@@ -46,9 +46,9 @@ const Home = () => {
                             </Link>
                             <div className="w-full flex flex-col gap-1">
                                 <Link
-                                    href="#pricing"
+                                    href="/register"
                                     className="bg-violet-600 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium">
-                                    Essayer Gratuitement
+                                    Commencer gratuitement
                                 </Link>
                                 <p className="text-slate-400 text-center text-sm">
                                     Sans engagement, sans carte bancaire
@@ -110,9 +110,9 @@ const Home = () => {
                             </li>
                         </ul>
                         <Link
-                            href="#pricing"
+                            href="/register"
                             className="bg-slate-900 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium md:w-fit">
-                            Essayer Gratuitement
+                            Commencer gratuitement
                         </Link>
                     </div>
                 </div>
@@ -148,9 +148,9 @@ const Home = () => {
                             </li>
                         </ul>
                         <Link
-                            href="#pricing"
+                            href="/register"
                             className="bg-slate-900 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium md:w-fit">
-                            Essayer Gratuitement
+                            Commencer gratuitement
                         </Link>
                     </div>
                 </div>
@@ -181,9 +181,9 @@ const Home = () => {
                             </li>
                         </ul>
                         <Link
-                            href="#pricing"
+                            href="/register"
                             className="bg-slate-900 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium md:w-fit">
-                            Essayer Gratuitement
+                            Commencer gratuitement
                         </Link>
                     </div>
                 </div>
@@ -309,7 +309,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="p-4 pb-10 w-full mt-10 md:mt-14">
+            <div id="pricing" className="p-4 pb-10 w-full mt-10 md:mt-14">
                 <div className="w-full flex flex-col items-center bg-slate-900 p-8 rounded-[28px] gap-10 md:px-28 md:py-16 md:max-w-screen-xl md:mx-auto">
                     <div className="flex flex-col items-center w-full">
                         <h2
@@ -403,9 +403,9 @@ const Home = () => {
                             </div>
 
                             <Link
-                                href="#pricing"
+                                href="/register"
                                 className="bg-slate-900 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium mt-8 mb-2">
-                                Essayer Gratuitement
+                                Commencer gratuitement
                             </Link>
 
                             <p className="text-xs sm:text-sm">
@@ -553,9 +553,9 @@ const Home = () => {
                                 </div>
                             </div>
                             <Link
-                                href="#pricing"
+                                href="/register"
                                 className="hover:scale-95 transition-all bg-white px-4 py-2 rounded-[6px] w-full text-center font-medium mt-8 mb-2">
-                                Essayer Gratuitement
+                                Commencer gratuitement
                             </Link>
                             <p className="text-white text-xs sm:text-sm">
                                 Sans engagement, sans carte bancaire
@@ -564,7 +564,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className="relative flex flex-col items-center w-full p-4 py-16 gap-16 bg-slate-100 md:p-20 md:gap-20">
+            <div id="faq" className="relative flex flex-col items-center w-full p-4 py-16 gap-16 bg-slate-100 md:p-20 md:gap-20">
                 <div className="flex flex-col items-center w-full gap-10 md:gap-56 md:max-w-screen-xl md:mx-auto md:flex-row">
                     <div className="flex flex-col items-center gap-8 md:items-start md:gap-16">
                         <h2
@@ -663,9 +663,9 @@ const Home = () => {
                             que votre site internet OFFERT pour doubler votre visibilité ✨
                         </p>
                         <Link
-                            href="#pricing"
+                            href="/register"
                             className="hover:scale-95 transition-all bg-white px-4 py-2 rounded-[6px] w-full text-center font-medium mt-6 mb-2 md:w-fit md:min-w-72">
-                            Essayer Gratuitement
+                            Commencer gratuitement
                         </Link>
                         <p className="text-white text-xs sm:text-sm">
                             Sans engagement, sans carte bancaire

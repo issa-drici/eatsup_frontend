@@ -9,6 +9,12 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import { Button } from '@/shadcn-components/ui/button'
+import { Outfit } from 'next/font/google'
+import Image from 'next/image'
+
+const outfitFont = Outfit({
+    subsets: ['latin'],
+})
 
 const Login = () => {
     const router = useRouter()
@@ -45,7 +51,14 @@ const Login = () => {
     }
 
     return (
-        <>
+        <div className="w-full sm:max-w-md">
+            <Image src="/images/eatsy/hello-violet.png" alt="Login page" className="mx-auto mb-10 " width={150} height={150} />
+            <h2 className={`${outfitFont.className} text-2xl font-bold`}>
+                Content de vous revoir ! 🤗
+            </h2>
+            <p className="text-slate-500 text-sm mb-8">
+                Entrez votre email et votre mot de passe pour accéder à votre compte.
+            </p>
             <AuthSessionStatus className="mb-4" status={status} />
             <form onSubmit={submitForm}>
                 {/* Email Address */}
@@ -79,10 +92,7 @@ const Login = () => {
                         autoComplete="current-password"
                     />
 
-                    <InputError
-                        messages={errors.password}
-                        className="mt-2"
-                    />
+                    <InputError messages={errors.password} className="mt-2" />
                 </div>
 
                 {/* Remember Me */}
@@ -124,7 +134,7 @@ const Login = () => {
                     S'inscrire
                 </Link>
             </div>
-        </>
+        </div>
     )
 }
 

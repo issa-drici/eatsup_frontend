@@ -12,7 +12,7 @@ const nunitoFont = Nunito({
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="fr" className={nunitoFont.className}>
+        <html lang="fr" className={`${nunitoFont.className} scroll-smooth`}>
             <head>
                 <Script
                     defer
