@@ -86,8 +86,8 @@ const Home = () => {
                         src="/images/augmentez.png"
                         alt="augmentez"
                         className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
-                        width={2232}
-                        height={2461}
+                        width={460}
+                        height={507}
                     />
 
                     <div className="flex flex-col gap-4 md:w-3/5">
@@ -121,8 +121,8 @@ const Home = () => {
                         src="/images/maximisez.png"
                         alt="maximisez"
                         className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
-                        width={2232}
-                        height={2460}
+                        width={460}
+                        height={507}
                     />
                     <div className="flex flex-col gap-4 md:w-3/5">
                         <h2
@@ -159,8 +159,8 @@ const Home = () => {
                         src="/images/simple.png"
                         alt="simple"
                         className="w-full h-auto mt-3 rounded-[28px] md:w-2/5"
-                        width={2232}
-                        height={2460}
+                        width={460}
+                        height={507}
                     />
                     <div className="flex flex-col gap-4 md:w-3/5">
                         <h2

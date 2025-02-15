@@ -13,6 +13,8 @@ import { TrialBanner } from '@/components/TrialBanner'
 import { useCountWebsiteSessionsByRestaurantId } from '@/services/website-session/useCountWebsiteSessionsByRestaurantId'
 import { useGetWebsiteByRestaurantId } from '@/services/website/useGetWebsiteByRestaurantId'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import OnboardingDialog from '@/components/OnboardingDialog'
+import { useFindMenuInfosHomeByRestaurantId } from '@/services/menu/useFindMenuInfosHomeByRestaurantId'
 
 const Dashboard = () => {
     const { user } = useAuth({ middleware: 'auth' })
@@ -35,6 +37,17 @@ const Dashboard = () => {
         isLoading: isWebsiteLoading,
         isFetching: isWebsiteFetching,
     } = useGetWebsiteByRestaurantId(user?.restaurant?.id)
+
+    const {
+        data: menuInfosHome,
+        isLoading: isMenuInfosHomeLoading,
+        isFetching: isMenuInfosHomeFetching,
+    } = useFindMenuInfosHomeByRestaurantId(user?.restaurant?.id)
+
+    const showOnboarding =
+        (!isMenuInfosHomeLoading || !isMenuInfosHomeFetching) &&
+        (menuInfosHome?.categories_count === 0 ||
+            menuInfosHome?.items_count === 0)
 
     return (
         <>
@@ -142,10 +155,19 @@ const Dashboard = () => {
                                 className="text-slate-600"
                             />
                         }
-                    /> 
+                    />
                 </div> */}
             </div>
             {isTrialing && <TrialBanner />}
+            {showOnboarding && (
+                <OnboardingDialog
+                    isOpen={showOnboarding}
+                    hasCategories={menuInfosHome?.categories_count > 0}
+                    menuId={menuInfosHome?.menu_id}
+                    restaurantId={user?.restaurant?.id}
+                    category={menuInfosHome?.category}
+                />
+            )}
         </>
     )
 }

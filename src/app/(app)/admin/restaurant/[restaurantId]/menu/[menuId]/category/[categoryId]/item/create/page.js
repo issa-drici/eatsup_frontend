@@ -154,15 +154,28 @@ const ItemCreate = () => {
                         <Label htmlFor="price">Prix*</Label>
                         <Input
                             id="price"
-                            type="number"
-                            step="0.01"
+                            type="text"
+                            inputMode="decimal"
+                            placeholder="10.00"
                             value={formData.price}
-                            onChange={e =>
-                                handleChange('price', null, e.target.value)
-                            }
+                            onChange={e => {
+                                const value = e.target.value.replace(
+                                    /[^0-9.]/g,
+                                    '',
+                                )
+                                if (/^\d*\.?\d*$/.test(value)) {
+                                    handleChange('price', null, e.target.value)
+                                }
+                            }}
+                            onKeyPress={e => {
+                                if (!/[\d.]/.test(e.key)) {
+                                    e.preventDefault()
+                                }
+                            }}
                             className="mt-1 w-full"
                             required
                         />
+
                         <InputError messages={errors.price} className="mt-2" />
                     </div>
 
@@ -201,7 +214,7 @@ const ItemCreate = () => {
                         />
                     </div>
 
-                    <div className='hidden'>
+                    <div className="hidden">
                         <Label htmlFor="is_active">Actif</Label>
                         <Input
                             id="is_active"
@@ -217,8 +230,6 @@ const ItemCreate = () => {
                             className="mt-1"
                         />
                     </div>
-
-                   
                 </div>
 
                 <div className="flex justify-end gap-2">

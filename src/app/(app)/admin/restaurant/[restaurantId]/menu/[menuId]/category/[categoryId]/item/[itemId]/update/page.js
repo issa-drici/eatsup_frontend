@@ -77,7 +77,10 @@ const ItemUpdate = () => {
 
             // Ajout des champs textuels
             formDataToSend.append('name', JSON.stringify(formData.name))
-            formDataToSend.append('description', JSON.stringify(formData.description))
+            formDataToSend.append(
+                'description',
+                JSON.stringify(formData.description),
+            )
             formDataToSend.append('price', formData.price)
             formDataToSend.append('allergens', formData.allergens)
             formDataToSend.append('is_active', formData.is_active)
@@ -196,12 +199,28 @@ const ItemUpdate = () => {
                         ) : (
                             <Input
                                 id="price"
-                                type="number"
-                                step="0.01"
+                                type="text"
+                                inputMode="decimal"
+                                placeholder="10.00"
                                 value={formData.price}
-                                onChange={e =>
-                                    handleChange('price', null, e.target.value)
-                                }
+                                onChange={e => {
+                                    const value = e.target.value.replace(
+                                        /[^0-9.]/g,
+                                        '',
+                                    )
+                                    if (/^\d*\.?\d*$/.test(value)) {
+                                        handleChange(
+                                            'price',
+                                            null,
+                                            e.target.value,
+                                        )
+                                    }
+                                }}
+                                onKeyPress={e => {
+                                    if (!/[\d.]/.test(e.key)) {
+                                        e.preventDefault()
+                                    }
+                                }}
                                 className="mt-1 w-full"
                                 required
                             />
@@ -221,14 +240,28 @@ const ItemUpdate = () => {
                                     value={imageFiles}
                                     existingImages={existingImages}
                                     onChange={files => {
-                                        setImageFiles(prev => [...prev, ...files])
+                                        setImageFiles(prev => [
+                                            ...prev,
+                                            ...files,
+                                        ])
                                     }}
                                     onRemove={({ type, id, index }) => {
                                         if (type === 'existing') {
-                                            setImagesToRemove(prev => [...prev, id])
-                                            setExistingImages(prev => prev.filter((_, i) => i !== index))
+                                            setImagesToRemove(prev => [
+                                                ...prev,
+                                                id,
+                                            ])
+                                            setExistingImages(prev =>
+                                                prev.filter(
+                                                    (_, i) => i !== index,
+                                                ),
+                                            )
                                         } else {
-                                            setImageFiles(prev => prev.filter((_, i) => i !== index))
+                                            setImageFiles(prev =>
+                                                prev.filter(
+                                                    (_, i) => i !== index,
+                                                ),
+                                            )
                                         }
                                     }}
                                     accept="image/*"
@@ -259,7 +292,7 @@ const ItemUpdate = () => {
                         )}
                     </div>
 
-                    <div className='hidden'>
+                    <div className="hidden">
                         <Label htmlFor="is_active">Actif</Label>
                         <Input
                             id="is_active"

@@ -413,3 +413,14 @@ export async function getWebsiteSessionsCountByRestaurantId(restaurantId) {
     )
     return response.data
 }
+
+/**
+ * Récupère les informations du menu pour la page d'accueil
+ * @param {string} restaurantId - ID du restaurant
+ */
+export async function getMenuInfosHomeByRestaurantId(restaurantId) {
+    const response = await axios.get(
+        `/api/restaurant/${restaurantId}/menu-infos-home`,
+    )
+    return response.data
+}

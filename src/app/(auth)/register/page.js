@@ -32,20 +32,33 @@ const Page = () => {
     const submitForm = event => {
         event.preventDefault()
         setIsLoading(true)
-
-        register({
-            name,
-            email,
-            password,
-            password_confirmation: passwordConfirmation,
-            user_plan: searchParams.get('user_plan') ?? 'basic',
-            setErrors,
-        })
+        console.log(errors)
+        try {
+            register({
+                name,
+                email,
+                password,
+                password_confirmation: passwordConfirmation,
+                user_plan: searchParams.get('user_plan') ?? 'basic',
+                setErrors,
+            })
+        } catch (error) {
+            console.log(error, errors)
+            // setErrors(error.response.data.errors)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
         <div className="w-full sm:max-w-md">
-            <Image src="/images/eatsy/hello-violet.png" alt="Register page" className="mx-auto mb-10 " width={150} height={150} />
+            <Image
+                src="/images/eatsy/hello-violet.png"
+                alt="Register page"
+                className="mx-auto mb-10 "
+                width={150}
+                height={150}
+            />
             <h2 className={`${outfitFont.className} text-2xl font-bold`}>
                 Créez votre compte en quelques clics 🚀
             </h2>

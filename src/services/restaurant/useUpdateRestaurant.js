@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 export const useUpdateRestaurant = ({
     handleCallbackSuccess,
     restaurantId,
+    withToast = false,
 }) => {
     const { toast } = useToast()
 
@@ -14,9 +15,11 @@ export const useUpdateRestaurant = ({
             if (handleCallbackSuccess !== undefined) {
                 handleCallbackSuccess()
             }
-            toast({
-                title: 'Restaurant mis à jour avec succès',
-            })
+            if (withToast) {
+                toast({
+                    title: 'Restaurant mis à jour avec succès',
+                })
+            }
             return true
         },
         onError: async error => {
@@ -28,4 +31,4 @@ export const useUpdateRestaurant = ({
             return false
         },
     })
-} 
+}
