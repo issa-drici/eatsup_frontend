@@ -28,17 +28,17 @@ const Home = () => {
                 <LoginLinks />
             </div>
             <div className="p-4 w-full">
-                <div className="w-full flex flex-col items-center bg-slate-900 p-8 rounded-[28px] md:flex-row md:gap-32 md:px-28 md:py-16 md:max-w-screen-xl md:mx-auto">
+                <div className="w-full flex flex-col items-center bg-slate-900 p-8 rounded-[28px] md:gap-14 md:px-28 md:py-16 md:max-w-screen-2xl md:mx-auto">
                     <div className="flex flex-col items-center">
                         <h1
-                            className={`${outfitFont.className} text-white text-5xl font-extrabold text-center md:text-7xl md:text-left md:tracking-tight md:max-w-2xl`}>
+                            className={`${outfitFont.className} text-white text-5xl font-extrabold text-center md:text-7xl md:text-left md:tracking-tight`}>
                             Boostez vos ventes en un seul scan
                         </h1>
-                        <p className="text-slate-300 text-center mt-5 md:text-left">
-                            Stimulez vos ventes avec un menu disponible en
+                        <p className="text-slate-300 text-center mt-2 md:text-xl md:text-left">
+                            Augmentez vos ventes avec un menu disponible en
                             continu, même en dehors du restaurant !
                         </p>
-                        <div className="mt-4 flex flex-col justify-center items-center gap-4 w-full md:flex-row-reverse md:items-start">
+                        <div className="mt-8 flex flex-col justify-center items-center gap-4 w-full md:flex-row md:items-start md:max-w-2xl">
                             <Link
                                 href="#pricing"
                                 className="bg-white hover:scale-95 transition-all border border-slate-200 text-slate-900 px-4 py-2 rounded-[6px] w-full text-center font-medium">
@@ -48,7 +48,7 @@ const Home = () => {
                                 <Link
                                     href="/register"
                                     className="bg-violet-600 hover:scale-95 transition-all text-white px-4 py-2 rounded-[6px] w-full text-center font-medium">
-                                    Commencer gratuitement
+                                    Commencer gratuitement ✨
                                 </Link>
                                 <p className="text-slate-400 text-center text-sm">
                                     Sans engagement, sans carte bancaire
@@ -56,7 +56,95 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full items-center md:max-w-xs">
+                    <div className="hidden md:flex flex-row items-center justify-between gap-8">
+                        <div className="flex flex-col items-center gap-5">
+                            <Image
+                                src="/images/10k-restaurateurs.png"
+                                alt="10k-restaurateurs"
+                                className="w-64 h-auto"
+                                width={260}
+                                height={70}
+                            />
+                            <Image
+                                src="/images/recevez-autocollants.png"
+                                alt="recevez-autocollants"
+                                className="w-64 h-auto"
+                                width={260}
+                                height={335}
+                            />
+                        </div>
+                        <Image
+                            src="/images/serveuse.png"
+                            alt="serveuse"
+                            className="w-[37rem] h-auto"
+                            width={600}
+                            height={470}
+                        />
+                        <div className="flex flex-col items-center gap-10">
+                            <div className="flex flex-col gap-2">
+                                <p className="text-slate-300">
+                                    ✔ Modifications illimitées et simple
+                                </p>
+                                <p className="text-slate-300">
+                                    ✔ Autocollants offerts
+                                </p>
+                                <p className="text-slate-300">
+                                    ✔ Site web offert
+                                </p>
+                            </div>
+                            <Image
+                                src="/images/augmentez-revenus.png"
+                                alt="augmentez-revenus"
+                                className="w-64 h-auto"
+                                width={260}
+                                height={335}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="md:hidden flex flex-col items-center gap-5 w-full mt-8">
+                        <div className="flex flex-col items-center gap-2 w-full">
+                            <p className="text-slate-300">
+                                ✔ Autocollants offerts
+                            </p>
+                            <p className="text-slate-300">
+                                ✔ Modifications illimitées et simple
+                            </p>
+                            <p className="text-slate-300">✔ Site web offert</p>
+                        </div>
+                        <Image
+                            src="/images/10k-restaurateurs.png"
+                            alt="10k-restaurateurs"
+                            width={230}
+                            height={56}
+                        />
+
+                        <Image
+                            src="/images/serveuse.png"
+                            alt="serveuse"
+                            className="w-full h-auto"
+                            width={600}
+                            height={470}
+                        />
+                        <div className="flex flex-row items-center gap-5 w-full">
+                            <Image
+                                src="/images/recevez-autocollants.png"
+                                alt="recevez-autocollants"
+                                className="w-full h-auto"
+                                width={260}
+                                height={335}
+                            />
+                            <Image
+                                src="/images/augmentez-revenus.png"
+                                alt="augmentez-revenus"
+                                className="w-full h-auto"
+                                width={260}
+                                height={335}
+                            />
+                        </div>
+                    </div>
+
+                    {/* <div className="flex flex-col w-full items-center md:max-w-xs">
                         <Image
                             src="/images/preview-header.png"
                             alt="preview-header"
@@ -71,7 +159,7 @@ const Home = () => {
                             width={557}
                             height={631}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className="bg-violet-500 w-[calc(100%+30px)] p-4 flex flex-col items-center -rotate-2 mt-4 translate-y-4">
@@ -96,8 +184,10 @@ const Home = () => {
                             Augmentez vos ventes
                         </h2>
                         <h5 className="text-slate-500 font-medium md:text-xl">
-                            Un menu attractif qui incite vos clients à consommer
-                            plus.
+                            Un menu attractif qui{' '}
+                            <span className="text-slate-900">
+                                incite vos clients à consommer plus.
+                            </span>
                         </h5>
                         <ul className="list-disc list-inside text-slate-500 md:text-xl md:space-y-3">
                             <li>
@@ -105,8 +195,11 @@ const Home = () => {
                                 clients à commander plus.
                             </li>
                             <li>
-                                Accessible en permanence pour ajouter un
-                                dessert, une boisson ou un plat à tout moment.
+                                <span className="text-slate-900">
+                                    Accessible en permanence
+                                </span>{' '}
+                                pour ajouter un dessert, une boisson ou un plat
+                                à tout moment.
                             </li>
                         </ul>
                         <Link
@@ -134,9 +227,11 @@ const Home = () => {
                         </h5>
                         <ul className="list-disc list-inside text-slate-500 md:text-xl md:space-y-3">
                             <li>
-                                Une fiche restaurant offerte avec vos infos
-                                essentielles et un bouton direct vers votre
-                                menu.
+                                <span className="text-slate-900">
+                                    Une fiche restaurant offerte
+                                </span>{' '}
+                                avec vos infos essentielles et un bouton direct
+                                vers votre menu.
                             </li>
                             <li>
                                 Partagez-la facilement sur Instagram, Facebook
@@ -172,12 +267,16 @@ const Home = () => {
                         </h5>
                         <ul className="list-disc list-inside text-slate-500 md:text-xl md:space-y-3">
                             <li>
-                                Modifiez votre menu gratuitement et à volonté,
-                                autant de fois que nécessaire.
+                                <span className="text-slate-900">
+                                    Modifiez votre menu gratuitement
+                                </span>{' '}
+                                et à volonté, autant de fois que nécessaire.
                             </li>
                             <li>
-                                Tout est prêt en quelques minutes, sans
-                                compétences techniques requises.
+                                Tout est prêt en quelques minutes,{' '}
+                                <span className="text-slate-900">
+                                    sans compétences techniques requises.
+                                </span>
                             </li>
                         </ul>
                         <Link
@@ -564,7 +663,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div id="faq" className="relative flex flex-col items-center w-full p-4 py-16 gap-16 bg-slate-100 md:p-20 md:gap-20">
+            <div
+                id="faq"
+                className="relative flex flex-col items-center w-full p-4 py-16 gap-16 bg-slate-100 md:p-20 md:gap-20">
                 <div className="flex flex-col items-center w-full gap-10 md:gap-56 md:max-w-screen-xl md:mx-auto md:flex-row">
                     <div className="flex flex-col items-center gap-8 md:items-start md:gap-16">
                         <h2
@@ -660,7 +761,8 @@ const Home = () => {
                         </h1>
                         <p className="text-white text-center font-medium mt-5 md:text-left md:text-xl">
                             Configurez dès maintenant votre menu digital ainsi
-                            que votre site internet OFFERT pour doubler votre visibilité ✨
+                            que votre site internet OFFERT pour doubler votre
+                            visibilité ✨
                         </p>
                         <Link
                             href="/register"
