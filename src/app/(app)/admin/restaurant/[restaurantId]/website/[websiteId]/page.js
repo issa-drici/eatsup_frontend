@@ -50,6 +50,16 @@ const WebsiteDashboard = () => {
                     url={`/admin/restaurant/${user?.restaurant?.id}/website/${website?.id}/update`}
                     icon={<PaintRoller size={16} className="text-slate-900" />}
                 />
+                <button
+                    onClick={() => {
+                        navigator.share({
+                            title: 'web.dev',
+                            text: 'Check out web.dev.',
+                            url: 'https://web.dev/',
+                        })
+                    }}>
+                    Toto
+                </button>
                 <div className="flex gap-4">
                     <div className="w-full">
                         <TooltipProvider>
@@ -92,7 +102,7 @@ const WebsiteDashboard = () => {
                         <CardButton
                             title="Afficher"
                             subtitle="Afficher le site internet"
-                                url={`/${user?.restaurant?.type_slug}/${user?.restaurant?.city_slug}/${user?.restaurant?.name_slug}`}
+                            url={`/${user?.restaurant?.type_slug}/${user?.restaurant?.city_slug}/${user?.restaurant?.name_slug}`}
                             icon={<Eye size={16} className="text-slate-900" />}
                             widthFull
                         />

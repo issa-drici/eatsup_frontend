@@ -134,17 +134,44 @@ const PublicWebsite = () => {
         return <div>Site web non trouvé</div>
     }
 
+    const linkToShare = window.location.href
+    const messageToShare = `J'ai trop aimé le restaurant ${website.title?.fr}, hésites surtout pas à venir.<br />Je te donne le lien avec toutes les infos pour y aller : ${linkToShare}`
+
+    const handleShare = () => {
+        if (navigator.share) {
+            // Si le navigateur supporte l'API Web Share
+            navigator
+                .share({
+                    title: 'Lien à partager',
+                    text: messageToShare,
+                    url: linkToShare,
+                })
+                .catch(error =>
+                    console.log('Partage annulé ou erreur : ', error),
+                )
+        } else {
+            // Pour les navigateurs desktop, copier le lien dans le presse-papiers
+            navigator.clipboard.writeText(linkToShare).then(
+                () => {
+                    alert('Lien copié dans le presse-papiers !')
+                },
+                error =>
+                    console.error('Erreur lors de la copie du lien :', error),
+            )
+        }
+    }
+
     return (
         <div className="min-h-screen bg-white text-slate-900">
             <div className="flex justify-end p-1">
-                <Link
+                {/* <Link
                     href={`sms:&body=J'ai trop aimé le restaurant ${website.title?.fr}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
-                    asChild>
-                    <Button variant="ghost">
-                        Partager
-                        <Share className="w-4 h-4" />
-                    </Button>
-                </Link>
+                    asChild> */}
+                <Button variant="link" onClick={handleShare}>
+                    Partager
+                    <Share className="w-4 h-4" />
+                </Button>
+                {/* </Link> */}
             </div>
             <div className="relative h-72">
                 <div className="absolute inset-0 bg-black/70 z-10" />

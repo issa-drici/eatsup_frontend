@@ -686,6 +686,136 @@ const Home = () => {
                         className="w-full max-w-screen-md">
                         <AccordionItem value="item-1">
                             <AccordionTrigger>
+                                Que faire si j’ai besoin d’aide ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Notre service client est disponible 7j/7 pour
+                                vous éclairer.
+                                <ul className="list-disc list-inside mt-2">
+                                    <li>
+                                        Par e-mail à{' '}
+                                        <Link
+                                            href="mailto:contact@eatsup.fr"
+                                            className="underline">
+                                            contact@eatsup.fr
+                                        </Link>
+                                        , vous obtiendrez une réponse dans les
+                                        24h qui suivent votre demande.
+                                    </li>
+                                    <li>
+                                        Via notre assistant interactif Eatsy (en
+                                        bas à droite).
+                                    </li>
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger>
+                                Comment le menu augmente t'il mes ventes ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                En favorisant le menu en ligne, vous gagnez du
+                                temps sur la prise de commande. Les clients
+                                pourront prendre le temps de réfléchir et passer
+                                commande plus rapidement :
+                                <ul className="list-disc list-inside mt-2">
+                                    <li>Réduction du temps d’attente</li>
+                                    <li>Augmentation du panier moyen </li>
+                                    <li>Valorisation de vos plats</li>
+                                    <li>Accessibilité permanente</li>
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger>
+                                Comment conserver la relation avec mes clients ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Chez Eatsup nous savons que la relation client
+                                reste essentielle dans la restauration. C’est
+                                pourquoi notre menu digital ne rompt pas le lien
+                                avec le client.
+                                <br />
+                                <br />
+                                Nos QR Codes en vitrine, comptoir et tables
+                                permettent aux clients de consulter le menu
+                                tranquillement, tout en gardant la possibilité
+                                d’échanger avec vous durant la prise de commande
+                                ou à un autre moment.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-4">
+                            <AccordionTrigger>
+                                Puis-je personnaliser l'apparence du menu ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Oui ! Eatsup vous permet de personnaliser votre
+                                menu pour qu’il corresponde à l’image de votre
+                                restaurant :
+                                <ul className="list-disc list-inside mt-2">
+                                    <li>
+                                        Ajout de photos pour mettre en valeur
+                                        vos plats
+                                    </li>
+                                    <li>
+                                        Modification des titres et descriptions
+                                        de votre menu{' '}
+                                    </li>
+                                    <li>
+                                        (Bientôt disponible) Choix des couleurs
+                                        pour adapter le design à votre identité
+                                        visuelle
+                                    </li>
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-5">
+                            <AccordionTrigger>
+                                Est-ce que le menu digital s’adapte sur tous
+                                types d'écrans ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Eatsup est conçu pour s’adapter à tous les
+                                supports, sur ordinateur, tablette, téléphone
+                                (android et iOS)…
+                                <br />
+                                Peu importe l’appareil utilisé, votre menu
+                                restera lisible, fluide et ergonomique.
+                                <br />
+                                Il suffit d’un QR code ou d’un lien internet
+                                pour y accéder instantanément.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-6">
+                            <AccordionTrigger>
+                                Ai-je la possibilité de mettre à jour mon menu ?
+                            </AccordionTrigger>
+                            <AccordionContent>
+                                Oui ! Vous avez la liberté de modifier votre
+                                menu en temps réel, sans aucun coût
+                                supplémentaire :
+                                <ul className="list-disc list-inside my-2">
+                                    <li>
+                                        Ajoutez, modifiez ou supprimez des
+                                        articles ou des catégories en un clic
+                                    </li>
+                                    <li>
+                                        Mettez à jour vos prix sans devoir
+                                        réimprimer quoi que ce soit
+                                    </li>
+                                    <li>
+                                        Ajoutez des offres spéciales ou des
+                                        menus du jour instantanément
+                                    </li>
+                                </ul>
+                                Toutes les modifications sont immédiates et
+                                illimitées, vous permettant de toujours proposer
+                                un menu à jour à vos clients.
+                            </AccordionContent>
+                        </AccordionItem>
+
+                        {/* <AccordionItem value="item-1">
+                            <AccordionTrigger>
                                 Comment fonctionne le menu digital ?
                             </AccordionTrigger>
                             <AccordionContent>
@@ -750,7 +880,7 @@ const Home = () => {
                                 La mise en place prend environ 30 minutes. Vous
                                 recevrez vos QR codes par email sous 24h.
                             </AccordionContent>
-                        </AccordionItem>
+                        </AccordionItem> */}
                     </Accordion>
                 </div>
                 <div className="w-full flex flex-col items-center bg-violet-500 p-8 rounded-[28px] md:gap-10 md:px-28 md:py-16 md:max-w-screen-xl md:mx-auto">
