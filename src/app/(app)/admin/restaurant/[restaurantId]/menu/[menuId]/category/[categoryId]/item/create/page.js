@@ -201,7 +201,7 @@ const ItemCreate = () => {
                         <InputError messages={errors.images} className="mt-2" />
                     </div>
 
-                    <div>
+                    <div className="hidden">
                         <Label htmlFor="allergens">Allergènes</Label>
                         <Input
                             id="allergens"

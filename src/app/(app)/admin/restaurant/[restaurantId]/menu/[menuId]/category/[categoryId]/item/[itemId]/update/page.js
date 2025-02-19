@@ -271,7 +271,7 @@ const ItemUpdate = () => {
                         )}
                     </div>
 
-                    <div>
+                    <div className="hidden">
                         <Label htmlFor="allergens">Allergènes</Label>
                         {isLoading || isFetching ? (
                             <Skeleton className="h-10 w-full mt-1" />
