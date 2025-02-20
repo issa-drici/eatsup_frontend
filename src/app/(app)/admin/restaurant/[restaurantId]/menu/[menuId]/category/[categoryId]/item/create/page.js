@@ -18,6 +18,7 @@ const ItemCreate = () => {
     const router = useRouter()
     const [errors, setErrors] = useState([])
     const [imageFiles, setImageFiles] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -37,7 +38,7 @@ const ItemCreate = () => {
         router.back()
     }
 
-    const { mutate: createMenuItem } = useCreateMenuItem({
+    const { mutateAsync: createMenuItem } = useCreateMenuItem({
         handleCallbackSuccess,
         categoryId,
     })
@@ -46,6 +47,7 @@ const ItemCreate = () => {
         e.preventDefault()
 
         try {
+            setIsLoading(true)
             const formDataToSend = new FormData()
 
             // Ajout des champs textuels
@@ -71,6 +73,8 @@ const ItemCreate = () => {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -241,7 +245,9 @@ const ItemCreate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Créer l'article</Button>
+                    <Button isLoading={isLoading} type="submit">
+                        Créer l'article
+                    </Button>
                 </div>
             </form>
         </>
