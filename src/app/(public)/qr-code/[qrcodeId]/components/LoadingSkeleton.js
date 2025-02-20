@@ -4,11 +4,7 @@ import { Skeleton } from "@/shadcn-components/ui/skeleton"
 const LoadingSkeleton = () => {
     return (
         <div className="flex flex-col gap-y-3">
-            <div className="flex py-3 px-3 gap-x-1 sticky top-9 z-40 bg-slate-100 shadow-md mb-3 overflow-x-scroll">
-                <Skeleton className="h-9 w-20" />
-                <Skeleton className="h-9 w-20" />
-                <Skeleton className="h-9 w-20" />
-            </div>
+
             {[...Array(3)].map((_, i) => (
                 <div key={i} className="px-3">
                     <Skeleton className="h-6 w-32 mb-3" />
@@ -26,4 +22,4 @@ const LoadingSkeleton = () => {
     )
 }
 
-export default LoadingSkeleton 
+export default LoadingSkeleton

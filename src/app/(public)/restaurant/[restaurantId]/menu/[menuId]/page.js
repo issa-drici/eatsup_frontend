@@ -10,8 +10,8 @@ import TitleBar from '@/app/(public)/qr-code/[qrcodeId]/components/TitleBar'
 import CategoryBar from '@/app/(public)/qr-code/[qrcodeId]/components/CategoryBar'
 import MenuCategory from '@/app/(public)/qr-code/[qrcodeId]/components/MenuCategory'
 import LoadingSkeleton from '@/app/(public)/qr-code/[qrcodeId]/components/LoadingSkeleton'
-import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
-
+// import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
+import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
 
 // const labels = {
 //     share: {
@@ -57,10 +57,10 @@ const Menu = () => {
     } = useFindAllMenuItemsByMenuIdGroupedByCategoryName(menuId)
 
     const {
-        data: restaurant,
-        isLoading: isLoadingRestaurant,
-        isFetching: isFetchingRestaurant,
-    } = useFindRestaurantById(restaurantId)
+        data: menu,
+        isLoading: isLoadingMenu,
+        isFetching: isFetchingMenu,
+    } = useFindFirstMenuByRestaurantId(restaurantId)
 
     const [activeSection, setActiveSection] = useState('')
     // eslint-disable-next-line no-unused-vars
@@ -135,10 +135,8 @@ const Menu = () => {
     return (
         <div className="relative bg-slate-100 min-h-[100dvh]">
             <div className="text-xs h-full pb-5">
-                {isLoadingRestaurant || isFetchingRestaurant ? (
-                    <LoadingSkeleton />
-                ) : (
-                    <TitleBar restaurant={restaurant} />
+                {isLoadingMenu || isFetchingMenu ? null : (
+                    <TitleBar restaurant={menu?.restaurant} />
                 )}
 
                 {isLoadingMenuItems || isFetchingMenuItems ? (

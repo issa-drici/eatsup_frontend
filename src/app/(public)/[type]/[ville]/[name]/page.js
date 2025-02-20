@@ -147,6 +147,7 @@ const PublicWebsite = () => {
                     url: linkToShare,
                 })
                 .catch(error =>
+                    /* eslint-disable no-console */
                     console.log('Partage annulé ou erreur : ', error),
                 )
         } else {
@@ -156,6 +157,7 @@ const PublicWebsite = () => {
                     alert('Lien copié dans le presse-papiers !')
                 },
                 error =>
+                    /* eslint-disable no-console */
                     console.error('Erreur lors de la copie du lien :', error),
             )
         }
