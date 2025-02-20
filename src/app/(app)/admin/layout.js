@@ -3,6 +3,7 @@
 import { useAuth } from '@/hooks/auth'
 import Navigation from '@/app/(app)/admin/Navigation'
 import Loading from '@/app/(app)/admin/Loading'
+import OnboardingCard from '@/app/(app)/admin/components/OnboardingCard'
 import { Toaster } from '@/shadcn-components/ui/toaster'
 import { redirect } from 'next/navigation'
 
@@ -39,6 +40,8 @@ const AppLayout = ({ children }) => {
                     </div>
                 </div>
             </main>
+
+            <OnboardingCard />
             <Toaster />
         </div>
     )

@@ -15,7 +15,9 @@ export async function getMenusByRestaurantId(restaurantId) {
  * @param {string} restaurantId - ID du restaurant
  */
 export async function getFirstMenuByRestaurantId(restaurantId) {
-    const response = await axios.get(`/api/public/restaurant/${restaurantId}/menu/first`)
+    const response = await axios.get(
+        `/api/public/restaurant/${restaurantId}/menu/first`,
+    )
     return response.data
 }
 
@@ -340,7 +342,9 @@ export async function postUpdateWebsite(data, restaurantId) {
  * @param {string} restaurantId - ID du restaurant
  */
 export async function getPublicWebsiteByRestaurantId(restaurantId) {
-    const response = await axios.get(`/api/public/restaurant/${restaurantId}/website`)
+    const response = await axios.get(
+        `/api/public/restaurant/${restaurantId}/website`,
+    )
     return response.data
 }
 
@@ -352,7 +356,7 @@ export async function getPublicWebsiteByRestaurantId(restaurantId) {
  */
 export async function getPublicWebsiteBySlug(typeSlug, citySlug, nameSlug) {
     const response = await axios.get(
-        `/api/public/type/${typeSlug}/ville/${citySlug}/name/${nameSlug}/website`
+        `/api/public/type/${typeSlug}/ville/${citySlug}/name/${nameSlug}/website`,
     )
     return response.data
 }
@@ -375,7 +379,7 @@ export async function getSubscriptionPlans() {
 export async function subscribe(priceId, paymentMethodId) {
     const response = await axios.post('/api/subscribe', {
         price_id: priceId,
-        payment_method_id: paymentMethodId
+        payment_method_id: paymentMethodId,
     })
     return response.data
 }
@@ -392,7 +396,6 @@ export async function postUpdateMenu(data, menuId, restaurantId) {
     )
     return response.data
 }
-
 
 /**
  * Crée une nouvelle session pour un site web
@@ -421,6 +424,13 @@ export async function getWebsiteSessionsCountByRestaurantId(restaurantId) {
 export async function getMenuInfosHomeByRestaurantId(restaurantId) {
     const response = await axios.get(
         `/api/restaurant/${restaurantId}/menu-infos-home`,
+    )
+    return response.data
+}
+
+export async function getOnboardingStatus(restaurantId) {
+    const response = await axios.get(
+        `/api/restaurant/${restaurantId}/onboarding-status`,
     )
     return response.data
 }

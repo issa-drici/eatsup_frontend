@@ -11,13 +11,13 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { FileUploadInput } from '@/components/FileUploadInput'
 import { useGetWebsiteByRestaurantId } from '@/services/website/useGetWebsiteByRestaurantId'
-import { Textarea } from '@/shadcn-components/ui/textarea'
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from '@/shadcn-components/ui/accordion'
+import TextArea from '@/components/TextArea'
 
 const WebsiteUpdate = () => {
     const { restaurantId, websiteId } = useParams()
@@ -210,7 +210,7 @@ const WebsiteUpdate = () => {
                         {isLoading || isFetching ? (
                             <Skeleton className="h-32 w-full mt-1" />
                         ) : (
-                            <Textarea
+                            <TextArea
                                 id="description"
                                 value={formData.description.fr}
                                 onChange={e =>
@@ -309,94 +309,97 @@ const WebsiteUpdate = () => {
                                                             Matin
                                                         </Label>
                                                         <div className="flex items-center gap-4">
-                                                            {!formData
-                                                                .opening_hours[
-                                                                day
-                                                            ][0]?.closed ? (
-                                                                <div className="flex flex-wrap gap-2 items-center">
-                                                                    <Input
-                                                                        id={`${day}_morning_start`}
-                                                                        type="time"
-                                                                        value={
-                                                                            formData
-                                                                                .opening_hours[
-                                                                                day
-                                                                            ][0]
-                                                                                ?.start ||
-                                                                            ''
-                                                                        }
-                                                                        onChange={e => {
-                                                                            const newHours =
-                                                                                [
-                                                                                    ...formData
-                                                                                        .opening_hours[
-                                                                                        day
-                                                                                    ],
-                                                                                ]
-                                                                            newHours[0] =
-                                                                                {
-                                                                                    ...newHours[0],
-                                                                                    start: e
-                                                                                        .target
-                                                                                        .value,
-                                                                                }
-                                                                            handleChange(
-                                                                                'opening_hours',
-                                                                                null,
-                                                                                {
-                                                                                    ...formData.opening_hours,
-                                                                                    [day]: newHours,
-                                                                                },
-                                                                            )
-                                                                        }}
-                                                                        className="w-32"
-                                                                    />
-                                                                    <span>
-                                                                        -
-                                                                    </span>
-                                                                    <Input
-                                                                        id={`${day}_morning_end`}
-                                                                        type="time"
-                                                                        value={
-                                                                            formData
-                                                                                .opening_hours[
-                                                                                day
-                                                                            ][0]
-                                                                                ?.end ||
-                                                                            ''
-                                                                        }
-                                                                        onChange={e => {
-                                                                            const newHours =
-                                                                                [
-                                                                                    ...formData
-                                                                                        .opening_hours[
-                                                                                        day
-                                                                                    ],
-                                                                                ]
-                                                                            newHours[0] =
-                                                                                {
-                                                                                    ...newHours[0],
-                                                                                    end: e
-                                                                                        .target
-                                                                                        .value,
-                                                                                }
-                                                                            handleChange(
-                                                                                'opening_hours',
-                                                                                null,
-                                                                                {
-                                                                                    ...formData.opening_hours,
-                                                                                    [day]: newHours,
-                                                                                },
-                                                                            )
-                                                                        }}
-                                                                        className="w-32"
-                                                                    />
-                                                                </div>
-                                                            ) : (
-                                                                <div className="w-[272px]">
-                                                                    {/* Espace réservé pour maintenir l'alignement */}
-                                                                </div>
-                                                            )}
+                                                            <div className="flex flex-wrap gap-2 items-center">
+                                                                <Input
+                                                                    id={`${day}_morning_start`}
+                                                                    type="time"
+                                                                    disabled={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][0]
+                                                                            ?.closed
+                                                                    }
+                                                                    value={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][0]
+                                                                            ?.start ||
+                                                                        ''
+                                                                    }
+                                                                    onChange={e => {
+                                                                        const newHours =
+                                                                            [
+                                                                                ...formData
+                                                                                    .opening_hours[
+                                                                                    day
+                                                                                ],
+                                                                            ]
+                                                                        newHours[0] =
+                                                                            {
+                                                                                ...newHours[0],
+                                                                                start: e
+                                                                                    .target
+                                                                                    .value,
+                                                                            }
+                                                                        handleChange(
+                                                                            'opening_hours',
+                                                                            null,
+                                                                            {
+                                                                                ...formData.opening_hours,
+                                                                                [day]: newHours,
+                                                                            },
+                                                                        )
+                                                                    }}
+                                                                    className="w-32"
+                                                                />
+                                                                <span>-</span>
+                                                                <Input
+                                                                    id={`${day}_morning_end`}
+                                                                    type="time"
+                                                                    disabled={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][0]
+                                                                            ?.closed
+                                                                    }
+                                                                    value={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][0]
+                                                                            ?.end ||
+                                                                        ''
+                                                                    }
+                                                                    onChange={e => {
+                                                                        const newHours =
+                                                                            [
+                                                                                ...formData
+                                                                                    .opening_hours[
+                                                                                    day
+                                                                                ],
+                                                                            ]
+                                                                        newHours[0] =
+                                                                            {
+                                                                                ...newHours[0],
+                                                                                end: e
+                                                                                    .target
+                                                                                    .value,
+                                                                            }
+                                                                        handleChange(
+                                                                            'opening_hours',
+                                                                            null,
+                                                                            {
+                                                                                ...formData.opening_hours,
+                                                                                [day]: newHours,
+                                                                            },
+                                                                        )
+                                                                    }}
+                                                                    className="w-32"
+                                                                />
+                                                            </div>
                                                             <div className="flex items-center gap-2">
                                                                 <Label
                                                                     htmlFor={`${day}_morning_closed`}
@@ -404,6 +407,7 @@ const WebsiteUpdate = () => {
                                                                     Fermé
                                                                 </Label>
                                                                 <input
+                                                                    className="rounded-sm"
                                                                     type="checkbox"
                                                                     id={`${day}_morning_closed`}
                                                                     checked={
@@ -460,94 +464,97 @@ const WebsiteUpdate = () => {
                                                             Soir
                                                         </Label>
                                                         <div className="flex items-center gap-4">
-                                                            {!formData
-                                                                .opening_hours[
-                                                                day
-                                                            ][1]?.closed ? (
-                                                                <div className="flex flex-wrap gap-2 items-center">
-                                                                    <Input
-                                                                        id={`${day}_evening_start`}
-                                                                        type="time"
-                                                                        value={
-                                                                            formData
-                                                                                .opening_hours[
-                                                                                day
-                                                                            ][1]
-                                                                                ?.start ||
-                                                                            ''
-                                                                        }
-                                                                        onChange={e => {
-                                                                            const newHours =
-                                                                                [
-                                                                                    ...formData
-                                                                                        .opening_hours[
-                                                                                        day
-                                                                                    ],
-                                                                                ]
-                                                                            newHours[1] =
-                                                                                {
-                                                                                    ...newHours[1],
-                                                                                    start: e
-                                                                                        .target
-                                                                                        .value,
-                                                                                }
-                                                                            handleChange(
-                                                                                'opening_hours',
-                                                                                null,
-                                                                                {
-                                                                                    ...formData.opening_hours,
-                                                                                    [day]: newHours,
-                                                                                },
-                                                                            )
-                                                                        }}
-                                                                        className="w-32"
-                                                                    />
-                                                                    <span>
-                                                                        -
-                                                                    </span>
-                                                                    <Input
-                                                                        id={`${day}_evening_end`}
-                                                                        type="time"
-                                                                        value={
-                                                                            formData
-                                                                                .opening_hours[
-                                                                                day
-                                                                            ][1]
-                                                                                ?.end ||
-                                                                            ''
-                                                                        }
-                                                                        onChange={e => {
-                                                                            const newHours =
-                                                                                [
-                                                                                    ...formData
-                                                                                        .opening_hours[
-                                                                                        day
-                                                                                    ],
-                                                                                ]
-                                                                            newHours[1] =
-                                                                                {
-                                                                                    ...newHours[1],
-                                                                                    end: e
-                                                                                        .target
-                                                                                        .value,
-                                                                                }
-                                                                            handleChange(
-                                                                                'opening_hours',
-                                                                                null,
-                                                                                {
-                                                                                    ...formData.opening_hours,
-                                                                                    [day]: newHours,
-                                                                                },
-                                                                            )
-                                                                        }}
-                                                                        className="w-32"
-                                                                    />
-                                                                </div>
-                                                            ) : (
-                                                                <div className="w-[272px]">
-                                                                    {/* Espace réservé pour maintenir l'alignement */}
-                                                                </div>
-                                                            )}
+                                                            <div className="flex flex-wrap gap-2 items-center">
+                                                                <Input
+                                                                    id={`${day}_evening_start`}
+                                                                    type="time"
+                                                                    disabled={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][1]
+                                                                            ?.closed
+                                                                    }
+                                                                    value={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][1]
+                                                                            ?.start ||
+                                                                        ''
+                                                                    }
+                                                                    onChange={e => {
+                                                                        const newHours =
+                                                                            [
+                                                                                ...formData
+                                                                                    .opening_hours[
+                                                                                    day
+                                                                                ],
+                                                                            ]
+                                                                        newHours[1] =
+                                                                            {
+                                                                                ...newHours[1],
+                                                                                start: e
+                                                                                    .target
+                                                                                    .value,
+                                                                            }
+                                                                        handleChange(
+                                                                            'opening_hours',
+                                                                            null,
+                                                                            {
+                                                                                ...formData.opening_hours,
+                                                                                [day]: newHours,
+                                                                            },
+                                                                        )
+                                                                    }}
+                                                                    className="w-32"
+                                                                />
+                                                                <span>-</span>
+                                                                <Input
+                                                                    id={`${day}_evening_end`}
+                                                                    type="time"
+                                                                    disabled={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][1]
+                                                                            ?.closed
+                                                                    }
+                                                                    value={
+                                                                        formData
+                                                                            .opening_hours[
+                                                                            day
+                                                                        ][1]
+                                                                            ?.end ||
+                                                                        ''
+                                                                    }
+                                                                    onChange={e => {
+                                                                        const newHours =
+                                                                            [
+                                                                                ...formData
+                                                                                    .opening_hours[
+                                                                                    day
+                                                                                ],
+                                                                            ]
+                                                                        newHours[1] =
+                                                                            {
+                                                                                ...newHours[1],
+                                                                                end: e
+                                                                                    .target
+                                                                                    .value,
+                                                                            }
+                                                                        handleChange(
+                                                                            'opening_hours',
+                                                                            null,
+                                                                            {
+                                                                                ...formData.opening_hours,
+                                                                                [day]: newHours,
+                                                                            },
+                                                                        )
+                                                                    }}
+                                                                    className="w-32"
+                                                                />
+                                                            </div>
                                                             <div className="flex items-center gap-2">
                                                                 <Label
                                                                     htmlFor={`${day}_evening_closed`}
@@ -555,6 +562,7 @@ const WebsiteUpdate = () => {
                                                                     Fermé
                                                                 </Label>
                                                                 <input
+                                                                    className="rounded-sm"
                                                                     type="checkbox"
                                                                     id={`${day}_evening_closed`}
                                                                     checked={
