@@ -10,7 +10,7 @@ const MenuItem = ({ item, activeLanguage }) => {
 
     return (
         <>
-            <Card 
+            <Card
                 className="overflow-hidden flex p-0 cursor-pointer hover:shadow-md transition-shadow"
                 onClick={() => setIsDialogOpen(true)}
             >
@@ -31,14 +31,19 @@ const MenuItem = ({ item, activeLanguage }) => {
                     </div>
                     {item.description?.[activeLanguage] && (
                         <p className="text-sm text-[#64748B]">
-                            {item.description[activeLanguage]}
+                            <span className="hidden sm:inline">
+                                {item.description[activeLanguage]}
+                            </span>
+                            <span className="sm:hidden line-clamp-3">
+                                {item.description[activeLanguage]}
+                            </span>
                         </p>
                     )}
                     <p className="text-sm text-[#64748B]">{item.price} €</p>
                 </div>
             </Card>
 
-            <MenuItemDialog 
+            <MenuItemDialog
                 isOpen={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
                 item={item}
@@ -48,4 +53,4 @@ const MenuItem = ({ item, activeLanguage }) => {
     )
 }
 
-export default MenuItem 
+export default MenuItem

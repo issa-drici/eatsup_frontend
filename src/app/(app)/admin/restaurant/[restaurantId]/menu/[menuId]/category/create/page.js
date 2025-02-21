@@ -16,6 +16,7 @@ const CategoryCreate = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -27,10 +28,12 @@ const CategoryCreate = () => {
 
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['menuCategories', menuId])
-        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/categories`)
+        router.push(
+            `/admin/restaurant/${restaurantId}/menu/${menuId}/categories`,
+        )
     }
 
-    const { mutate: createMenuCategory } = useCreateMenuCategory({
+    const { mutateAsync: createMenuCategory } = useCreateMenuCategory({
         handleCallbackSuccess,
         menuId,
     })
@@ -39,11 +42,14 @@ const CategoryCreate = () => {
         e.preventDefault()
 
         try {
+            setIsLoading(true)
             await createMenuCategory(formData)
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -133,7 +139,9 @@ const CategoryCreate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Créer la catégorie</Button>
+                    <Button type="submit" isLoading={isLoading}>
+                        Créer la catégorie
+                    </Button>
                 </div>
             </form>
         </>
