@@ -67,7 +67,7 @@ const Menu = () => {
         isLoading: isLoadingMenu,
         isFetching: isFetchingMenu,
     } = useFindFirstMenuByRestaurantId(restaurantId)
-    console.log(menu)
+
     const [activeSection, setActiveSection] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [activeLanguage, setActiveLanguage] = useState('fr')
@@ -156,33 +156,46 @@ const Menu = () => {
                             activeLanguage={activeLanguage}
                             menuHasBanners={menu?.banners?.length > 0}
                         />
-                        <Carousel
-                            opts={{
-                                loop: true,
-                            }}
-                            plugins={[
-                                Autoplay({
-                                    delay: 5000,
-                                }),
-                            ]}
-                            className="w-full h-[30vh] mb-3">
-                            <CarouselContent className="h-full">
-                                {menu?.banners?.map((banner, index) => (
-                                    <CarouselItem
-                                        className="w-full h-[30vh] relative"
-                                        key={index}>
-                                        <Image
-                                            key={banner.id}
-                                            src={banner.url}
-                                            alt={`Banner ${index + 1}`}
-                                            className="object-cover"
-                                            priority
-                                            fill
-                                        />
-                                    </CarouselItem>
-                                ))}
-                            </CarouselContent>
-                        </Carousel>
+                        {menu?.banners?.length > 1 ? (
+                            <Carousel
+                                opts={{
+                                    loop: true,
+                                }}
+                                plugins={[
+                                    Autoplay({
+                                        delay: 5000,
+                                    }),
+                                ]}
+                                className="w-full h-[30vh] mb-3">
+                                <CarouselContent className="h-full">
+                                    {menu?.banners?.map((banner, index) => (
+                                        <CarouselItem
+                                            className="w-full h-[30vh] relative"
+                                            key={index}>
+                                            <Image
+                                                key={banner.id}
+                                                src={banner.url}
+                                                alt={`Banner ${index + 1}`}
+                                                className="object-cover"
+                                                priority
+                                                fill
+                                            />
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                            </Carousel>
+                        ) : (
+                            <div className="w-full h-[30vh] relative">
+                                <Image
+                                    key={menu?.banners[0].id}
+                                    src={menu?.banners[0].url}
+                                    alt={`Banner ${1}`}
+                                    className="object-cover"
+                                    priority
+                                    fill
+                                />
+                            </div>
+                        )}
                         <div className="flex flex-col px-3">
                             {menuItems.map((categoryData, index) => (
                                 <MenuCategory
