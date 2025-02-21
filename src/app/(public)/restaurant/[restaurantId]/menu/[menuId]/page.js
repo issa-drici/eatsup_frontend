@@ -149,13 +149,6 @@ const Menu = () => {
                     <LoadingSkeleton />
                 ) : menuItems?.length > 0 ? (
                     <>
-                        <CategoryBar
-                            menuItems={menuItems}
-                            activeSection={activeSection}
-                            scrollToSection={scrollToSection}
-                            activeLanguage={activeLanguage}
-                            menuHasBanners={menu?.banners?.length > 0}
-                        />
                         {menu?.banners?.length > 1 ? (
                             <Carousel
                                 opts={{
@@ -166,7 +159,7 @@ const Menu = () => {
                                         delay: 5000,
                                     }),
                                 ]}
-                                className="w-full h-[30vh] mb-3">
+                                className="w-full h-[30vh]">
                                 <CarouselContent className="h-full">
                                     {menu?.banners?.map((banner, index) => (
                                         <CarouselItem
@@ -196,7 +189,14 @@ const Menu = () => {
                                 />
                             </div>
                         )}
-                        <div className="flex flex-col px-3">
+                        <CategoryBar
+                            menuItems={menuItems}
+                            activeSection={activeSection}
+                            scrollToSection={scrollToSection}
+                            activeLanguage={activeLanguage}
+                            menuHasBanners={menu?.banners?.length > 0}
+                        />
+                        <div className="flex flex-col px-3 pt-2">
                             {menuItems.map((categoryData, index) => (
                                 <MenuCategory
                                     key={categoryData.category.id}
