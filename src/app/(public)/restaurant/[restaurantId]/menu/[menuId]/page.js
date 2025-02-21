@@ -12,6 +12,12 @@ import MenuCategory from '@/app/(public)/qr-code/[qrcodeId]/components/MenuCateg
 import LoadingSkeleton from '@/app/(public)/qr-code/[qrcodeId]/components/LoadingSkeleton'
 // import { useFindRestaurantById } from '@/services/restaurant/useFindRestaurantById'
 import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from '@/shadcn-components/ui/carousel'
+import Autoplay from 'embla-carousel-autoplay'
 
 // const labels = {
 //     share: {
@@ -61,7 +67,7 @@ const Menu = () => {
         isLoading: isLoadingMenu,
         isFetching: isFetchingMenu,
     } = useFindFirstMenuByRestaurantId(restaurantId)
-
+    console.log(menu)
     const [activeSection, setActiveSection] = useState('')
     // eslint-disable-next-line no-unused-vars
     const [activeLanguage, setActiveLanguage] = useState('fr')
@@ -148,7 +154,35 @@ const Menu = () => {
                             activeSection={activeSection}
                             scrollToSection={scrollToSection}
                             activeLanguage={activeLanguage}
+                            menuHasBanners={menu?.banners?.length > 0}
                         />
+                        <Carousel
+                            opts={{
+                                loop: true,
+                            }}
+                            plugins={[
+                                Autoplay({
+                                    delay: 5000,
+                                }),
+                            ]}
+                            className="w-full h-[30vh] mb-3">
+                            <CarouselContent className="h-full">
+                                {menu?.banners?.map((banner, index) => (
+                                    <CarouselItem
+                                        className="w-full h-[30vh] relative"
+                                        key={index}>
+                                        <Image
+                                            key={banner.id}
+                                            src={banner.url}
+                                            alt={`Banner ${index + 1}`}
+                                            className="object-cover"
+                                            priority
+                                            fill
+                                        />
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
                         <div className="flex flex-col px-3">
                             {menuItems.map((categoryData, index) => (
                                 <MenuCategory
