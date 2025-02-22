@@ -44,7 +44,7 @@ export default function Blog() {
                         image="/images/blog/innovation-digitalisation.png"
                         title="Innovation et digitalisation en restauration : Comment réussir sa transformation ?"
                         date="2025-01-13"
-                        slug="technologie/innovation-digitalisation-restauration"
+                        slug="technologie/innovation-digitalisation-restauration"sc
                         vertical
                     />
                     <BlogCard

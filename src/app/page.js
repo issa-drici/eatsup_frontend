@@ -40,7 +40,7 @@ const Home = () => {
                         </p>
                         <div className="mt-8 flex flex-col justify-center items-center gap-4 w-full md:flex-row md:items-start md:max-w-2xl">
                             <Link
-                                href="#pricing"
+                                href="https://www.eatsup.fr/restaurant/df3855a4-8f95-45ac-b32f-cfa869e09935/menu/a72c62f7-39e7-4b31-8736-919384ac8a14"
                                 className="bg-white hover:scale-95 transition-all border border-slate-200 text-slate-900 px-4 py-2 rounded-[6px] w-full text-center font-medium">
                                 Voir un vrai menu
                             </Link>
