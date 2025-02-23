@@ -31,9 +31,9 @@ const Layout = ({ children }) => {
                                 contact@eatsup.fr
                             </a>
                             <a
-                                href="tel:+33600000000"
+                                href="tel:+33647173271"
                                 className="hover:underline">
-                                +33 6 00 00 00 00
+                                +33 6 47 17 32 71
                             </a>
                         </div>
                         <div className="mt-20 mb-8">
