@@ -1,0 +1,13 @@
+# Règles globales
+User-agent: *
+Allow: /
+Allow: /blog
+Allow: /legal
+Allow: /restaurant
+
+# Bloquer l'accès aux zones administratives
+Disallow: /admin
+Disallow: /superadmin
+
+# Sitemap
+Sitemap: https://eatsup.fr/sitemap.xml
