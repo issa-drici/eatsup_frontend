@@ -2,7 +2,8 @@ import { Badge } from '@/shadcn-components/ui/badge'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import TableOfContents from './components/TableOfContents'
+import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
+import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
 export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
     return (
@@ -11,7 +12,7 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
             <div className="w-full flex flex-col items-center bg-slate-900 p-8 rounded-[28px] gap-10 md:px-28 md:py-16 md:max-w-screen-xl md:mx-auto">
                 <div className="flex flex-col md:flex-row gap-4 shadow-lg">
                     {/* Conteneur Image */}
-                    <div className="relative w-full md:w-[400px] min-h-[250px] rounded-lg ƒ-hidden">
+                    <div className="relative w-full md:w-[400px] min-h-[250px] rounded-lg overflow-hidden">
                         <Image
                             src="/images/blog/digitaliser.png"
                             alt="Menus QR Code : Pourquoi et comment digitaliser votre carte en 2025 ?"
@@ -32,7 +33,7 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
 
                         <div className="flex gap-6 mt-4">
                             <p className="text-slate-500 text-sm font-light">
-                                2025-02-03
+                                03-02-2025
                             </p>
                             <p className="text-slate-500 text-sm font-light">
                                 Temps de lecture : 3 minutes
@@ -421,9 +422,10 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
                             </h3>
                             <p className="mb-4">
                                 Un bon menu digital ne doit pas être une simple
-                                <strong>liste de plats et de prix</strong>. Il doit être
-                                attractif et donner envie de commander. Voici
-                                quelques conseils pour l’optimiser :
+                                <strong>liste de plats et de prix</strong>. Il
+                                doit être attractif et donner envie de
+                                commander. Voici quelques conseils pour
+                                l’optimiser :
                             </p>
                             <ul className="list-disc pl-6 mb-4">
                                 <li>
@@ -449,13 +451,13 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
                                     <strong>
                                         Mettez en avant les plats populaires
                                     </strong>
-                                    : Affichez les <strong>recommandations du chef</strong> ou les
+                                    : Affichez les{' '}
+                                    <strong>recommandations du chef</strong> ou
+                                    les
                                     <strong>plats les plus commandés</strong>.
                                 </li>
                             </ul>
                         </section>
-
-
 
                         <section id="conclusion" className="mb-12">
                             <p className="mb-4">
@@ -484,6 +486,7 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
                     </article>
                 </div>
             </div>
+            <CTABanner />
         </div>
     )
 }

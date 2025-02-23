@@ -139,7 +139,7 @@ const Menu = () => {
     }, [menuItems, activeSection])
 
     return (
-        <div className="relative bg-slate-100 min-h-[100dvh]">
+        <div className="relative bg-slate-100 min-h-[100dvh] md:bg-white md:max-w-lg md:mx-auto">
             <div className="text-xs h-full pb-5">
                 {isLoadingMenu || isFetchingMenu ? null : (
                     <TitleBar restaurant={menu?.restaurant} />
@@ -159,7 +159,7 @@ const Menu = () => {
                                         delay: 5000,
                                     }),
                                 ]}
-                                className="w-full h-[30vh]">
+                                className="w-full h-[30vh] md:rounded-lg md:overflow-hidden">
                                 <CarouselContent className="h-full">
                                     {menu?.banners?.map((banner, index) => (
                                         <CarouselItem
@@ -178,7 +178,7 @@ const Menu = () => {
                                 </CarouselContent>
                             </Carousel>
                         ) : (
-                            <div className="w-full h-[30vh] relative">
+                            <div className="w-full h-[30vh] relative md:rounded-lg md:overflow-hidden">
                                 <Image
                                     key={menu?.banners[0].id}
                                     src={menu?.banners[0].url}

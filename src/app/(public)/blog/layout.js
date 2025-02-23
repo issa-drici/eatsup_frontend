@@ -13,7 +13,7 @@ export default function LegalLayout({ children }) {
                 <LoginLinks />
             </div>
 
-            <main className="p-4 pb-10 w-full">{children}</main>
+            <main className="p-4 pb-10 w-full relative">{children}</main>
             <Footer />
         </div>
     )

@@ -11,7 +11,7 @@ const CategoryBar = ({
     return (
         <div
             className={cn(
-                'flex px-3 py-2 gap-x-1 sticky z-40 bg-slate-100 shadow-md overflow-x-scroll',
+                'flex px-3 py-2 gap-x-1 sticky z-40 bg-slate-100 shadow-md overflow-x-scroll md:my-2 md:rounded-lg md:overflow-hidden',
                 !menuHasBanners && 'mb-3',
             )}
             style={{ top: 'var(--titlebar-height, 36px)' }}
