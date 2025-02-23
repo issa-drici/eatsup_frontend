@@ -13,7 +13,7 @@ export default function ArticlePage() {
                     {/* Conteneur Image */}
                     <div className="relative w-full md:w-[400px] min-h-[250px] rounded-lg overflow-hidden">
                         <Image
-                            src="/images/blog/digitaliser.png"
+                            src="/images/blog/strategie-marketing.png"
                             alt="Augmenter les ventes d’un restaurant"
                             className="object-cover"
                             fill
@@ -23,7 +23,7 @@ export default function ArticlePage() {
                     {/* Conteneur Texte */}
                     <div className="flex-1 flex flex-col gap-2 px-10 pt-10 pb-4">
                         <Badge variant="secondary" className="w-fit">
-                            Restauration
+                            Marketing
                         </Badge>
                         <h1 className="text-white text-2xl font-extrabold text-center md:text-4xl md:text-left">
                             Comment augmenter les ventes de votre restaurant en
@@ -587,6 +587,6 @@ export default function ArticlePage() {
                 </div>
             </div>
             <CTABanner />
-            </div>
+        </div>
     )
 }

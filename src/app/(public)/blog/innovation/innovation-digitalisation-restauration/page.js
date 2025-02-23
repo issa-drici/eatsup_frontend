@@ -14,7 +14,7 @@ export default function ArticlePage() {
                     {/* Conteneur Image */}
                     <div className="relative w-full md:w-[400px] min-h-[250px] rounded-lg overflow-hidden">
                         <Image
-                            src="/images/blog/digitaliser.png"
+                            src="/images/blog/innovation-digitalisation.png"
                             alt="Innovation et Digitalisation en Restauration : Comment Réussir sa Transformation ?"
                             className="object-cover"
                             fill
@@ -24,7 +24,7 @@ export default function ArticlePage() {
                     {/* Conteneur Texte */}
                     <div className="flex-1 flex flex-col gap-2 px-10 pt-10 pb-4">
                         <Badge variant="secondary" className="w-fit">
-                            Technologie
+                            Innovation
                         </Badge>
                         <h1 className="text-white text-2xl font-extrabold text-center md:text-4xl md:text-left">
                             Innovation et digitalisation en restauration :

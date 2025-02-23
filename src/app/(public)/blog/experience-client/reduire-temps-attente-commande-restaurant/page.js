@@ -14,7 +14,7 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
                     {/* Conteneur Image */}
                     <div className="relative w-full md:w-[400px] min-h-[250px] rounded-lg overflow-hidden">
                         <Image
-                            src="/images/blog/digitaliser.png"
+                            src="/images/blog/reduire-temps-attente.png"
                             alt="Menus QR Code : Pourquoi et comment digitaliser votre carte en 2025 ?"
                             fill
                             className="object-cover"
@@ -547,6 +547,6 @@ export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
                 </div>
             </div>
             <CTABanner />
-            </div>
+        </div>
     )
 }
