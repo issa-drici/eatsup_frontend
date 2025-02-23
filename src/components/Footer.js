@@ -21,7 +21,7 @@ const Footer = () => {
                         Blog
                     </Link>
                     <Link
-                        href="#pricing"
+                        href="https://www.eatsup.fr/restaurant/df3855a4-8f95-45ac-b32f-cfa869e09935/menu/a72c62f7-39e7-4b31-8736-919384ac8a14"
                         className="text-slate-300 hover:text-slate-50 hover:underline transition-all duration-150">
                         Menu démo
                     </Link>
