@@ -2,6 +2,12 @@ import BlogCard from '@/components/BlogCard'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 import { outfitFont } from '@/ui/fonts'
 
+export const metadata = {
+    title: 'Blog pour les restaurateurs connectés',
+    description:
+        'Découvrez les dernières tendances et astuces pour améliorer votre restaurant. Des articles sur la technologie, l’expérience client, la stratégie marketing et bien plus encore.',
+}
+
 export default function Blog() {
     return (
         <>

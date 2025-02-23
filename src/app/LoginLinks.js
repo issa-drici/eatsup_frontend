@@ -17,8 +17,7 @@ const LoginLinks = () => {
                                 ? '/superadmin/dashboard'
                                 : '/admin/dashboard'
                         }
-                        className="hidden md:block"
-                        asChild>
+                        className="hidden md:block">
                         <Button>Dashboard</Button>
                     </Link>
                     <Link
@@ -27,28 +26,27 @@ const LoginLinks = () => {
                                 ? '/superadmin/dashboard'
                                 : '/admin/dashboard'
                         }
-                        className="md:hidden"
-                        asChild>
+                        className="md:hidden">
                         <Button size='sm'>Dashboard</Button>
                     </Link>
                 </>
             ) : (
                 <>
                     <div className="flex flex-row md:hidden">
-                        <Link href="/login" asChild>
+                        <Link href="/login">
                             <Button variant="link" size='sm'>Se connecter</Button>
                         </Link>
 
-                        <Link href="/register" asChild>
+                        <Link href="/register">
                             <Button size='sm'>Essai gratuit ✨</Button>
                         </Link>
                     </div>
                     <div className="md:flex flex-row hidden">
-                        <Link href="/login" asChild>
+                        <Link href="/login">
                             <Button variant="link">Se connecter</Button>
                         </Link>
 
-                        <Link href="/register" asChild>
+                        <Link href="/register">
                             <Button>Essai gratuit ✨</Button>
                         </Link>
                     </div>

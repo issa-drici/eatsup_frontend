@@ -4,6 +4,12 @@ import { Badge } from '@/shadcn-components/ui/badge'
 import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
+export const metadata = {
+    title: 'Menu digital restaurant : Comment booster vos ventes et améliorer l’expérience client ?',
+    description:
+        'Découvrez les avantages d’un menu digital pour votre restaurant. Comment booster vos ventes et améliorer l’expérience client ?',
+}
+
 export default function ArticlePage() {
     return (
         <div className="w-full">

@@ -5,6 +5,12 @@ import Link from 'next/link'
 import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
+export const metadata = {
+    title: 'Comment réduire le temps d’attente et fluidifier la prise de commande en restaurant ?',
+    description:
+        'Découvrez les solutions pour réduire le temps d’attente et fluidifier la prise de commande en restaurant.',
+}
+
 export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
     return (
         <div className="w-full">

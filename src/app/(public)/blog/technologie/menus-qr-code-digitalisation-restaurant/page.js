@@ -5,6 +5,12 @@ import Link from 'next/link'
 import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
+export const metadata = {
+    title: 'Menus QR Code : Pourquoi et comment digitaliser votre carte en 2025 ?',
+    description:
+        'Découvrez les avantages d’un menu digital pour votre restaurant. Comment booster vos ventes et améliorer l’expérience client ?',
+}
+
 export default function TechnologieMenusQRCodeDigitalisationRestaurant() {
     return (
         <div className="w-full">

@@ -5,6 +5,12 @@ import { Badge } from '@/shadcn-components/ui/badge'
 import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
+export const metadata = {
+    title: 'Innovation et Digitalisation en Restauration : Comment Réussir sa Transformation ?',
+    description:
+        'Découvrez les avantages de la digitalisation pour votre restaurant. Comment améliorer votre service et vos ventes avec des solutions innovantes ?',
+}
+
 export default function ArticlePage() {
     return (
         <div className="w-full">

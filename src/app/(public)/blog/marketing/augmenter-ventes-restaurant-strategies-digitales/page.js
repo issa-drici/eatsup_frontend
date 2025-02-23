@@ -4,6 +4,12 @@ import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
 import { Badge } from '@/shadcn-components/ui/badge'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
 
+export const metadata = {
+    title: 'Augmenter les ventes d’un restaurant : Stratégies digitales et astuces marketing',
+    description:
+        'Découvrez les meilleures stratégies pour augmenter les ventes de votre restaurant en 2025. Optimisez votre menu, améliorez l’expérience client et utilisez des outils digitaux pour booster votre chiffre d’affaires.',
+}
+
 export default function ArticlePage() {
     return (
         <div className="w-full">

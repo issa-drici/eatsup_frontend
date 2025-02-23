@@ -7,20 +7,47 @@ import {
     getFirstMenuByRestaurantId,
     getPublicWebsiteBySlug,
 } from '@/utils/api-requests'
+import { Badge } from '@/shadcn-components/ui/badge'
+
+const RESTAURANT_TYPES = [
+    { label: 'Fast-food', value: 'fast-food' },
+    { label: 'Pizzeria', value: 'pizzeria' },
+    { label: 'Kebab', value: 'kebab' },
+    { label: 'Burger', value: 'burger' },
+    { label: 'Italien', value: 'italien' },
+    { label: 'Chinois', value: 'chinois' },
+    { label: 'Japonais', value: 'japonais' },
+    { label: 'Libanais', value: 'libanais' },
+    { label: 'Indien', value: 'indien' },
+    { label: 'Grillades/Barbecue', value: 'grillades-barbecue' },
+    { label: 'Buffet à volonté', value: 'buffet-a-volonte' },
+    { label: 'Bistrot', value: 'bistrot' },
+    { label: 'Gastronomique', value: 'gastronomique' },
+    { label: 'Healthy', value: 'healthy' },
+]
 
 export async function generateMetadata({ params }) {
-    const website = await getPublicWebsiteBySlug(
+    const { data: website } = await getPublicWebsiteBySlug(
         params.type,
         params.ville,
         params.name,
     )
 
+    const type = RESTAURANT_TYPES.find(type => type.value === params.type)
+
     return {
         title: website?.title?.fr,
-        description: website?.description?.fr,
+        description:
+            website?.description?.fr +
+            ' | ' +
+            type?.label +
+            ' • ' +
+            website?.restaurant?.city +
+            ' • ' +
+            website?.restaurant?.postal_code +
+            ' • ' +
+            website?.title?.fr,
         openGraph: {
-            title: website?.title?.fr,
-            description: website?.description?.fr,
             images: [
                 website?.presentation_image?.url || '/images/restaurant.jpg',
             ],
@@ -104,6 +131,8 @@ export default async function PublicWebsite({ params }) {
         })
     }
 
+    const type = RESTAURANT_TYPES.find(type => type.value === params.type)
+
     return (
         <div className="min-h-screen bg-white text-slate-900">
             <SessionTracker websiteId={website.id} />
@@ -135,6 +164,7 @@ export default async function PublicWebsite({ params }) {
                             height={100}
                         />
                     </div>
+                    <Badge>{type?.label}</Badge>
                     <h1 className="text-2xl font-bold mb-2 text-center">
                         {website.title?.fr || 'Restaurant'}
                     </h1>
