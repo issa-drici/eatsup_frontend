@@ -28,7 +28,8 @@ const Home = () => {
                     <div className="flex flex-col items-center">
                         <h1
                             className={`${outfitFont.className} text-white text-5xl font-extrabold text-center md:text-7xl md:text-left md:tracking-tight`}>
-                            Boostez vos ventes en un seul scan
+                            Boostez vos ventes grâce à votre menu
+                            {/* Boostez vos ventes en un seul scan */}
                         </h1>
                         <p className="text-slate-300 text-center mt-2 md:text-xl md:text-left">
                             Augmentez vos ventes avec un menu disponible en

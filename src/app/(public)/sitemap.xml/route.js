@@ -46,6 +46,11 @@ function generateSiteMap(urls = []) {
             <changefreq>monthly</changefreq>
             <priority>0.8</priority>
         </url>
+        <url>
+            <loc>${SITE_URL}/blog/experience-client/reduire-temps-attente-commande-restaurant</loc>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+        </url>
 
         <!-- URLs dynamiques des restaurants -->
         ${urls
