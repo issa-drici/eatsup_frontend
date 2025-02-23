@@ -3,16 +3,12 @@ import AuthCard from '@/app/(auth)/AuthCard'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import { Suspense } from 'react'
 import LoginLinks from '../LoginLinks'
-import { Outfit } from 'next/font/google'
 import { CheckIcon } from 'lucide-react'
+import { outfitFont } from '@/ui/fonts'
 
 export const metadata = {
     title: 'Eatsup - votre menu qui propulse vos ventes',
 }
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
 
 const Layout = ({ children }) => {
     return (

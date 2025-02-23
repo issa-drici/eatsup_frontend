@@ -5,11 +5,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ChevronDown, Plus, Minus } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Outfit } from 'next/font/google';
-
-const outfitFont = Outfit({
-  subsets: ['latin'],
-})
+import { outfitFont } from '@/ui/fonts';
 
 
 const Accordion = AccordionPrimitive.Root;

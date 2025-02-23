@@ -1,13 +1,8 @@
-import { Nunito } from 'next/font/google'
 import '@/app/global.css'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 import CookieConsent from '@/components/CookieConsent'
 import Script from 'next/script'
-
-const nunitoFont = Nunito({
-    subsets: ['latin'],
-    display: 'swap',
-})
+import { nunitoFont } from '@/ui/fonts'
 
 const RootLayout = ({ children }) => {
     return (

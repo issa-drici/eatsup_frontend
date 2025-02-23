@@ -1,8 +1,4 @@
-import { Outfit } from 'next/font/google'
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
+import { outfitFont } from "@/ui/fonts";
 
 export default function CGV() {
     return (

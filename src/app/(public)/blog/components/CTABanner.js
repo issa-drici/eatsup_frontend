@@ -1,9 +1,6 @@
-import { Outfit } from 'next/font/google'
+import { outfitFont } from '@/ui/fonts'
 import Image from 'next/image'
 import Link from 'next/link'
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
 
 const CTABanner = () => {
     return (

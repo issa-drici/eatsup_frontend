@@ -1,11 +1,6 @@
 import BlogCard from '@/components/BlogCard'
-
-import { Outfit } from 'next/font/google'
 import CTABanner from '@/app/(public)/blog/components/CTABanner'
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
+import { outfitFont } from '@/ui/fonts'
 
 export default function Blog() {
     return (

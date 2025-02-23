@@ -9,12 +9,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 import { Button } from '@/shadcn-components/ui/button'
-import { Outfit } from 'next/font/google'
 import Image from 'next/image'
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
+import { outfitFont } from '@/ui/fonts'
 
 const Login = () => {
     const router = useRouter()

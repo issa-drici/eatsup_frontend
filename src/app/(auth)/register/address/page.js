@@ -9,12 +9,8 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useAuth } from '@/hooks/auth'
 import { Button } from '@/shadcn-components/ui/button'
-import { Outfit } from 'next/font/google'
 import Image from 'next/image'
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
+import { outfitFont } from '@/ui/fonts'
 
 const AddressPage = () => {
     const { user } = useAuth({

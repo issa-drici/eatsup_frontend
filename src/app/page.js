@@ -1,7 +1,6 @@
 import LoginLinks from '@/app/LoginLinks'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import { Check, X } from 'lucide-react'
-import { Outfit } from 'next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
 import Footer from '@/components/Footer'
@@ -11,14 +10,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/shadcn-components/ui/accordion'
+import { outfitFont } from '@/ui/fonts'
 
 export const metadata = {
     title: 'Eatsup - votre menu qui propulse vos ventes',
 }
-
-const outfitFont = Outfit({
-    subsets: ['latin'],
-})
 
 const Home = () => {
     return (
