@@ -10,4 +10,4 @@ Disallow: /admin
 Disallow: /superadmin
 
 # Sitemap
-Sitemap: https://eatsup.fr/sitemap.xml
+Sitemap: https://www.eatsup.fr/sitemap.xml

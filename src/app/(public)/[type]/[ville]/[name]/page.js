@@ -1,29 +1,57 @@
-'use client'
-
-import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import Link from 'next/link'
-import { useFindWebsiteBySlugPublic } from '@/services/website/useFindWebsiteBySlugPublic'
-import { useEffect } from 'react'
-import { useCreateWebsiteSession } from '@/services/website-session/useCreateWebsiteSession'
-import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
-import { Button } from '@/shadcn-components/ui/button'
-import { Share } from 'lucide-react'
+import ShareButton from './components/ShareButton'
+import SessionTracker from './components/SessionTracker'
+import {
+    getFirstMenuByRestaurantId,
+    getPublicWebsiteBySlug,
+} from '@/utils/api-requests'
 
-const PublicWebsite = () => {
-    const { type: typeSlug, ville: citySlug, name: nameSlug } = useParams()
-    const { data: website, isLoading } = useFindWebsiteBySlugPublic(
-        typeSlug,
-        citySlug,
-        nameSlug,
+export async function generateMetadata({ params }) {
+    const website = await getPublicWebsiteBySlug(
+        params.type,
+        params.ville,
+        params.name,
     )
 
-    const {
-        data: menu,
-        isLoading: isLoadingMenu,
-        isFetching: isFetchingMenu,
-    } = useFindFirstMenuByRestaurantId(website?.restaurant_id)
+    return {
+        title: website?.title?.fr,
+        description: website?.description?.fr,
+        openGraph: {
+            title: website?.title?.fr,
+            description: website?.description?.fr,
+            images: [
+                website?.presentation_image?.url || '/images/restaurant.jpg',
+            ],
+        },
+    }
+}
+
+export default async function PublicWebsite({ params }) {
+    const { data: website } = await getPublicWebsiteBySlug(
+        params.type,
+        params.ville,
+        params.name,
+    )
+
+    if (!website) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <p className="text-center text-gray-600">Site web non trouvé</p>
+            </div>
+        )
+    }
+
+    let menu = null
+    try {
+        menu = (await getFirstMenuByRestaurantId(website.restaurant.id)).data
+    } catch (error) {
+        console.error('Erreur lors de la récupération du menu:', error)
+    }
+
+    const description = website.description?.fr || ''
+    const descriptionLines = description ? description.split('\n') : []
 
     const renderOpeningHours = () => {
         if (!website?.opening_hours) return null
@@ -63,7 +91,6 @@ const PublicWebsite = () => {
                 </div>
             )
 
-            // Ajoute un séparateur après chaque jour sauf le dernier
             if (index < array.length - 1) {
                 return (
                     <div key={day}>
@@ -77,103 +104,11 @@ const PublicWebsite = () => {
         })
     }
 
-    const { mutate: createWebsiteSession } = useCreateWebsiteSession({
-        websiteId: website?.id,
-    })
-
-    const handleCreateSession = async () => {
-        try {
-            const ipResponse = await fetch('https://api.ipify.org?format=json')
-            const ipData = await ipResponse.json()
-
-            await createWebsiteSession({
-                ip_address: ipData.ip,
-                user_agent: window.navigator.userAgent,
-                location: '',
-            })
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('Erreur lors de la création de la session:', error)
-        }
-    }
-
-    useEffect(() => {
-        // Création initiale de la session
-        handleCreateSession()
-
-        // Gestionnaire d'événement pour le focus
-        const handleVisibilityChange = () => {
-            if (document.visibilityState === 'visible') {
-                handleCreateSession()
-            }
-        }
-
-        document.addEventListener('visibilitychange', handleVisibilityChange)
-
-        return () => {
-            document.removeEventListener(
-                'visibilitychange',
-                handleVisibilityChange,
-            )
-        }
-    }, [])
-
-    if (isLoading) {
-        return (
-            <div className="min-h-screen bg-white">
-                <Skeleton className="h-64 w-full" />
-                <div className="p-6 space-y-8">
-                    <Skeleton className="h-20 w-full" />
-                    <Skeleton className="h-40 w-full" />
-                </div>
-            </div>
-        )
-    }
-
-    if (!website) {
-        return <div>Site web non trouvé</div>
-    }
-
-    const linkToShare = window.location.href
-    const messageToShare = `J'ai trop aimé le restaurant ${website.title?.fr}, hésites surtout pas à venir.<br />Je te donne le lien avec toutes les infos pour y aller : ${linkToShare}`
-
-    const handleShare = () => {
-        if (navigator.share) {
-            // Si le navigateur supporte l'API Web Share
-            navigator
-                .share({
-                    title: 'Lien à partager',
-                    text: messageToShare,
-                    url: linkToShare,
-                })
-                .catch(error =>
-                    /* eslint-disable no-console */
-                    console.log('Partage annulé ou erreur : ', error),
-                )
-        } else {
-            // Pour les navigateurs desktop, copier le lien dans le presse-papiers
-            navigator.clipboard.writeText(linkToShare).then(
-                () => {
-                    alert('Lien copié dans le presse-papiers !')
-                },
-                error =>
-                    /* eslint-disable no-console */
-                    console.error('Erreur lors de la copie du lien :', error),
-            )
-        }
-    }
-
     return (
         <div className="min-h-screen bg-white text-slate-900">
+            <SessionTracker websiteId={website.id} />
             <div className="flex justify-end p-1">
-                {/* <Link
-                    href={`sms:&body=J'ai trop aimé le restaurant ${website.title?.fr}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
-                    asChild> */}
-                <Button variant="link" onClick={handleShare}>
-                    Partager
-                    <Share className="w-4 h-4" />
-                </Button>
-                {/* </Link> */}
+                <ShareButton websiteTitle={website.title?.fr} />
             </div>
             <div className="relative h-72">
                 <div className="absolute inset-0 bg-black/70 z-10" />
@@ -188,60 +123,82 @@ const PublicWebsite = () => {
                     priority
                 />
                 <div className="absolute inset-0 flex flex-col justify-center items-center p-6 text-white z-20">
+                    <div className="flex items-center justify-center w-20 h-20 mb-4 bg-white rounded-full overflow-hidden p-3">
+                        <Image
+                            src={
+                                website.restaurant.logo?.url ||
+                                '/images/logo.png'
+                            }
+                            alt="Logo"
+                            className="w-full h-full object-contain"
+                            width={100}
+                            height={100}
+                        />
+                    </div>
                     <h1 className="text-2xl font-bold mb-2 text-center">
-                        {website.title?.fr}
+                        {website.title?.fr || 'Restaurant'}
                     </h1>
                     <p className="text-sm opacity-90 mb-4 text-center">
-                        {website.description?.fr
-                            .split('\n')
-                            .map((line, index) => (
-                                <span key={index}>
-                                    {line}
-                                    <br />
-                                </span>
-                            ))}
+                        {descriptionLines.map((line, index) => (
+                            <span key={index}>
+                                {line}
+                                <br />
+                            </span>
+                        ))}
                     </p>
-                    {isLoadingMenu || isFetchingMenu ? (
-                        <Skeleton className="h-20 w-full" />
-                    ) : (
+                    {menu ? (
                         <Link
-                            href={`/restaurant/${website.restaurant_id}/menu/${menu?.id}`}
+                            href={`/restaurant/${website.restaurant.id}/menu/${menu.id}`}
                             className="w-full max-w-md bg-white text-black py-3 px-4 rounded-lg text-center font-medium">
                             Consulter notre menu
                         </Link>
+                    ) : (
+                        <Skeleton className="h-12 w-full max-w-md" />
                     )}
                 </div>
             </div>
 
             <div className="p-6 space-y-8">
                 <section>
-                    <h2 className="text-xl font-bold mb-4">Nous contacter</h2>
                     {website.restaurant?.phone && (
-                        <a
-                            href={`tel:${website.restaurant?.phone}`}
-                            className="text-lg text-blue-600 underline">
-                            {website.restaurant?.phone}
-                        </a>
+                        <>
+                            <h2 className="text-xl font-bold mb-4">
+                                Nous contacter
+                            </h2>
+                            <a
+                                href={`tel:${website.restaurant?.phone}`}
+                                className="text-lg text-blue-600 underline">
+                                {website.restaurant?.phone}
+                            </a>
+                        </>
                     )}
                 </section>
-
                 <section>
                     <h2 className="text-xl font-bold mb-4">Nous retrouver</h2>
-                    {website.address && (
+                    {website.restaurant.address && (
                         <div>
                             <h3 className="font-medium mb-2">Adresse</h3>
-                            <p>{website.address}</p>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 underline"
+                                href={`https://www.google.fr/maps/place/${encodeURIComponent(
+                                    `${website.restaurant.address}, ${website.restaurant.postal_code} - ${website.restaurant.city}`,
+                                )}`}>
+                                {`${website.restaurant.address}, ${website.restaurant.postal_code} - ${website.restaurant.city}`}
+                            </a>
                         </div>
                     )}
-                    {/* Ici vous pourriez ajouter la carte Google Maps */}
                 </section>
 
-                <section>
-                    <h2 className="text-xl font-bold mb-4">
-                        Horaires d'ouverture
-                    </h2>
-                    <div className="space-y-2">{renderOpeningHours()}</div>
-                </section>
+                {website.opening_hours && (
+                    <section>
+                        <h2 className="text-xl font-bold mb-4">
+                            Horaires d'ouverture
+                        </h2>
+                        <div className="space-y-2">{renderOpeningHours()}</div>
+                    </section>
+                )}
 
                 {website.google_info?.url && (
                     <section className="bg-slate-900 text-white p-4 rounded-lg">
@@ -273,5 +230,3 @@ const PublicWebsite = () => {
         </div>
     )
 }
-
-export default PublicWebsite
