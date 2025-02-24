@@ -19,6 +19,7 @@ const RestaurantUpdate = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         address: '',
@@ -33,8 +34,8 @@ const RestaurantUpdate = () => {
 
     const {
         data: restaurant,
-        isLoading,
-        isFetching,
+        isLoading: isLoadingRestaurant,
+        isFetching: isFetchingRestaurant,
     } = useFindRestaurantById(restaurantId)
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const RestaurantUpdate = () => {
         router.back()
     }
 
-    const { mutate: updateRestaurant } = useUpdateRestaurant({
+    const { mutateAsync: updateRestaurant } = useUpdateRestaurant({
         handleCallbackSuccess,
         restaurantId,
         withToast: true,
@@ -63,6 +64,7 @@ const RestaurantUpdate = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
+        setIsLoading(true)
 
         try {
             const formDataToSend = new FormData()
@@ -91,6 +93,8 @@ const RestaurantUpdate = () => {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -159,7 +163,7 @@ const RestaurantUpdate = () => {
                 <div className="space-y-4">
                     <div>
                         <Label htmlFor="name">Nom du restaurant*</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingRestaurant || isFetchingRestaurant ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -179,7 +183,7 @@ const RestaurantUpdate = () => {
 
                     <div>
                         <Label htmlFor="address">Adresse</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingRestaurant || isFetchingRestaurant ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -200,7 +204,7 @@ const RestaurantUpdate = () => {
 
                     <div>
                         <Label htmlFor="phone">Téléphone</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingRestaurant || isFetchingRestaurant ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -217,7 +221,7 @@ const RestaurantUpdate = () => {
 
                     <div>
                         <Label htmlFor="logo">Logo du restaurant</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingRestaurant || isFetchingRestaurant ? (
                             <Skeleton className="h-40 w-full mt-1" />
                         ) : (
                             <div className="mt-2">
@@ -255,7 +259,7 @@ const RestaurantUpdate = () => {
                         <h3 className="text-lg font-medium">Réseaux sociaux</h3>
                         <div>
                             <Label htmlFor="facebook">Facebook</Label>
-                            {isLoading || isFetching ? (
+                            {isLoadingRestaurant || isFetchingRestaurant ? (
                                 <Skeleton className="h-10 w-full mt-1" />
                             ) : (
                                 <Input
@@ -279,7 +283,7 @@ const RestaurantUpdate = () => {
 
                         <div>
                             <Label htmlFor="instagram">Instagram</Label>
-                            {isLoading || isFetching ? (
+                            {isLoadingRestaurant || isFetchingRestaurant ? (
                                 <Skeleton className="h-10 w-full mt-1" />
                             ) : (
                                 <Input
@@ -303,7 +307,7 @@ const RestaurantUpdate = () => {
 
                         <div>
                             <Label htmlFor="tiktok">TikTok</Label>
-                            {isLoading || isFetching ? (
+                            {isLoadingRestaurant || isFetchingRestaurant ? (
                                 <Skeleton className="h-10 w-full mt-1" />
                             ) : (
                                 <Input
@@ -332,7 +336,7 @@ const RestaurantUpdate = () => {
                             <Label htmlFor="google-search">
                                 Rechercher votre établissement
                             </Label>
-                            {isLoading || isFetching ? (
+                            {isLoadingRestaurant || isFetchingRestaurant ? (
                                 <Skeleton className="h-10 w-full mt-1" />
                             ) : (
                                 <>
@@ -402,7 +406,7 @@ const RestaurantUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Mettre à jour le restaurant</Button>
+                    <Button isLoading={isLoading} type="submit">Mettre à jour le restaurant</Button>
                 </div>
             </form>
         </>

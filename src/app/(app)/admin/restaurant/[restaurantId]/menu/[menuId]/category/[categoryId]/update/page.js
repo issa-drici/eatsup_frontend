@@ -18,6 +18,7 @@ const CategoryUpdate = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -27,7 +28,7 @@ const CategoryUpdate = () => {
         },
     })
 
-    const { data: menuCategory, isLoading, isFetching } = useFindMenuCategoryById(categoryId)
+    const { data: menuCategory, isLoading: isLoadingMenuCategory, isFetching: isFetchingMenuCategory } = useFindMenuCategoryById(categoryId)
 
     useEffect(() => {
         if (menuCategory) {
@@ -47,13 +48,14 @@ const CategoryUpdate = () => {
         router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/categories`)
     }
 
-    const { mutate: updateMenuCategory } = useUpdateMenuCategory({
+    const { mutateAsync: updateMenuCategory } = useUpdateMenuCategory({
         handleCallbackSuccess,
         categoryId,
     })
 
     const handleSubmit = async e => {
         e.preventDefault()
+        setIsLoading(true)
 
         try {
             await updateMenuCategory(formData)
@@ -61,6 +63,8 @@ const CategoryUpdate = () => {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -110,7 +114,7 @@ const CategoryUpdate = () => {
                 <div className="space-y-4">
                     <div>
                         <Label htmlFor="name">Nom*</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoadingMenuCategory || isFetchingMenuCategory ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -128,7 +132,7 @@ const CategoryUpdate = () => {
 
                     <div>
                         <Label>Description</Label>
-                        {(isLoading || isFetching) ? (
+                        {isLoadingMenuCategory || isFetchingMenuCategory ? (
                             <Skeleton className="h-24 w-full mt-1" />
                         ) : (
                             <TextArea
@@ -150,7 +154,7 @@ const CategoryUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Modifier la catégorie</Button>
+                    <Button isLoading={isLoading} type="submit">Modifier la catégorie</Button>
                 </div>
             </form>
         </>

@@ -18,6 +18,7 @@ const MenuUpdate = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     // const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -31,8 +32,8 @@ const MenuUpdate = () => {
 
     const {
         data: menu,
-        isLoading,
-        isFetching,
+        isLoading: isLoadingMenu,
+        isFetching: isFetchingMenu,
     } = useFindMenuById(menuId)
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const MenuUpdate = () => {
         router.back()
     }
 
-    const { mutate: updateMenu } = useUpdateMenu({
+    const { mutateAsync: updateMenu } = useUpdateMenu({
         handleCallbackSuccess,
         menuId,
         restaurantId,
@@ -63,8 +64,8 @@ const MenuUpdate = () => {
 
     const handleSubmit = async e => {
         e.preventDefault()
-
-        // try {
+        setIsLoading(true)
+        try {
             const formDataToSend = new FormData()
 
             formDataToSend.append('name', JSON.stringify(formData.name))
@@ -84,11 +85,11 @@ const MenuUpdate = () => {
             }
 
             await updateMenu(formDataToSend)
-        // } catch (error) {
-        //     if (error.response?.status === 422) {
-        //         setErrors(error.response.data.errors)
-        //     }
-        // }
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -150,7 +151,7 @@ const MenuUpdate = () => {
 
                     <div>
                         <Label htmlFor="banners">Publicités sur le menu</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenu || isFetchingMenu ? (
                             <Skeleton className="h-40 w-full mt-1" />
                         ) : (
                             <div className="mt-2">
@@ -187,7 +188,7 @@ const MenuUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Mettre à jour le menu</Button>
+                    <Button isLoading={isLoading} type="submit">Mettre à jour le menu</Button>
                 </div>
             </form>
         </>

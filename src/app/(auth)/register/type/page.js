@@ -47,6 +47,7 @@ const RestaurantTypePage = () => {
 
     const router = useRouter()
     const [selectedType, setSelectedType] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const { data: restaurant } = useFindRestaurantById(user?.restaurant?.id)
 
@@ -60,7 +61,7 @@ const RestaurantTypePage = () => {
         router.push('/admin/dashboard')
     }
 
-    const { mutate: updateRestaurant } = useUpdateRestaurant({
+    const { mutateAsync: updateRestaurant } = useUpdateRestaurant({
         handleCallbackSuccess,
         restaurantId: user?.restaurant?.id,
     })
@@ -86,7 +87,14 @@ const RestaurantTypePage = () => {
             )
         }
 
-        await updateRestaurant(formDataToSend)
+        setIsLoading(true)
+        try {
+            await updateRestaurant(formDataToSend)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -143,7 +151,10 @@ const RestaurantTypePage = () => {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button type="submit" disabled={!selectedType}>
+                    <Button
+                        isLoading={isLoading}
+                        type="submit"
+                        disabled={!selectedType}>
                         Continuer
                     </Button>
                 </div>

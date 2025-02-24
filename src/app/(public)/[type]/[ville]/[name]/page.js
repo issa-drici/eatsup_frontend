@@ -152,18 +152,20 @@ export default async function PublicWebsite({ params }) {
                     priority
                 />
                 <div className="absolute inset-0 flex flex-col justify-center items-center p-6 text-white z-20">
-                    <div className="flex items-center justify-center w-20 h-20 mb-4 bg-white rounded-full overflow-hidden p-3">
-                        <Image
-                            src={
-                                website.restaurant.logo?.url ||
-                                '/images/logo.png'
-                            }
-                            alt="Logo"
-                            className="w-full h-full object-contain"
-                            width={100}
-                            height={100}
-                        />
-                    </div>
+                    {website.restaurant.logo?.url && (
+                        <div className="flex items-center justify-center w-20 h-20 mb-4 bg-white rounded-full overflow-hidden p-3">
+                            <Image
+                                src={
+                                    website.restaurant.logo?.url ||
+                                    '/images/logo.png'
+                                }
+                                alt="Logo"
+                                className="w-full h-full object-contain"
+                                width={100}
+                                height={100}
+                            />
+                        </div>
+                    )}
                     <Badge>{type?.label}</Badge>
                     <h1 className="text-2xl font-bold mb-2 text-center">
                         {website.title?.fr || 'Restaurant'}

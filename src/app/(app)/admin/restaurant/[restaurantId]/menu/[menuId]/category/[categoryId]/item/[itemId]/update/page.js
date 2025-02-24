@@ -19,6 +19,7 @@ const ItemUpdate = () => {
     const queryClient = useQueryClient()
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
             fr: '',
@@ -38,8 +39,8 @@ const ItemUpdate = () => {
 
     const {
         data: menuItem,
-        isLoading,
-        isFetching,
+        isLoading: isLoadingMenuItem,
+        isFetching: isFetchingMenuItem,
     } = useFindMenuItemById(itemId)
 
     useEffect(() => {
@@ -64,13 +65,14 @@ const ItemUpdate = () => {
         router.back()
     }
 
-    const { mutate: updateMenuItem } = useUpdateMenuItem({
+    const { mutateAsync: updateMenuItem } = useUpdateMenuItem({
         handleCallbackSuccess,
         itemId,
     })
 
     const handleSubmit = async e => {
         e.preventDefault()
+        setIsLoading(true)
 
         try {
             const formDataToSend = new FormData()
@@ -105,6 +107,8 @@ const ItemUpdate = () => {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -139,8 +143,8 @@ const ItemUpdate = () => {
                             href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
                         },
                         {
-                            title: 'Items',
-                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/items`,
+                            title: 'Articles',
+                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
                         },
                         {
                             title: 'Modifier',
@@ -154,7 +158,7 @@ const ItemUpdate = () => {
                 <div className="space-y-4">
                     <div>
                         <Label htmlFor="name">Nom*</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenuItem || isFetchingMenuItem ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -174,7 +178,7 @@ const ItemUpdate = () => {
 
                     <div>
                         <Label>Description</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenuItem || isFetchingMenuItem ? (
                             <Skeleton className="h-24 w-full mt-1" />
                         ) : (
                             <TextArea
@@ -194,7 +198,7 @@ const ItemUpdate = () => {
 
                     <div>
                         <Label htmlFor="price">Prix*</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenuItem || isFetchingMenuItem ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -230,7 +234,7 @@ const ItemUpdate = () => {
 
                     <div>
                         <Label htmlFor="images">Images du plat</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenuItem || isFetchingMenuItem ? (
                             <Skeleton className="h-40 w-full mt-1" />
                         ) : (
                             <div className="mt-2">
@@ -273,7 +277,7 @@ const ItemUpdate = () => {
 
                     <div className="hidden">
                         <Label htmlFor="allergens">Allergènes</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingMenuItem || isFetchingMenuItem ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -319,7 +323,7 @@ const ItemUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Modifier l'article</Button>
+                    <Button isLoading={isLoading} type="submit">Modifier l'article</Button>
                 </div>
             </form>
         </>

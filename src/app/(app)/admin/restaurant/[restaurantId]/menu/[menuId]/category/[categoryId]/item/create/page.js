@@ -46,8 +46,8 @@ const ItemCreate = () => {
     const handleSubmit = async e => {
         e.preventDefault()
 
+        setIsLoading(true)
         try {
-            setIsLoading(true)
             const formDataToSend = new FormData()
 
             // Ajout des champs textuels
@@ -109,7 +109,7 @@ const ItemCreate = () => {
                             href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
                         },
                         {
-                            title: 'Items',
+                            title: 'Articles',
                             href: `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/items`,
                         },
                         {

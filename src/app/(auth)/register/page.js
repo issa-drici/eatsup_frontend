@@ -25,12 +25,11 @@ const Page = () => {
     const [errors, setErrors] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    const submitForm = event => {
+    const submitForm = async event => {
         event.preventDefault()
         setIsLoading(true)
-        console.log(errors)
         try {
-            register({
+            await register({
                 name,
                 email,
                 password,
@@ -39,8 +38,8 @@ const Page = () => {
                 setErrors,
             })
         } catch (error) {
-            console.log(error, errors)
-            // setErrors(error.response.data.errors)
+            // console.log(error, errors)
+            setErrors(error.response.data.errors)
         } finally {
             setIsLoading(false)
         }

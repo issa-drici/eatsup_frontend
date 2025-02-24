@@ -23,6 +23,7 @@ const WebsiteUpdate = () => {
     const { restaurantId, websiteId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         domain: '',
         title: {
@@ -52,8 +53,8 @@ const WebsiteUpdate = () => {
 
     const {
         data: website,
-        isLoading,
-        isFetching,
+        isLoading: isLoadingWebsite,
+        isFetching: isFetchingWebsite,
     } = useGetWebsiteByRestaurantId(restaurantId)
 
     useEffect(() => {
@@ -92,7 +93,7 @@ const WebsiteUpdate = () => {
         router.back()
     }
 
-    const { mutate: updateWebsite } = useUpdateWebsite({
+    const { mutateAsync: updateWebsite } = useUpdateWebsite({
         handleCallbackSuccess,
         restaurantId,
     })
@@ -128,7 +129,15 @@ const WebsiteUpdate = () => {
             formDataToSend.append('remove_presentation_image', 'true')
         }
 
-        await updateWebsite(formDataToSend)
+        setIsLoading(true)
+
+        try {
+            await updateWebsite(formDataToSend)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const handleChange = (field, lang, value) => {
@@ -190,7 +199,7 @@ const WebsiteUpdate = () => {
 
                     <div>
                         <Label htmlFor="title">Titre du site</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingWebsite || isFetchingWebsite ? (
                             <Skeleton className="h-10 w-full mt-1" />
                         ) : (
                             <Input
@@ -207,7 +216,7 @@ const WebsiteUpdate = () => {
 
                     <div>
                         <Label htmlFor="description">Description</Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingWebsite || isFetchingWebsite ? (
                             <Skeleton className="h-32 w-full mt-1" />
                         ) : (
                             <TextArea
@@ -230,7 +239,7 @@ const WebsiteUpdate = () => {
                         <Label htmlFor="presentation_image">
                             Image de présentation
                         </Label>
-                        {isLoading || isFetching ? (
+                        {isLoadingWebsite || isFetchingWebsite ? (
                             <Skeleton className="h-40 w-full mt-1" />
                         ) : (
                             <div className="mt-2">
@@ -264,7 +273,7 @@ const WebsiteUpdate = () => {
                         <h3 className="text-lg font-medium">
                             Horaires d'ouverture
                         </h3>
-                        {isLoading || isFetching ? (
+                        {isLoadingWebsite || isFetchingWebsite ? (
                             <Skeleton className="h-96 w-full mt-1" />
                         ) : (
                             <Accordion
@@ -678,7 +687,9 @@ const WebsiteUpdate = () => {
                         }}>
                         Annuler
                     </Button>
-                    <Button type="submit">Mettre à jour le site web</Button>
+                    <Button isLoading={isLoading} type="submit">
+                        Mettre à jour le site web
+                    </Button>
                 </div>
             </form>
         </>

@@ -19,6 +19,7 @@ const AddressPage = () => {
 
     const router = useRouter()
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         address: '',
         city: '',
@@ -41,7 +42,7 @@ const AddressPage = () => {
         router.push(`/register/type`)
     }
 
-    const { mutate: updateRestaurant } = useUpdateRestaurant({
+    const { mutateAsync: updateRestaurant } = useUpdateRestaurant({
         handleCallbackSuccess,
         restaurantId: user?.restaurant?.id,
     })
@@ -79,12 +80,15 @@ const AddressPage = () => {
             )
         }
 
+        setIsLoading(true)
         try {
             await updateRestaurant(formDataToSend)
         } catch (error) {
             if (error.response?.status === 422) {
                 setErrors(error.response.data.errors)
             }
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -175,7 +179,10 @@ const AddressPage = () => {
                 </div>
 
                 <div className="flex justify-end">
-                    <Button type="submit" disabled={!isFormValid}>
+                    <Button
+                        isLoading={isLoading}
+                        type="submit"
+                        disabled={!isFormValid}>
                         Continuer
                     </Button>
                 </div>

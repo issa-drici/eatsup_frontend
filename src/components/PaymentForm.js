@@ -10,7 +10,7 @@ const PaymentForm = ({ onSubmit }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        
+
         if (!stripe || !elements) {
             return
         }
@@ -41,9 +41,9 @@ const PaymentForm = ({ onSubmit }) => {
         <form onSubmit={handleSubmit} className="mt-8 max-w-md mx-auto">
             <div className="p-4 border rounded-lg bg-white">
                 <h3 className="text-lg font-medium mb-4">Informations de paiement</h3>
-                
+
                 <div className="mb-4">
-                    <CardElement 
+                    <CardElement
                         options={{
                             style: {
                                 base: {
@@ -67,8 +67,8 @@ const PaymentForm = ({ onSubmit }) => {
                     </div>
                 )}
 
-                <Button 
-                    type="submit" 
+                <Button
+                    type="submit"
                     disabled={!stripe || isProcessing}
                     className="w-full"
                 >
@@ -79,4 +79,4 @@ const PaymentForm = ({ onSubmit }) => {
     )
 }
 
-export default PaymentForm 
+export default PaymentForm
