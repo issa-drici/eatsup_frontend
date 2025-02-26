@@ -149,46 +149,48 @@ const Menu = () => {
                     <LoadingSkeleton />
                 ) : menuItems?.length > 0 ? (
                     <>
-                        {menu?.banners?.length > 1 ? (
-                            <Carousel
-                                opts={{
-                                    loop: true,
-                                }}
-                                plugins={[
-                                    Autoplay({
-                                        delay: 5000,
-                                    }),
-                                ]}
-                                className="w-full h-[30vh] md:rounded-lg md:overflow-hidden">
-                                <CarouselContent className="h-full">
-                                    {menu?.banners?.map((banner, index) => (
-                                        <CarouselItem
-                                            className="w-full h-[30vh] relative"
-                                            key={index}>
-                                            <Image
-                                                key={banner.id}
-                                                src={banner.url}
-                                                alt={`Banner ${index + 1}`}
-                                                className="object-cover"
-                                                priority
-                                                fill
-                                            />
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                            </Carousel>
-                        ) : (
-                            <div className="w-full h-[30vh] relative md:rounded-lg md:overflow-hidden">
-                                <Image
-                                    key={menu?.banners[0].id}
-                                    src={menu?.banners[0].url}
-                                    alt={`Banner ${1}`}
-                                    className="object-cover"
-                                    priority
-                                    fill
-                                />
-                            </div>
-                        )}
+                        {menu?.banners && menu.banners.length > 0 ? (
+                            menu.banners.length > 1 ? (
+                                <Carousel
+                                    opts={{
+                                        loop: true,
+                                    }}
+                                    plugins={[
+                                        Autoplay({
+                                            delay: 5000,
+                                        }),
+                                    ]}
+                                    className="w-full h-[30vh] md:rounded-lg md:overflow-hidden">
+                                    <CarouselContent className="h-full">
+                                        {menu.banners.map((banner, index) => (
+                                            <CarouselItem
+                                                className="w-full h-[30vh] relative"
+                                                key={index}>
+                                                <Image
+                                                    key={banner.id}
+                                                    src={banner.url}
+                                                    alt={`Banner ${index + 1}`}
+                                                    className="object-cover"
+                                                    priority
+                                                    fill
+                                                />
+                                            </CarouselItem>
+                                        ))}
+                                    </CarouselContent>
+                                </Carousel>
+                            ) : (
+                                <div className="w-full h-[30vh] relative md:rounded-lg md:overflow-hidden">
+                                    <Image
+                                        key={menu.banners[0].id}
+                                        src={menu.banners[0].url}
+                                        alt={`Banner ${1}`}
+                                        className="object-cover"
+                                        priority
+                                        fill
+                                    />
+                                </div>
+                            )
+                        ) : null}
                         <CategoryBar
                             menuItems={menuItems}
                             activeSection={activeSection}
