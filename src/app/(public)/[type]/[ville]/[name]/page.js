@@ -52,6 +52,10 @@ export async function generateMetadata({ params }) {
                 website?.presentation_image?.url || '/images/restaurant.jpg',
             ],
         },
+        icons: {
+            icon: website?.restaurant?.logo?.url || '/favicon.ico',
+            apple: website?.restaurant?.logo?.url || '/favicon.ico',
+        },
     }
 }
 
