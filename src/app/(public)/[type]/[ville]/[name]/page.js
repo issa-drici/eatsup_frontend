@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
     const type = RESTAURANT_TYPES.find(type => type.value === params.type)
 
     return {
-        title: website?.title?.fr,
+        title: `${website?.title?.fr} - ${website?.restaurant?.city}`,
         description:
             website?.description?.fr +
             ' | ' +
