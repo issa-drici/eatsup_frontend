@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const SITE_URL = 'https://eatsup.fr'
 
 function generateSiteMap(urls = []) {
@@ -82,6 +83,7 @@ export async function GET() {
         )
 
         if (!response.ok) {
+
             console.error('Erreur API:', response.status, response.statusText)
             // On continue avec un tableau vide si l'API échoue
             return new Response(generateSiteMap([]), {

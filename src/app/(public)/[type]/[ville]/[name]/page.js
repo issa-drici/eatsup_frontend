@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Image from 'next/image'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import Link from 'next/link'

@@ -18,40 +18,49 @@ import {
     CarouselItem,
 } from '@/shadcn-components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
-import LanguageSelector from '@/components/LanguageSelector'
 
-// const labels = {
-//     share: {
-//         fr: 'Partager',
-//         en: 'Share',
-//         es: 'Compartir',
-//         ar: 'مشاركة',
-//         de: 'Teilen',
-//         it: 'Condividi',
-//         pt: 'Compartilhar',
-//         ru: 'Поделиться',
-//     },
-//     discount: {
-//         fr: 'Je profite de -5% de réduction',
-//         en: "I'm enjoying a -5% discount",
-//         es: 'Estoy disfrutando de un descuento del -5%',
-//         ar: 'أستمتع بخصم قدره -5%',
-//         de: 'Ich genieße einen Rabatt von -5%',
-//         it: 'Sto approfittando di uno sconto del -5%',
-//         pt: 'Estou aproveitando um desconto de -5%',
-//         ru: 'Я пользуюсь скидкой -5%',
-//     },
-//     googleReview: {
-//         fr: 'Laisser un avis Google au restaurant',
-//         en: 'Leave a Google review for the restaurant',
-//         es: 'Dejar una reseña en Google para el restaurante',
-//         ar: 'اترك تقييمًا على Google للمطعم',
-//         de: 'Eine Google-Bewertung für das Restaurant hinterlassen',
-//         it: 'Lascia una recensione su Google per il ristorante',
-//         pt: 'Deixe uma avaliação no Google para o restaurante',
-//         ru: 'Оставьте отзыв о ресторане на Google',
-//     },
-// }
+const translations = {
+    emptyMenu: {
+        fr: "Ce restaurant n'a pas encore configuré son menu.",
+        en: "This restaurant hasn't set up its menu yet.",
+        es: "Este restaurante aún no ha configurado su menú.",
+        de: "Dieses Restaurant hat sein Menü noch nicht konfiguriert.",
+        it: "Questo ristorante non ha ancora configurato il suo menu.",
+        nl: "Dit restaurant heeft zijn menu nog niet ingesteld.",
+        pt: "Este restaurante ainda não configurou seu menu.",
+        ar: "لم يقم هذا المطعم بإعداد قائمته بعد."
+    },
+    ownerQuestion: {
+        fr: "Vous êtes le propriétaire ?",
+        en: "Are you the owner?",
+        es: "¿Eres el propietario?",
+        de: "Sind Sie der Besitzer?",
+        it: "Sei il proprietario?",
+        nl: "Bent u de eigenaar?",
+        pt: "Você é o proprietário?",
+        ar: "هل أنت المالك؟"
+    },
+    fillMenu: {
+        fr: "Je remplis mon menu dès maintenant !",
+        en: "I'll fill my menu right now!",
+        es: "¡Rellenaré mi menú ahora mismo!",
+        de: "Ich fülle mein Menü jetzt aus!",
+        it: "Compilo il mio menu adesso!",
+        nl: "Ik vul mijn menu nu in!",
+        pt: "Vou preencher meu menu agora!",
+        ar: "سأملأ قائمتي الآن!"
+    },
+    poweredBy: {
+        fr: "Menu propulsé par",
+        en: "Menu powered by",
+        es: "Menú impulsado por",
+        de: "Menü bereitgestellt von",
+        it: "Menu alimentato da",
+        nl: "Menu aangedreven door",
+        pt: "Menu desenvolvido por",
+        ar: "قائمة مدعومة من"
+    }
+}
 
 const Menu = () => {
     const { restaurantId, menuId } = useParams()
@@ -219,21 +228,23 @@ const Menu = () => {
                 ) : (
                     <div className="flex flex-col h-[calc(100vh_-_88px)] justify-center items-center text-base p-14 gap-3">
                         <p className="text-center">
-                            Ce restaurant n'a pas encore configuré son menu.
+                            {translations.emptyMenu[activeLanguage] || translations.emptyMenu.fr}
                         </p>
                         <p className="text-center">
-                            Vous êtes le propriétaire ?
+                            {translations.ownerQuestion[activeLanguage] || translations.ownerQuestion.fr}
                         </p>
                         <Button
                             className=""
                             onClick={() => router.push('/login')}>
-                            Je remplis mon menu dès maintenant !
+                            {translations.fillMenu[activeLanguage] || translations.fillMenu.fr}
                         </Button>
                     </div>
                 )}
             </div>
             <div className="w-full bg-slate-900 py-1 gap-1 flex items-center justify-center absolute bottom-0">
-                <p className="text-white text-xs">Menu propulsé par</p>
+                <p className="text-white text-xs">
+                    {translations.poweredBy[activeLanguage] || translations.poweredBy.fr}
+                </p>
                 <Link href={`/`} legacyBehavior>
                     <a className="text-white bg-white rounded-md px-1 no-underline hover:text-white hover:no-underline">
                         <Image

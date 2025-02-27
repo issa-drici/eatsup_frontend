@@ -24,7 +24,7 @@ const CategoryBar = ({
                         activeSection === category.id ? 'default' : 'white'
                     }
                     onClick={() => scrollToSection(category.id)}>
-                    {category.name[activeLanguage]}
+                    {category.name?.[activeLanguage]}
                 </Button>
             ))}
         </div>

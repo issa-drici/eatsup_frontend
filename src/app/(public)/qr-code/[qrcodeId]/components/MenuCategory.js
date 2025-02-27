@@ -5,14 +5,14 @@ const MenuCategory = ({ categoryData, activeLanguage, sectionRef }) => {
         <div>
             <div id={categoryData.category.id} ref={sectionRef}>
                 <p className="text-lg font-bold mb-3">
-                    {categoryData.category.name[activeLanguage]}
+                    {categoryData.category.name?.[activeLanguage]}
                 </p>
                 <div className="flex flex-col gap-y-3">
                     {categoryData.items?.map(item => (
-                        <MenuItem 
-                            key={item.id} 
-                            item={item} 
-                            activeLanguage={activeLanguage} 
+                        <MenuItem
+                            key={item.id}
+                            item={item}
+                            activeLanguage={activeLanguage}
                         />
                     ))}
                 </div>
@@ -22,4 +22,4 @@ const MenuCategory = ({ categoryData, activeLanguage, sectionRef }) => {
     )
 }
 
-export default MenuCategory 
+export default MenuCategory

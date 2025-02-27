@@ -26,7 +26,7 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
 
     const onTouchEnd = () => {
         if (!touchStart || !touchEnd) return
-        
+
         const distance = touchStart - touchEnd
         const isLeftSwipe = distance > minSwipeDistance
         const isRightSwipe = distance < -minSwipeDistance
@@ -40,13 +40,13 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
     }
 
     const nextImage = () => {
-        setCurrentImageIndex((prev) => 
+        setCurrentImageIndex((prev) =>
             prev === item.images.length - 1 ? 0 : prev + 1
         )
     }
 
     const previousImage = () => {
-        setCurrentImageIndex((prev) => 
+        setCurrentImageIndex((prev) =>
             prev === 0 ? item.images.length - 1 : prev - 1
         )
     }
@@ -67,9 +67,9 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
                 >
                     <X size={20} />
                 </button>
-                
+
                 {item.images && item.images.length > 0 && (
-                    <div 
+                    <div
                         ref={imageContainerRef}
                         className="relative w-full aspect-square"
                         onTouchStart={onTouchStart}
@@ -78,7 +78,7 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
                     >
                         <Image
                             src={item.images[currentImageIndex].url}
-                            alt={item.name[activeLanguage]}
+                            alt={item.name?.[activeLanguage]}
                             fill
                             className="object-cover"
                         />
@@ -102,8 +102,8 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
                                             key={index}
                                             onClick={() => setCurrentImageIndex(index)}
                                             className={`w-2 h-2 rounded-full transition-colors ${
-                                                index === currentImageIndex 
-                                                    ? 'bg-white' 
+                                                index === currentImageIndex
+                                                    ? 'bg-white'
                                                     : 'bg-white/50'
                                             }`}
                                         />
@@ -115,11 +115,11 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
                 )}
                 <div className="p-6 space-y-2">
                     <h3 className="font-medium text-lg">
-                        {item.name[activeLanguage]}
+                        {item.name?.[activeLanguage]}
                     </h3>
                     {item.description?.[activeLanguage] && (
                         <p className="text-sm text-gray-600">
-                            {item.description[activeLanguage]}
+                            {item.description?.[activeLanguage]}
                         </p>
                     )}
                     <p className="text-sm font-medium">{item.price} €</p>
@@ -135,4 +135,4 @@ const MenuItemDialog = ({ isOpen, onClose, item, activeLanguage }) => {
     )
 }
 
-export default MenuItemDialog 
+export default MenuItemDialog

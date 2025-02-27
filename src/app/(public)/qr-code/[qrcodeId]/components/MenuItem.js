@@ -17,7 +17,7 @@ const MenuItem = ({ item, activeLanguage }) => {
                 {item.images && item.images.length > 0 && (
                     <Image
                         src={item.images[0].url}
-                        alt={item.name[activeLanguage]}
+                        alt={item.name?.[activeLanguage]}
                         className="w-32 h-32 object-cover"
                         width={100}
                         height={100}
@@ -26,16 +26,16 @@ const MenuItem = ({ item, activeLanguage }) => {
                 <div className="flex flex-col p-4 gap-1">
                     <div>
                         <p className="text-sm font-medium text-slate-900">
-                            {item.name[activeLanguage]}
+                            {item.name?.[activeLanguage]}
                         </p>
                     </div>
                     {item.description?.[activeLanguage] && (
                         <p className="text-sm text-[#64748B]">
                             <span className="hidden sm:inline">
-                                {item.description[activeLanguage]}
+                                {item.description?.[activeLanguage]}
                             </span>
                             <span className="sm:hidden line-clamp-3">
-                                {item.description[activeLanguage]}
+                                {item.description?.[activeLanguage]}
                             </span>
                         </p>
                     )}
