@@ -29,7 +29,7 @@ const CategoryCreate = () => {
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['menuCategories', menuId])
         router.push(
-            `/admin/restaurant/${restaurantId}/menu/${menuId}/categories`,
+            `/admin/restaurant/${restaurantId}/menu/${menuId}/items`,
         )
     }
 

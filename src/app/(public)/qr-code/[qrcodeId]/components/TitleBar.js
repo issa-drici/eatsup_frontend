@@ -3,12 +3,16 @@ import { Share } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect } from 'react'
+import LanguageSelector from '@/components/LanguageSelector'
 
-const TitleBar = ({ restaurant }) => {
+const TitleBar = ({ restaurant, activeLanguage, setActiveLanguage }) => {
     useEffect(() => {
         const titleBar = document.getElementById('titleBar')
         if (titleBar) {
-            document.documentElement.style.setProperty('--titlebar-height', `${titleBar.offsetHeight}px`)
+            document.documentElement.style.setProperty(
+                '--titlebar-height',
+                `${titleBar.offsetHeight}px`,
+            )
         }
     }, [restaurant?.logo?.url])
 
@@ -32,14 +36,22 @@ const TitleBar = ({ restaurant }) => {
                     {restaurant?.name || 'Mon restaurant'}
                 </p>
             </div>
+            <div className="flex items-center gap-1">
+                {activeLanguage && setActiveLanguage && (
+                    <LanguageSelector
+                        activeLanguage={activeLanguage}
+                        setActiveLanguage={setActiveLanguage}
+                    />
+                )}
                 <Link
                     href={`sms:&body=J'ai trop aimé le restaurant ${restaurant.name}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
                     asChild>
-                    <Button variant="ghost">
+                    <Button variant="default" className="flex items-center gap-2 px-3 h-8">
                         Partager
                         <Share className="w-4 h-4" />
                     </Button>
                 </Link>
+            </div>
         </div>
     )
 }

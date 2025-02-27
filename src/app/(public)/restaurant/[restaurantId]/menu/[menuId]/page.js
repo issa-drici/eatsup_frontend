@@ -18,6 +18,7 @@ import {
     CarouselItem,
 } from '@/shadcn-components/ui/carousel'
 import Autoplay from 'embla-carousel-autoplay'
+import LanguageSelector from '@/components/LanguageSelector'
 
 // const labels = {
 //     share: {
@@ -69,7 +70,6 @@ const Menu = () => {
     } = useFindFirstMenuByRestaurantId(restaurantId)
 
     const [activeSection, setActiveSection] = useState('')
-    // eslint-disable-next-line no-unused-vars
     const [activeLanguage, setActiveLanguage] = useState('fr')
 
     const sectionRefs = useRef([])
@@ -142,7 +142,13 @@ const Menu = () => {
         <div className="relative bg-slate-100 min-h-[100dvh] md:bg-white md:max-w-lg md:mx-auto">
             <div className="text-xs h-full pb-5">
                 {isLoadingMenu || isFetchingMenu ? null : (
-                    <TitleBar restaurant={menu?.restaurant} />
+                    <>
+                        <TitleBar
+                            restaurant={menu?.restaurant}
+                            activeLanguage={activeLanguage}
+                            setActiveLanguage={setActiveLanguage}
+                        />
+                    </>
                 )}
 
                 {isLoadingMenuItems || isFetchingMenuItems ? (

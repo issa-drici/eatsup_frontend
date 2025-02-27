@@ -13,6 +13,7 @@ import { CookingPot } from 'lucide-react'
 import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
 import { useQueryClient } from '@tanstack/react-query'
 import MenuItem from '@/components/MenuItem'
+import { Button } from '@/shadcn-components/ui/button'
 
 const Categories = () => {
     const { restaurantId, menuId } = useParams()
@@ -42,7 +43,7 @@ const Categories = () => {
 
     return (
         <>
-            <div className="mb-4">
+            <div className="flex justify-between items-center mb-4">
                 <BreadcrumbCustom
                     items={[
                         {
@@ -59,6 +60,11 @@ const Categories = () => {
                         },
                     ]}
                 />
+                  <Link href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/create`}>
+                    <Button>
+                        <Plus /> Catégorie
+                    </Button>
+                </Link>
             </div>
             <div className="flex flex-col flex-wrap gap-4">
                 <div className="flex gap-4">
