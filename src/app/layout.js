@@ -15,10 +15,10 @@ const RootLayout = ({ children }) => {
                             data-domain="eatsup.fr"
                             src="https://plausible.alliance-tech.fr/js/script.hash.outbound-links.js"
                         />
-                        <Script
+                        {/* <Script
                             src="//code.tidio.co/njwdbxwjdorcgnntlysxylf7wmkcvl47.js"
                             async
-                        />
+                        /> */}
                         <Script id="hotjar">
                             {`(function(h,o,t,j,a,r){
                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
