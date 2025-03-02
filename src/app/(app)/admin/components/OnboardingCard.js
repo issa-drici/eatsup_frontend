@@ -48,10 +48,10 @@ const OnboardingCard = () => {
 
     return (
         <div className="fixed bottom-4 left-4 z-50">
-            <div className={`bg-white rounded-xl w-96 overflow-hidden transition-shadow duration-300 border border-gray-100 ${
+            <div className={`bg-white rounded-xl overflow-hidden transition-all duration-300 border border-gray-100 ${
                 isMinimized
-                    ? 'shadow-md'
-                    : 'shadow-[0px_0px_57px_26px_rgba(0,_0,_0,_0.1)]'
+                    ? 'shadow-md w-12 rounded-full sm:w-96'
+                    : 'shadow-[0px_0px_57px_26px_rgba(0,_0,_0,_0.1)] w-96'
             }`}>
                 <div
                     onClick={handleMinimize}
@@ -59,15 +59,21 @@ const OnboardingCard = () => {
                 >
                     <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
-                            <h3 className="text-lg font-semibold">Débloquez tout 🔑</h3>
-                            <span className="text-sm text-gray-500">
+                            <h3 className="text-lg font-semibold">
+                                <span className={isMinimized ? 'hidden sm:inline' : ''}>Débloquez tout 🔑</span>
+                                <span className={isMinimized ? 'inline sm:hidden' : 'hidden'}>💡</span>
+                            </h3>
+                            <span className={`text-sm text-gray-500 ${isMinimized ? 'hidden sm:inline' : ''}`}>
                                 {onboardingSteps?.filter(step => !step.completed).length} étapes restantes
+                            </span>
+                            <span className={`absolute text-xs font-bold top-0 right-0 bg-red-600 w-5 h-5 translate-x-1/3 -translate-y-1/3 flex items-center justify-center text-white rounded-full ${isMinimized ? 'sm:hidden' : 'hidden'}`}>
+                                {onboardingSteps?.filter(step => !step.completed).length}
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
                             <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
                                 {isMinimized ? (
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg className={`${isMinimized ? 'hidden sm:block sm:w-5 sm:h-5 w-4 h-4' : 'w-5 h-5'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                                     </svg>
                                 ) : (
@@ -83,7 +89,7 @@ const OnboardingCard = () => {
                                 }}
                                 className="p-1 hover:bg-gray-100 rounded-full transition-colors"
                             >
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className={`${isMinimized ? 'hidden sm:block sm:w-5 sm:h-5 w-4 h-4' : 'w-5 h-5'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>

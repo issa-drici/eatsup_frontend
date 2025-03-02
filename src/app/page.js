@@ -438,6 +438,15 @@ const Home = () => {
                                         className="w-4 h-4"
                                     />
                                     <p className="text-base sm:text-xl">
+                                        Essai premium 30 jours
+                                    </p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <Check
+                                        strokeWidth={4}
+                                        className="w-4 h-4"
+                                    />
+                                    <p className="text-base sm:text-xl">
                                         10 tables maximum
                                     </p>
                                 </div>
@@ -617,7 +626,8 @@ const Home = () => {
                                         className="w-4 h-4 text-white"
                                     />
                                     <p className="text-white text-base sm:text-xl">
-                                        Publier des offres et promotions sur le menu
+                                        Publier des offres et promotions sur le
+                                        menu
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-2">
