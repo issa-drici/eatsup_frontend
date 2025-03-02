@@ -13,7 +13,7 @@ import {
 import { outfitFont } from '@/ui/fonts'
 
 export const metadata = {
-    title: 'Eatsup - votre menu qui propulse vos ventes',
+    title: 'Eatsup - le menu qui propulse vos ventes',
 }
 
 const Home = () => {
@@ -552,7 +552,7 @@ const Home = () => {
                                         className="w-4 h-4 text-white"
                                     />
                                     <p className="text-white text-base sm:text-xl">
-                                        Scan illimité par mois
+                                        Scans illimités
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -617,7 +617,7 @@ const Home = () => {
                                         className="w-4 h-4 text-white"
                                     />
                                     <p className="text-white text-base sm:text-xl">
-                                        Offre en cours du restaurant sur le menu
+                                        Publier des offres et promotions sur le menu
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-2">

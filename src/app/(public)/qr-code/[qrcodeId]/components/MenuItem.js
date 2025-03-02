@@ -39,7 +39,9 @@ const MenuItem = ({ item, activeLanguage }) => {
                             </span>
                         </p>
                     )}
-                    <p className="text-sm text-[#64748B]">{item.price} €</p>
+                    <p className="text-sm text-[#64748B]">
+                        {Number(item.price).toFixed(2)} €
+                    </p>
                 </div>
             </Card>
 

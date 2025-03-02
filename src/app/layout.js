@@ -43,7 +43,7 @@ const RootLayout = ({ children }) => {
 }
 
 export const metadata = {
-    title: 'Eatsup - votre menu qui propulse vos ventes',
+    title: 'Eatsup - le menu qui propulse vos ventes',
 }
 
 export default RootLayout

@@ -7,7 +7,7 @@ import { CheckIcon } from 'lucide-react'
 import { outfitFont } from '@/ui/fonts'
 
 export const metadata = {
-    title: 'Eatsup - votre menu qui propulse vos ventes',
+    title: 'Eatsup - le menu qui propulse vos ventes',
 }
 
 const Layout = ({ children }) => {
