@@ -35,8 +35,8 @@ const LanguageSelector = ({ activeLanguage, setActiveLanguage }) => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
-                    variant="outline"
-                    className="flex items-center gap-2 px-3 h-8">
+                    variant="link"
+                    className="flex items-center gap-2">
                     <Image
                         src={selectedLanguage.flag}
                         alt={selectedLanguage.name}
