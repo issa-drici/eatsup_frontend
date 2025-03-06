@@ -38,8 +38,7 @@ export default function ShareButton({ websiteTitle }) {
 
     if (navigator.share) {
         return (
-            <Button variant="link" onClick={handleShare}>
-                Partager
+            <Button variant="link" size="icon" onClick={handleShare}>
                 <Share className="w-4 h-4" />
             </Button>
         )
@@ -49,8 +48,7 @@ export default function ShareButton({ websiteTitle }) {
         <TooltipProvider>
             <Tooltip open={isOpen}>
                 <TooltipTrigger asChild>
-                    <Button variant="link" onClick={handleShare}>
-                        Partager
+                    <Button variant="link" size="icon" onClick={handleShare}>
                         <Share className="w-4 h-4" />
                     </Button>
                 </TooltipTrigger>
