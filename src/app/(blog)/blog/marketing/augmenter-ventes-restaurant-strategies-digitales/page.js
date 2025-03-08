@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
+import TableOfContents from '@/app/(blog)/blog/components/TableOfContents'
 import { Badge } from '@/shadcn-components/ui/badge'
-import CTABanner from '@/app/(public)/blog/components/CTABanner'
+import CTABanner from '@/app/(blog)/blog/components/CTABanner'
 
 export const metadata = {
     title: 'Augmenter les ventes d’un restaurant : Stratégies digitales et astuces marketing',

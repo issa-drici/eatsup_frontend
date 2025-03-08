@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Badge } from '@/shadcn-components/ui/badge'
-import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
-import CTABanner from '@/app/(public)/blog/components/CTABanner'
+import TableOfContents from '@/app/(blog)/blog/components/TableOfContents'
+import CTABanner from '@/app/(blog)/blog/components/CTABanner'
 
 export const metadata = {
     title: 'Innovation et Digitalisation en Restauration : Comment Réussir sa Transformation ?',

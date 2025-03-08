@@ -2,8 +2,8 @@ import { Badge } from '@/shadcn-components/ui/badge'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
-import CTABanner from '@/app/(public)/blog/components/CTABanner'
+import TableOfContents from '@/app/(blog)/blog/components/TableOfContents'
+import CTABanner from '@/app/(blog)/blog/components/CTABanner'
 
 export const metadata = {
     title: 'Menus QR Code : Pourquoi et comment digitaliser votre carte en 2025 ?',

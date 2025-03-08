@@ -2,8 +2,8 @@ import { Badge } from '@/shadcn-components/ui/badge'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import TableOfContents from '@/app/(public)/blog/components/TableOfContents'
-import CTABanner from '@/app/(public)/blog/components/CTABanner'
+import TableOfContents from '@/app/(blog)/blog/components/TableOfContents'
+import CTABanner from '@/app/(blog)/blog/components/CTABanner'
 
 export const metadata = {
     title: 'Comment réduire le temps d’attente et fluidifier la prise de commande en restaurant ?',

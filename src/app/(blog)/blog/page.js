@@ -1,5 +1,5 @@
 import BlogCard from '@/components/BlogCard'
-import CTABanner from '@/app/(public)/blog/components/CTABanner'
+import CTABanner from '@/app/(blog)/blog/components/CTABanner'
 import { outfitFont } from '@/ui/fonts'
 
 export const metadata = {
