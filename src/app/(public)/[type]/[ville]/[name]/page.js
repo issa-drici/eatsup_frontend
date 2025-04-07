@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import Link from 'next/link'
-import ShareButton from './components/ShareButton'
-import SessionTracker from './components/SessionTracker'
+// import ShareButton from './components/ShareButton'
+// import SessionTracker from './components/SessionTracker'
 import {
     getFirstMenuByRestaurantId,
     getPublicWebsiteBySlug,
@@ -140,10 +140,10 @@ export default async function PublicWebsite({ params }) {
 
     return (
         <div className="min-h-screen bg-white text-slate-900">
-            <SessionTracker websiteId={website.id} />
-            <div className="flex justify-end p-1">
+            {/* <SessionTracker websiteId={website.id} /> */}
+            {/* <div className="flex justify-end p-1">
                 <ShareButton websiteTitle={website.title?.fr} />
-            </div>
+            </div> */}
             <div className="relative h-72">
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 <Image
