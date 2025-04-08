@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import Link from 'next/link'
-// import ShareButton from './components/ShareButton'
+import ShareButton from './components/ShareButton'
 // import SessionTracker from './components/SessionTracker'
 import {
     getFirstMenuByRestaurantId,
@@ -156,10 +156,10 @@ export default async function PublicWebsite({ params }) {
     return (
         <div className="min-h-screen bg-white text-slate-900">
             {/* <SessionTracker websiteId={website.id} /> */}
-            {/* <div className="flex justify-end p-1">
+            <div className="flex justify-end p-1">
                 <ShareButton websiteTitle={website.title?.fr} />
-            </div> */}
-            <div className="relative h-72">
+            </div>
+            <div className="relative min-h-[18rem]">
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 <Image
                     src={
@@ -171,19 +171,19 @@ export default async function PublicWebsite({ params }) {
                     className="object-cover"
                     priority
                 />
-                <div className="absolute inset-0 flex flex-col justify-center items-center p-6 text-white z-20">
+                <div className="relative z-20 flex flex-col justify-center items-center p-6 text-white min-h-[18rem]">
                     {website.restaurant.logo?.url && (
-                        <div className="flex items-center justify-center w-20 h-20 mb-4 bg-white rounded-full overflow-hidden p-3">
-                            <Image
-                                src={
-                                    website.restaurant.logo?.url ||
-                                    '/images/logo.png'
-                                }
-                                alt="Logo"
-                                className="w-full h-full object-contain"
-                                width={100}
-                                height={100}
-                            />
+                        <div className="flex items-center justify-center w-20 h-20 mb-4">
+                            <div className="w-full h-full relative bg-white rounded-full overflow-hidden p-1">
+                                <Image
+                                    src={website.restaurant.logo?.url ?? '/images/logo.png'}
+                                    alt={`Logo ${website.restaurant.name}`}
+                                    className="object-contain"
+                                    fill
+                                    sizes="80px"
+                                    priority
+                                />
+                            </div>
                         </div>
                     )}
                     <Badge>{type?.label}</Badge>
