@@ -9,6 +9,8 @@ import {
     getPublicWebsiteBySlug,
 } from '@/utils/api-requests'
 import { Badge } from '@/shadcn-components/ui/badge'
+import { notFound } from 'next/navigation'
+import { checkSuspiciousParams } from '@/utils/validation'
 
 const RESTAURANT_TYPES = [
     { label: 'Fast-food', value: 'fast-food' },
@@ -28,6 +30,13 @@ const RESTAURANT_TYPES = [
 ]
 
 export async function generateMetadata({ params }) {
+    if (checkSuspiciousParams(Object.values(params))) {
+        return {
+            title: '404 - Page non trouvée',
+            description: "La page que vous cherchez n'existe pas.",
+        }
+    }
+
     const { data: website } = await getPublicWebsiteBySlug(
         params.type,
         params.ville,
@@ -61,6 +70,12 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PublicWebsite({ params }) {
+    if (checkSuspiciousParams(Object.values(params))) {
+        console.log('Suspicious params detected')
+
+        notFound()
+    }
+
     const { data: website } = await getPublicWebsiteBySlug(
         params.type,
         params.ville,
