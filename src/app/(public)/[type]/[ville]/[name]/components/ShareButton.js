@@ -9,6 +9,8 @@ export default function ShareButton({ websiteTitle }) {
     const [isOpen, setIsOpen] = useState(false)
 
     const handleShare = () => {
+        if (typeof window === 'undefined') return
+
         const linkToShare = window.location.href
         const messageToShare = `J'ai trop aimé le restaurant ${websiteTitle}, hésites surtout pas à venir.\nJe te donne le lien avec toutes les infos pour y aller :`
 
@@ -35,6 +37,8 @@ export default function ShareButton({ websiteTitle }) {
             )
         }
     }
+
+    if (typeof window === 'undefined') return null
 
     if (navigator.share) {
         return (
