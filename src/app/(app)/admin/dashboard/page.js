@@ -97,7 +97,7 @@ const Dashboard = () => {
                                     }
                                     subtitle="7 derniers jours"
                                 /> */}
-                <div className="flex gap-4 w-full">
+                {/* <div className="flex gap-4 w-full">
                     <CardButton
                         widthFull
                         title="Menu"
@@ -112,8 +112,15 @@ const Dashboard = () => {
                         url="/admin/qr-code"
                         icon={<QrCode size={16} className="text-slate-900" />}
                     />
-                </div>
+                </div> */}
                 <div className="flex gap-4 w-full">
+                    <CardButton
+                        widthFull
+                        title="Menu"
+                        subtitle="Gérer mon menu"
+                        url="/admin/menus"
+                        icon={<ChefHat size={16} className="text-slate-900" />}
+                    />
                     <CardButton
                         widthFull
                         title="Restaurant"
@@ -121,7 +128,8 @@ const Dashboard = () => {
                         url={`/admin/restaurant/${user?.restaurant?.id}/update`}
                         icon={<Store size={16} className="text-slate-900" />}
                     />
-                    {isWebsiteLoading || isWebsiteFetching ? (
+
+                    {/* {isWebsiteLoading || isWebsiteFetching ? (
                         <Skeleton className="h-20 w-full" />
                     ) : (
                         <CardButton
@@ -133,7 +141,7 @@ const Dashboard = () => {
                                 <Globe size={16} className="text-slate-600" />
                             }
                         />
-                    )}
+                    )} */}
                 </div>
                 {/* <div className="flex gap-4 w-full">
                 <CardButton

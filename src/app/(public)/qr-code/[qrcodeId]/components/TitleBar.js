@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { useEffect } from 'react'
 import LanguageSelector from '@/components/LanguageSelector'
@@ -5,8 +7,11 @@ import ShareButton from '@/app/(public)/[type]/[ville]/[name]/components/ShareBu
 import { Button } from '@/shadcn-components/ui/button'
 import Link from 'next/link'
 import { Info } from 'lucide-react'
+import { useLanguage } from '@/app/(public)/restaurant/[restaurantId]/menu/[menuId]/context/LanguageContext'
 
-const TitleBar = ({ restaurant, activeLanguage, setActiveLanguage }) => {
+const TitleBar = ({ restaurant }) => {
+    const { activeLanguage, setActiveLanguage } = useLanguage()
+
     useEffect(() => {
         const titleBar = document.getElementById('titleBar')
         if (titleBar) {
@@ -26,7 +31,7 @@ const TitleBar = ({ restaurant, activeLanguage, setActiveLanguage }) => {
             <div className="flex items-center gap-2">
                 {restaurant?.logo?.url && (
                     <Image
-                        src={restaurant.logo?.url}
+                        src={restaurant.logo.url}
                         alt={`Logo ${restaurant.name}`}
                         width={200}
                         height={200}
@@ -38,13 +43,11 @@ const TitleBar = ({ restaurant, activeLanguage, setActiveLanguage }) => {
                 </p>
             </div>
             <div className="flex items-center gap-1">
-                {activeLanguage && setActiveLanguage && (
-                    <LanguageSelector
-                        activeLanguage={activeLanguage}
-                        setActiveLanguage={setActiveLanguage}
-                    />
-                )}
-                <ShareButton websiteTitle={restaurant.name} />
+                <LanguageSelector
+                    activeLanguage={activeLanguage}
+                    setActiveLanguage={setActiveLanguage}
+                />
+                <ShareButton websiteTitle={restaurant?.name} />
                 <Link
                     href={`https://www.eatsup.fr/${restaurant?.type_slug}/${restaurant?.city_slug}/${restaurant?.name_slug}`}
                     asChild>
@@ -52,14 +55,6 @@ const TitleBar = ({ restaurant, activeLanguage, setActiveLanguage }) => {
                         <Info className="w-4 h-4" />
                     </Button>
                 </Link>
-                {/* <Link
-                    href={`sms:&body=J'ai trop aimé le restaurant ${restaurant.name}, hésites surtout pas à venir.%0a%0aJe te donne le lien avec toutes les infos pour y aller : ${window.location.href}`}
-                    asChild>
-                    <Button variant="default" className="flex items-center gap-2 px-3 h-8">
-                        Partager
-                        <Share className="w-4 h-4" />
-                    </Button>
-                </Link> */}
             </div>
         </div>
     )

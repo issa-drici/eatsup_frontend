@@ -45,16 +45,16 @@ const Navigation = ({ user }) => {
                                 active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/update') && !usePathname().includes('/website')}>
                                 Restaurant
                             </NavLink>
-                            <NavLink
+                            {/* <NavLink
                                 href="/admin/qr-code"
                                 active={usePathname() === '/admin/qr-code'}>
                                 QRCode
-                            </NavLink>
-                            <NavLink
+                            </NavLink> */}
+                            {/* <NavLink
                                 href={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
                                 active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/website/update')}>
                                 Website
-                            </NavLink>
+                            </NavLink> */}
                         </div>
                     </div>
 
@@ -122,15 +122,15 @@ const Navigation = ({ user }) => {
             </div>
 
             {/* Responsive Navigation Menu */}
-            <div 
+            <div
                 className="absolute top-16 inset-x-0 bottom-0 bg-black/80 z-40 sm:hidden transition-opacity duration-200"
-                style={{ 
+                style={{
                     opacity: open ? 1 : 0,
                     visibility: open ? 'visible' : 'hidden'
                 }}
                 onClick={() => setOpen(false)}
             />
-            <div 
+            <div
                 className="absolute top-16 left-0 right-0 bg-white z-50 rounded-b-lg sm:hidden transform transition-all duration-200 ease-out origin-top"
                 style={{
                     transform: `scaleY(${open ? 1 : 0})`,
@@ -157,18 +157,18 @@ const Navigation = ({ user }) => {
                         onClick={() => setOpen(false)}>
                         Restaurant
                     </ResponsiveNavLink>
-                    <ResponsiveNavLink
+                    {/* <ResponsiveNavLink
                         href="/admin/qr-code"
                         active={usePathname() === '/admin/qr-code'}
                         onClick={() => setOpen(false)}>
                         QRCode
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink
+                    </ResponsiveNavLink> */}
+                    {/* <ResponsiveNavLink
                         href={`/admin/restaurant/${user?.restaurant?.id}/website/update`}
                         active={usePathname().includes('/admin/restaurant/') && usePathname().includes('/website/update')}
                         onClick={() => setOpen(false)}>
                         Website
-                    </ResponsiveNavLink>
+                    </ResponsiveNavLink> */}
                 </div>
 
                 <div className="pt-4 pb-1 border-t border-gray-200">

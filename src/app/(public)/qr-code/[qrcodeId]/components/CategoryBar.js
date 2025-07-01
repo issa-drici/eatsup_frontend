@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import { Button } from '@/shadcn-components/ui/button'
 

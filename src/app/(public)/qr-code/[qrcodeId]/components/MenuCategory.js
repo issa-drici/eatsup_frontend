@@ -1,3 +1,5 @@
+'use client'
+
 import MenuItem from "./MenuItem"
 
 const MenuCategory = ({ categoryData, activeLanguage, sectionRef }) => {
