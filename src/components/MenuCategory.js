@@ -1,39 +1,21 @@
 'use client'
 
 import { Button } from '@/shadcn-components/ui/button'
-import { cn } from '@/lib/utils'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from '@/shadcn-components/ui/alert-dialog'
-import { EllipsisVertical, Trash } from 'lucide-react'
+import { EllipsisVertical, Trash, Pen, ArrowUp, ArrowDown } from 'lucide-react'
 import CardButton from './CardButton'
 import Link from 'next/link'
-import { useState } from 'react'
 import { useDeleteMenuCategoryById } from '@/services/menu-category/useDeleteMenuCategoryById'
-import { Pen } from 'lucide-react'
 import { useUpdateMenuCategoryMoveUp } from '@/services/menu-category/useUpdateMenuCategoryMoveUp'
 import { useUpdateMenuCategoryMoveDown } from '@/services/menu-category/useUpdateMenuCategoryMoveDown'
-import { ArrowUp } from 'lucide-react'
-import { ArrowDown } from 'lucide-react'
 
 const MenuCategory = ({ category, menuId, restaurantId, handleCallbackSuccess, categoriesLength }) => {
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-
     const { mutate: deleteMenuCategory } = useDeleteMenuCategoryById({
         handleCallbackSuccess,
     })
@@ -48,13 +30,15 @@ const MenuCategory = ({ category, menuId, restaurantId, handleCallbackSuccess, c
         categoryId: category.id,
     })
 
-    const handleDeleteClick = () => {
-        setIsDeleteDialogOpen(true)
-    }
+    const handleDeleteClick = async () => {
+        // Si la catégorie contient des articles, rediriger vers la catégorie
+        if (category.items_count > 0) {
+            window.location.href = `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}`
+            return
+        }
 
-    const handleConfirmDelete = async () => {
+        // Sinon, supprimer directement
         await deleteMenuCategory(category.id)
-        setIsDeleteDialogOpen(false)
     }
 
     const handleMoveUpClick = async () => {
@@ -79,82 +63,49 @@ const MenuCategory = ({ category, menuId, restaurantId, handleCallbackSuccess, c
                     <Button
                         variant="outline"
                         size="icon"
-                        className={cn(
-                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                            category.description?.fr ? 'h-[66px]' : 'h-[46px]',
-                        )}>
-                        <EllipsisVertical />
+                        className="shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200 h-[66px] w-[66px]">
+                        <EllipsisVertical className="w-5 h-5" />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                <Link
+                <DropdownMenuContent className="w-56">
+                    <Link
                         href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${category.id}/update`}
                         asChild>
                         <DropdownMenuItem>
+                            <Pen className="mr-2 h-4 w-4" />
                             Modifier
-                            <DropdownMenuShortcut>
-                                <Pen width={10} />
-                            </DropdownMenuShortcut>
                         </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={handleDeleteClick}>
-                        Supprimer
-                        <DropdownMenuShortcut>
-                            <Trash width={10} />
-                        </DropdownMenuShortcut>
-                    </DropdownMenuItem>
+
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={handleMoveUpClick} disabled={category.sort_order === 1}>
+
+                    <DropdownMenuItem
+                        onClick={handleMoveUpClick}
+                        disabled={category.sort_order === 1}
+                    >
+                        <ArrowUp className="mr-2 h-4 w-4" />
                         Monter
-                        <DropdownMenuShortcut>
-                            <ArrowUp width={12} />
-                        </DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleMoveDownClick} disabled={category.sort_order === categoriesLength}>
+
+                    <DropdownMenuItem
+                        onClick={handleMoveDownClick}
+                        disabled={category.sort_order === categoriesLength}
+                    >
+                        <ArrowDown className="mr-2 h-4 w-4" />
                         Descendre
-                        <DropdownMenuShortcut>
-                            <ArrowDown width={12} />
-                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                        onClick={handleDeleteClick}
+                        className="text-red-600 focus:text-red-600"
+                    >
+                        <Trash className="mr-2 h-4 w-4" />
+                        {category.items_count > 0 ? 'Voir les articles' : 'Supprimer'}
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-
-            <AlertDialog
-                open={isDeleteDialogOpen}
-                onOpenChange={setIsDeleteDialogOpen}>
-                <AlertDialogContent className="max-w-xs rounded-lg md:max-w-md">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            {category.items_count > 0
-                                ? 'Vous ne pouvez pas supprimer cette catégorie'
-                                : 'Êtes-vous sûr ?'}
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                            {category.items_count > 0
-                                ? "Cette catégorie contient des articles. Vous ne pouvez pas la supprimer tant qu'ils ne sont pas supprimés."
-                                : 'Cette action supprimera définitivement la catégorie'}
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        {category.items_count > 0 ? (
-                            <AlertDialogAction>
-                            <Link
-                                href={`/admin/restaurant/${category?.restaurant_id}/menu/${menuId}/category/${category.id}`}
-                                asChild>
-                                    Aller vers la catégorie
-                            </Link>
-                                </AlertDialogAction>
-                        ) : (
-                            <AlertDialogAction
-                                onClick={handleConfirmDelete}
-                                className="bg-red-500 hover:bg-red-600">
-                                Supprimer
-                            </AlertDialogAction>
-                        )}
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     )
 }

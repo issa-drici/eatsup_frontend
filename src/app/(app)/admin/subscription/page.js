@@ -22,7 +22,7 @@ const SubscriptionPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white p-4 lg:p-6">
-            <div className="max-w-7xl mx-auto">
+            <div className="w-full">
                 <div className="text-center mb-6">
                     <div className="inline-block bg-red-50 text-red-800 px-4 py-1.5 rounded-full text-sm font-medium mb-3">
                         ⚠️ Votre période d'essai se termine bientôt
@@ -30,13 +30,13 @@ const SubscriptionPage = () => {
                     <h1 className="text-3xl font-bold text-violet-900 mb-2">
                         Ne perdez pas vos fonctionnalités Premium
                     </h1>
-                    <p className="text-base text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-base text-gray-600 w-full">
                         Après votre période d'essai, vous passerez
                         automatiquement au forfait Basic gratuit
                     </p>
                 </div>
 
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 max-w-3xl mx-auto mb-6">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 w-full mb-6">
                     <h3 className="font-semibold text-red-800 mb-2 text-sm">
                         Le forfait Basic (gratuit) est limité à :
                     </h3>

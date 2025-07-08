@@ -1,9 +1,12 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import Navigation from '@/app/(app)/admin/Navigation'
+import SidebarWrapper from '@/components/SidebarWrapper'
 import Loading from '@/app/(app)/admin/Loading'
 import { Toaster } from '@/shadcn-components/ui/toaster'
+import { SidebarProvider } from '@/shadcn-components/ui/sidebar'
+
+const SIDEBAR_WIDTH = 224 // px
 
 const AppLayout = ({ children }) => {
     const { user } = useAuth({ middleware: 'auth' })
@@ -13,20 +16,25 @@ const AppLayout = ({ children }) => {
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-white sm:bg-gray-100">
-            <Navigation user={user} />
-
-            <main className="flex flex-col flex-grow">
-                <div className="max-w-7xl w-full flex flex-col flex-grow mx-auto sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
-                    <div className="flex flex-col flex-grow overflow-hidden sm:bg-white sm:shadow-sm sm:rounded-b-lg">
-                        <div className="p-6 pt-3 sm:border-b border-gray-200 flex flex-col flex-grow">
-                            {children}
-                        </div>
-                    </div>
+        <SidebarProvider>
+            <div className="flex min-h-screen bg-background">
+                {/* Sidebar */}
+                <div
+                    className="fixed inset-y-0 left-0 z-30 bg-white border-r"
+                    style={{ width: SIDEBAR_WIDTH }}
+                >
+                    <SidebarWrapper user={user} />
                 </div>
-            </main>
-            <Toaster />
-        </div>
+                {/* Main content */}
+                <main
+                    className="flex-1 px-6 py-8"
+                    style={{ marginLeft: SIDEBAR_WIDTH }}
+                >
+                    {children}
+                </main>
+                <Toaster />
+            </div>
+        </SidebarProvider>
     )
 }
 

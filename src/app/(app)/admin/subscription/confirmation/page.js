@@ -20,7 +20,7 @@ const ConfirmationPage = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-violet-50 to-white p-4 lg:p-8">
-            <div className="max-w-2xl mx-auto text-center">
+            <div className="w-full text-center">
                 <div className="mb-8">
                     <Image
                         src="/images/success-check.png"
@@ -36,7 +36,7 @@ const ConfirmationPage = () => {
                 </h1>
 
                 <p className="text-lg text-gray-600 mb-6">
-                    Votre abonnement Premium est maintenant actif. Votre affiche avec QR code 
+                    Votre abonnement Premium est maintenant actif. Votre affiche avec QR code
                     sera expédiée sous 48h ouvrées.
                 </p>
 
@@ -60,7 +60,7 @@ const ConfirmationPage = () => {
                     </ul>
                 </div>
 
-                <Button 
+                <Button
                     onClick={() => router.push('/admin/dashboard')}
                     className="bg-violet-600 hover:bg-violet-700"
                 >
@@ -71,4 +71,4 @@ const ConfirmationPage = () => {
     )
 }
 
-export default ConfirmationPage 
+export default ConfirmationPage

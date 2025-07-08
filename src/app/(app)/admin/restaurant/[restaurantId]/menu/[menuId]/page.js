@@ -1,170 +1,133 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import CardStats from '@/components/CardStats'
-
-import { Skeleton } from '@/shadcn-components/ui/skeleton'
-
-import { PaintRoller, TableProperties } from 'lucide-react'
-import { CookingPot } from 'lucide-react'
-import CardButton from '@/components/CardButton'
-import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import { useCountMenuCategoriesByMenuId } from '@/services/menu-category/useCountMenuCategoriesByMenuId'
-import { useCountMenuItemsByMenuId } from '@/services/menu-item/useCountMenuItemByMenuId'
-import { Link } from 'lucide-react'
-import { Eye } from 'lucide-react'
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from '@/shadcn-components/ui/tooltip'
-import { useState } from 'react'
 import { useFindMenuById } from '@/services/menu/useFindMenuById'
-import { useAuth } from '@/hooks/auth'
+import { useFindAllMenuCategoriesByMenuId } from '@/services/menu-category/useFindAllMenuCategoriesByMenuId'
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import { Button } from '@/shadcn-components/ui/button'
+import { Card, CardContent } from '@/shadcn-components/ui/card'
+import { Plus, ChefHat } from 'lucide-react'
+import Link from 'next/link'
+import PageContainer from '@/components/PageContainer'
+import MenuCategory from '@/components/MenuCategory'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Menu = () => {
-    const { user } = useAuth({ middleware: 'auth' })
     const { restaurantId, menuId } = useParams()
-    const [isOpenTooltipCopy, setIsOpenTooltipCopy] = useState(false)
+    const queryClient = useQueryClient()
 
-    const {
-        data: menuCategoriesCount,
-        isLoading: isLoadingMenuCategoriesCount,
-        isFetching: isFetchingMenuCategoriesCount,
-    } = useCountMenuCategoriesByMenuId(menuId)
+    const { data: menu, isLoading: isLoadingMenu, isFetching: isFetchingMenu } = useFindMenuById(menuId)
+    const { data: categories, isLoading: isLoadingCategories, isFetching: isFetchingCategories } = useFindAllMenuCategoriesByMenuId(menuId)
 
-    const {
-        data: menuItemsCount,
-        isLoading: isLoadingMenuItemsCount,
-        isFetching: isFetchingMenuItemsCount,
-    } = useCountMenuItemsByMenuId(menuId)
+    const handleCallbackSuccess = () => {
+        queryClient.invalidateQueries(['menuCategories', menuId])
+    }
 
-    const {
-        data: menu,
-        isLoading: isLoadingMenu,
-        isFetching: isFetchingMenu,
-    } = useFindMenuById(menuId)
+    if (isLoadingMenu || isFetchingMenu || isLoadingCategories || isFetchingCategories) {
+        return (
+            <PageContainer>
+                <div className="space-y-6">
+                    <Skeleton className="h-8 w-64" />
+                    <Skeleton className="h-4 w-96" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Skeleton className="h-32 w-full" />
+                        <Skeleton className="h-32 w-full" />
+                    </div>
+                    <Skeleton className="h-48 w-full" />
+                </div>
+            </PageContainer>
+        )
+    }
+
+    const menuName = typeof menu?.name === 'object' ? menu.name.fr || menu.name.en || 'Menu' : menu?.name
 
     return (
-        <>
-            <div className="mb-4">
-                <BreadcrumbCustom
-                    items={[
-                        {
-                            title: 'Dashboard',
-                            href: '/admin/dashboard',
-                        },
-                        {
-                            title: 'Menu',
-                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
-                        },
-                    ]}
-                />
-            </div>
-            <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4">
-                    {isLoadingMenuCategoriesCount ||
-                    isFetchingMenuCategoriesCount ? (
-                        <Skeleton className="h-20 w-full" />
-                    ) : (
-                        <CardStats
-                            title="Catégories"
-                            progression="30 derniers jours"
-                            value={menuCategoriesCount?.count}
-                            icon={
-                                <TableProperties
-                                    size={16}
-                                    className="text-slate-400"
-                                />
-                            }
-                        />
-                    )}
-                    {isLoadingMenuItemsCount || isFetchingMenuItemsCount ? (
-                        <Skeleton className="h-20 w-full" />
-                    ) : (
-                        <CardStats
-                            title="Articles"
-                            value={menuItemsCount?.count}
-                            icon={
-                                <CookingPot
-                                    size={16}
-                                    className="text-slate-400"
-                                />
-                            }
-                        />
-                    )}
+        <PageContainer>
+            <div className="space-y-6">
+                {/* En-tête simple */}
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">{menuName}</h1>
+                    <p className="text-gray-600">Gérez vos catégories et plats</p>
                 </div>
-                <CardButton
-                    title="Catégories"
-                    subtitle="Gérer les catégories du menu"
-                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/categories`}
-                    icon={
-                        <TableProperties size={16} className="text-slate-900" />
-                    }
-                />
-                <CardButton
-                    title="Articles"
-                    subtitle="Gérer les articles du menu"
-                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/items`}
-                    icon={<CookingPot size={16} className="text-slate-900" />}
-                />
-                <CardButton
-                    title="Apparence"
-                    subtitle="Changer l'apparence du menu"
-                    url={`/admin/restaurant/${user?.restaurant?.id}/menu/${menuId}/update`}
-                    icon={<PaintRoller size={16} className="text-slate-900" />}
-                />
-                <div className="flex gap-4">
-                    <div className="w-full">
-                        <TooltipProvider>
-                            <Tooltip open={isOpenTooltipCopy}>
-                                <TooltipTrigger asChild>
-                                    <div
-                                        className="group relative overflow-hidden h-fit shadow-md border bg-white hover:shadow-inner border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer"
-                                        onClick={() => {
-                                            setIsOpenTooltipCopy(true)
-                                            navigator.clipboard.writeText(
-                                                `https://www.eatsup.fr/restaurant/${menu?.restaurant_id}/menu/${menuId}`,
-                                            )
-                                            setTimeout(() => {
-                                                setIsOpenTooltipCopy(false)
-                                            }, 2000)
-                                        }}>
-                                        <Link
-                                            size={16}
-                                            className="text-slate-900"
-                                        />
-                                        <div className="flex flex-col">
-                                            <p className="text-sm text-slate-900 font-semibold">
-                                                Copier le lien
-                                            </p>
-                                            <p className="text-xs font-light text-slate-500 leading-5">
-                                                Copier le lien du menu
-                                            </p>
-                                        </div>
+
+                {/* Actions rapides */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Créer une catégorie */}
+                    <Link href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/create`}>
+                        <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 hover:shadow-md transition-shadow cursor-pointer">
+                            <CardContent className="p-6">
+                                <div className="text-center space-y-3">
+                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                                        <Plus size={24} className="text-blue-600" />
                                     </div>
-                                </TooltipTrigger>
-                                <TooltipContent side="bottom">
-                                    <p>Lien copié ✨</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                    </div>
-                    {isLoadingMenu || isFetchingMenu ? (
-                        <Skeleton className="h-20 w-full" />
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Nouvelle catégorie</h3>
+                                        <p className="text-sm text-gray-600">Organisez vos plats</p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Link>
+
+                    {/* Voir le menu */}
+                    <Link href={`/restaurant/${restaurantId}/menu/${menuId}`} target="_blank">
+                        <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 hover:shadow-md transition-shadow cursor-pointer">
+                            <CardContent className="p-6">
+                                <div className="text-center space-y-3">
+                                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                                        <ChefHat size={24} className="text-green-600" />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-semibold text-gray-900">Voir mon menu</h3>
+                                        <p className="text-sm text-gray-600">Prévisualiser</p>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Link>
+                </div>
+
+                {/* Liste des catégories */}
+                <div className="space-y-4">
+                    <h2 className="text-lg font-semibold text-gray-900">Mes catégories</h2>
+                    
+                    {categories?.length === 0 ? (
+                        <Card className="bg-gray-50 border-gray-200">
+                            <CardContent className="p-8">
+                                <div className="text-center space-y-4">
+                                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+                                        <Plus size={32} className="text-gray-400" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-medium text-gray-900 mb-2">Aucune catégorie</h3>
+                                        <p className="text-gray-600 mb-4">Commencez par créer votre première catégorie</p>
+                                        <Link href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/create`}>
+                                            <Button className="gap-2">
+                                                <Plus size={20} />
+                                                Créer une catégorie
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
                     ) : (
-                        <CardButton
-                            title="Afficher"
-                            subtitle="Afficher le menu"
-                            url={`/restaurant/${menu?.restaurant_id}/menu/${menuId}`}
-                            icon={<Eye size={16} className="text-slate-900" />}
-                            widthFull
-                        />
+                        <div className="space-y-4">
+                            {categories?.map(category => (
+                                <MenuCategory
+                                    key={category.id}
+                                    category={category}
+                                    menuId={menuId}
+                                    restaurantId={restaurantId}
+                                    handleCallbackSuccess={handleCallbackSuccess}
+                                    categoriesLength={categories.length}
+                                />
+                            ))}
+                        </div>
                     )}
                 </div>
             </div>
-        </>
+        </PageContainer>
     )
 }
 

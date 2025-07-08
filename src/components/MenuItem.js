@@ -1,29 +1,16 @@
 'use client'
 
 import { Button } from '@/shadcn-components/ui/button'
-import { cn } from '@/lib/utils'
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
-    DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from '@/shadcn-components/ui/dropdown-menu'
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-} from '@/shadcn-components/ui/alert-dialog'
 import { EllipsisVertical, Pen, Trash, ArrowUp, ArrowDown } from 'lucide-react'
 import CardButton from './CardButton'
 import Link from 'next/link'
-import { useState } from 'react'
 import { useDeleteMenuItemById } from '@/services/menu-item/useDeleteMenuItemById'
 import { useUpdateMenuItemMoveUp } from '@/services/menu-item/useUpdateMenuItemMoveUp'
 import { useUpdateMenuItemMoveDown } from '@/services/menu-item/useUpdateMenuItemMoveDown'
@@ -36,8 +23,6 @@ const MenuItem = ({
     handleCallbackSuccess,
     itemsLength,
 }) => {
-    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
-
     const { mutate: deleteMenuItem } = useDeleteMenuItemById({
         handleCallbackSuccess,
     })
@@ -52,13 +37,9 @@ const MenuItem = ({
         itemId: item.id,
     })
 
-    const handleDeleteClick = () => {
-        setIsDeleteDialogOpen(true)
-    }
-
-    const handleConfirmDelete = async () => {
+    const handleDeleteClick = async () => {
+        // Supprimer directement sans confirmation
         await deleteMenuItem(item.id)
-        setIsDeleteDialogOpen(false)
     }
 
     const handleMoveUpClick = async () => {
@@ -84,71 +65,49 @@ const MenuItem = ({
                     <Button
                         variant="outline"
                         size="icon"
-                        className={cn(
-                            'shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200',
-                            item.description?.fr ? 'h-[66px]' : 'h-[46px]',
-                        )}>
-                        <EllipsisVertical />
+                        className="shadow-md border bg-white hover:shadow-inner hover:bg-white border-slate-200 h-[66px] w-[66px]">
+                        <EllipsisVertical className="w-5 h-5" />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent className="w-56">
                     <Link
                         href={`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}/item/${item.id}/update`}
                         asChild>
                         <DropdownMenuItem>
+                            <Pen className="mr-2 h-4 w-4" />
                             Modifier
-                            <DropdownMenuShortcut>
-                                <Pen width={10} />
-                            </DropdownMenuShortcut>
                         </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={handleDeleteClick}>
-                        Supprimer
-                        <DropdownMenuShortcut>
-                            <Trash width={10} />
-                        </DropdownMenuShortcut>
-                    </DropdownMenuItem>
+
                     <DropdownMenuSeparator />
+
                     <DropdownMenuItem
                         onClick={handleMoveUpClick}
-                        disabled={item.sort_order === 1}>
+                        disabled={item.sort_order === 1}
+                    >
+                        <ArrowUp className="mr-2 h-4 w-4" />
                         Monter
-                        <DropdownMenuShortcut>
-                            <ArrowUp width={12} />
-                        </DropdownMenuShortcut>
                     </DropdownMenuItem>
+
                     <DropdownMenuItem
                         onClick={handleMoveDownClick}
-                        disabled={item.sort_order === itemsLength}>
+                        disabled={item.sort_order === itemsLength}
+                    >
+                        <ArrowDown className="mr-2 h-4 w-4" />
                         Descendre
-                        <DropdownMenuShortcut>
-                            <ArrowDown width={12} />
-                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem
+                        onClick={handleDeleteClick}
+                        className="text-red-600 focus:text-red-600"
+                    >
+                        <Trash className="mr-2 h-4 w-4" />
+                        Supprimer
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-
-            <AlertDialog
-                open={isDeleteDialogOpen}
-                onOpenChange={setIsDeleteDialogOpen}>
-                <AlertDialogContent className="max-w-xs rounded-lg md:max-w-md">
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Cette action supprimera définitivement l'article "
-                            {item.name.fr}" de votre menu.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={handleConfirmDelete}
-                            className="bg-red-500 hover:bg-red-600">
-                            Supprimer
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
         </div>
     )
 }

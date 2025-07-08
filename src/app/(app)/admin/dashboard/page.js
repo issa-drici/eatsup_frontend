@@ -1,182 +1,120 @@
 'use client'
 
-import CardStats from '@/components/CardStats'
-import { ChefHat } from 'lucide-react'
-import { ScanQrCode } from 'lucide-react'
-import CardButton from '@/components/CardButton'
-import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
-import { QrCode, Globe, Store } from 'lucide-react'
-import { useCountQrCodeSessionsByRestaurantId } from '@/services/qr-code-session/useCountQrCodeSessionsByRestaurantId'
 import { useAuth } from '@/hooks/auth'
-import { useSubscription } from '@/hooks/useSubscription'
-import { TrialBanner } from '@/components/TrialBanner'
-import { useCountWebsiteSessionsByRestaurantId } from '@/services/website-session/useCountWebsiteSessionsByRestaurantId'
-import { useGetWebsiteByRestaurantId } from '@/services/website/useGetWebsiteByRestaurantId'
+import { Card, CardContent } from '@/shadcn-components/ui/card'
+import { Button } from '@/shadcn-components/ui/button'
+import { ChefHat, Eye } from 'lucide-react'
+import Link from 'next/link'
+import PageContainer from '@/components/PageContainer'
+import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
-// import OnboardingDialog from '@/components/OnboardingDialog'
-// import { useFindMenuInfosHomeByRestaurantId } from '@/services/menu/useFindMenuInfosHomeByRestaurantId'
 
 const Dashboard = () => {
     const { user } = useAuth({ middleware: 'auth' })
-    const { isTrialing } = useSubscription()
+    const restaurant = user?.restaurant
+    const restaurantId = restaurant?.id
 
-    const {
-        data: qrCodeSessions,
-        isLoading: isQrCodeSessionsLoading,
-        isFetching: isQrCodeSessionsFetching,
-    } = useCountQrCodeSessionsByRestaurantId(user?.restaurant?.id)
+    // Utiliser le hook API pour récupérer le menu
+    const { data: menu, isLoading: isLoadingMenu } = useFindFirstMenuByRestaurantId(restaurantId)
 
-    const {
-        data: websiteSessions,
-        isLoading: isWebsiteSessionsLoading,
-        isFetching: isWebsiteSessionsFetching,
-    } = useCountWebsiteSessionsByRestaurantId(user?.restaurant?.id)
-
-    const {
-        data: website,
-        isLoading: isWebsiteLoading,
-        isFetching: isWebsiteFetching,
-    } = useGetWebsiteByRestaurantId(user?.restaurant?.id)
-
-    // const {
-    //     data: menuInfosHome,
-    //     isLoading: isMenuInfosHomeLoading,
-    //     isFetching: isMenuInfosHomeFetching,
-    // } = useFindMenuInfosHomeByRestaurantId(user?.restaurant?.id)
-
-    // const showOnboarding =
-    //     (!isMenuInfosHomeLoading || !isMenuInfosHomeFetching) &&
-    //     (menuInfosHome?.categories_count === 0 ||
-    //         menuInfosHome?.items_count === 0)
+    // État de chargement
+    if (isLoadingMenu) {
+        return (
+            <PageContainer>
+                <div className="space-y-6">
+                    <div className="text-center">
+                        <Skeleton className="h-8 w-48 mx-auto mb-2" />
+                        <Skeleton className="h-4 w-64 mx-auto" />
+                    </div>
+                    <Skeleton className="h-64 w-full" />
+                </div>
+            </PageContainer>
+        )
+    }
 
     return (
-        <>
-            <div className="mb-4">
-                <BreadcrumbCustom
-                    items={[
-                        {
-                            title: 'Dashboard',
-                            href: '/admin/dashboard',
-                        },
-                    ]}
-                />
-            </div>
-
-            <div className="flex flex-col flex-wrap gap-4">
-                <div className="flex gap-4">
-                    <CardStats
-                        title="Nombre de scans"
-                        value={qrCodeSessions?.count}
-                        icon={
-                            <ScanQrCode size={16} className="text-slate-400" />
-                        }
-                        subtitle="30 derniers jours"
-                        isLoading={
-                            isQrCodeSessionsLoading || isQrCodeSessionsFetching
-                        }
-                    />
-                    <CardStats
-                        title="Visites de site web"
-                        value={websiteSessions?.count}
-                        icon={<Globe size={16} className="text-slate-400" />}
-                        subtitle="30 derniers jours"
-                        isLoading={
-                            isWebsiteSessionsLoading ||
-                            isWebsiteSessionsFetching
-                        }
-                    />
+        <PageContainer>
+            <div className="space-y-6">
+                {/* En-tête simple */}
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                        Bonjour {user?.name} 👋
+                    </h1>
+                    <p className="text-gray-600">
+                        Gérez votre menu digital
+                    </p>
                 </div>
-                {/* <CardStats
-                                    title="QR le + scanné"
-                                    value="Table 12"
-                                    icon={
-                                        <ScanQrCode
-                                            size={16}
-                                            className="text-slate-400"
-                                        />
+
+                {/* Action principale - Toujours visible et claire */}
+                <Card className="bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
+                    <CardContent className="p-6">
+                        <div className="text-center space-y-4">
+                            <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto">
+                                <ChefHat size={32} className="text-orange-600" />
+                            </div>
+                            <div>
+                                <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                                    {menu ? 'Gérer mon menu' : 'Créer mon menu'}
+                                </h2>
+                                <p className="text-gray-600 mb-4">
+                                    {menu
+                                        ? 'Ajoutez de nouveaux plats ou modifiez vos existants'
+                                        : 'Commencez par ajouter vos premiers plats'
                                     }
-                                    subtitle="7 derniers jours"
-                                /> */}
-                {/* <div className="flex gap-4 w-full">
-                    <CardButton
-                        widthFull
-                        title="Menu"
-                        subtitle="Gérer mon menu"
-                        url="/admin/menus"
-                        icon={<ChefHat size={16} className="text-slate-900" />}
-                    />
-                    <CardButton
-                        widthFull
-                        title="QRCode"
-                        subtitle="Gérer mes QRCode"
-                        url="/admin/qr-code"
-                        icon={<QrCode size={16} className="text-slate-900" />}
-                    />
-                </div> */}
-                <div className="flex gap-4 w-full">
-                    <CardButton
-                        widthFull
-                        title="Menu"
-                        subtitle="Gérer mon menu"
-                        url="/admin/menus"
-                        icon={<ChefHat size={16} className="text-slate-900" />}
-                    />
-                    <CardButton
-                        widthFull
-                        title="Restaurant"
-                        subtitle="Gérer mon restaurant"
-                        url={`/admin/restaurant/${user?.restaurant?.id}/update`}
-                        icon={<Store size={16} className="text-slate-900" />}
-                    />
+                                </p>
+                            </div>
+                            <Link href={menu ? `/admin/restaurant/${restaurant?.id}/menu/${menu?.id}` : '/admin/menus'}>
+                                <Button
+                                    size="lg"
+                                    className="bg-orange-600 hover:bg-orange-700 gap-2"
+                                >
+                                    {menu ? 'Gérer mon menu' : 'Créer mon menu'}
+                                    <ChefHat size={20} />
+                                </Button>
+                            </Link>
+                        </div>
+                    </CardContent>
+                </Card>
 
-                    {/* {isWebsiteLoading || isWebsiteFetching ? (
-                        <Skeleton className="h-20 w-full" />
-                    ) : (
-                        <CardButton
-                            widthFull
-                            title="Site internet"
-                            subtitle="Gérer mon site internet"
-                            url={`/admin/restaurant/${user?.restaurant?.id}/website/${website?.id}`}
-                            icon={
-                                <Globe size={16} className="text-slate-600" />
-                            }
-                        />
-                    )} */}
-                </div>
-                {/* <div className="flex gap-4 w-full">
-                <CardButton
-                        widthFull
-                        title="Paramètres"
-                        subtitle="Modifier les paramètres"
-                        url="/admin/parametres"
-                        icon={<Settings size={16} className="text-slate-900" />}
-                    />
-                    <CardButton
-                        widthFull
-                        disabled
-                        title="Statistiques"
-                        subtitle="Voir les statistiques"
-                        url="/admin/statistiques"
-                        icon={
-                            <ChartColumnBig
-                                size={16}
-                                className="text-slate-600"
-                            />
-                        }
-                    />
-                </div> */}
+                {/* Voir le menu si il existe */}
+                {menu && (
+                    <Card>
+                        <CardContent className="p-6">
+                            <div className="text-center">
+                                <h3 className="font-semibold text-gray-900 mb-2">Voir mon menu</h3>
+                                <p className="text-gray-600 mb-4">Prévisualisez comment vos clients voient votre menu</p>
+                                <Link href={`/restaurant/${restaurant?.id}/menu/${menu?.id}`} target="_blank">
+                                    <Button variant="outline" className="gap-2">
+                                        <Eye size={20} />
+                                        Voir mon menu
+                                    </Button>
+                                </Link>
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+
+                {/* Aide simple */}
+                <Card className="bg-blue-50 border-blue-200">
+                    <CardContent className="p-6">
+                        <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">?</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-blue-900 mb-1">Comment ça marche ?</h4>
+                                <p className="text-sm text-blue-800">
+                                    {menu
+                                        ? 'Cliquez sur "Gérer mon menu" pour ajouter des catégories et des plats à votre carte.'
+                                        : 'Cliquez sur "Créer mon menu" pour commencer. Nous vous guiderons étape par étape.'
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
-            {isTrialing && <TrialBanner />}
-            {/* {showOnboarding && (
-                <OnboardingDialog
-                    isOpen={showOnboarding}
-                    hasCategories={menuInfosHome?.categories_count > 0}
-                    menuId={menuInfosHome?.menu_id}
-                    restaurantId={user?.restaurant?.id}
-                    category={menuInfosHome?.category}
-                />
-            )} */}
-        </>
+        </PageContainer>
     )
 }
 

@@ -1,98 +1,124 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useAuth } from '@/hooks/auth'
+import { useFindAllRestaurants } from '@/services/restaurant/useFindAllRestaurants'
 import { useFindAllMenusByRestaurantId } from '@/services/menu/useFindAllMenusByRestaurantId'
-
-// import { useAuth } from '@/hooks/auth'
+import { Card, CardContent } from '@/shadcn-components/ui/card'
+import { Button } from '@/shadcn-components/ui/button'
+import { ChefHat, Plus, Eye } from 'lucide-react'
+import Link from 'next/link'
+import PageContainer from '@/components/PageContainer'
+import { Skeleton } from '@/shadcn-components/ui/skeleton'
 
 const Menus = () => {
-    const { user } = useAuth({ middleware: 'auth' })
-    const router = useRouter()
+    const { data: restaurants, isLoading: isLoadingRestaurants } = useFindAllRestaurants()
+    const restaurant = restaurants?.[0] // Prend le premier restaurant
 
-    const {
-        data: menus,
-        isLoading,
-        isFetching,
-    } = useFindAllMenusByRestaurantId(user?.restaurant?.id)
+    const { data: menus, isLoading: isLoadingMenus } = useFindAllMenusByRestaurantId(restaurant?.id)
+    const menu = menus?.[0] // Prend le premier menu
 
-    if (isLoading || isFetching) {
-        return null
-        // <div className="flex flex-col gap-4 bg-white p-4 h-full">
-        //     <p>Vos menus</p>
-        //     <Skeleton className="h-10 w-full" />
-        //     <Skeleton className="h-10 w-full" />
-        //     <Skeleton className="h-10 w-full" />
-        //     <Skeleton className="h-10 w-full" />
-        // </div>
-        // <Skeleton className="h-full w-full" />
+    // État de chargement
+    if (isLoadingRestaurants || isLoadingMenus) {
+        return (
+            <PageContainer>
+                <div className="space-y-6">
+                    <div className="text-center">
+                        <Skeleton className="h-8 w-48 mx-auto mb-2" />
+                        <Skeleton className="h-4 w-64 mx-auto" />
+                    </div>
+                    <Skeleton className="h-64 w-full" />
+                </div>
+            </PageContainer>
+        )
     }
 
-    router.push(`/admin/restaurant/${user?.restaurant?.id}/menu/${menus[0].id}`)
+    return (
+        <PageContainer>
+            <div className="space-y-6">
+                {/* En-tête simple */}
+                <div className="text-center">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Mes menus</h1>
+                    <p className="text-gray-600">Gérez vos menus digitaux</p>
+                </div>
 
-    return null
-    // (
-    //     <>
-    //         <div>
-    //             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    //                 <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-    //                     <div className="p-6 bg-white border-b border-gray-200">
-    //                         <div className="flex flex-col flex-wrap gap-4">
-    //                             <Link href="/admin/menus" asChild>
-    //                                 <div className="h-fit shadow-md border border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer">
-    //                                     <ChefHat
-    //                                         size={16}
-    //                                         className="text-slate-900"
-    //                                     />
-    //                                     <div className="flex flex-col">
-    //                                         <p className="text-sm text-slate-900 font-semibold">
-    //                                             Catégories
-    //                                         </p>
-    //                                         <p className="text-xs font-medium text-slate-600 leading-5">
-    //                                             Gérer les catégories du menu
-    //                                         </p>
-    //                                     </div>
-    //                                 </div>
-    //                             </Link>
-    //                             <Link href="/admin/menus" asChild>
-    //                                 <div className="h-fit shadow-md border border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer">
-    //                                     <ChefHat
-    //                                         size={16}
-    //                                         className="text-slate-900"
-    //                                     />
-    //                                     <div className="flex flex-col">
-    //                                         <p className="text-sm text-slate-900 font-semibold">
-    //                                             Articles
-    //                                         </p>
-    //                                         <p className="text-xs font-medium text-slate-600 leading-5">
-    //                                             Gérer les articles du menu
-    //                                         </p>
-    //                                     </div>
-    //                                 </div>
-    //                             </Link>
-    //                             <Link href="/admin/menus" asChild>
-    //                                 <div className="h-fit shadow-md border border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer">
-    //                                     <ChefHat
-    //                                         size={16}
-    //                                         className="text-slate-900"
-    //                                     />
-    //                                     <div className="flex flex-col">
-    //                                         <p className="text-sm text-slate-900 font-semibold">
-    //                                             Apparence
-    //                                         </p>
-    //                                         <p className="text-xs font-medium text-slate-600 leading-5">
-    //                                             Changer l'apparence du menu
-    //                                         </p>
-    //                                     </div>
-    //                                 </div>
-    //                             </Link>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </>
-    // )
+                {/* Menu existant ou création */}
+                {menu ? (
+                    <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+                        <CardContent className="p-6">
+                            <div className="text-center space-y-4">
+                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                                    <ChefHat size={32} className="text-green-600" />
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                                        {menu.name?.fr || 'Mon menu'}
+                                    </h2>
+                                    <p className="text-gray-600 mb-4">
+                                        Votre menu digital est prêt à être utilisé
+                                    </p>
+                                </div>
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <Link href={`/admin/restaurant/${restaurant?.id}/menu/${menu?.id}`}>
+                                        <Button size="lg" className="bg-green-600 hover:bg-green-700 gap-2 w-full sm:w-auto">
+                                            <ChefHat size={20} />
+                                            Gérer mon menu
+                                        </Button>
+                                    </Link>
+                                    <Link href={`/restaurant/${restaurant?.id}/menu/${menu?.id}`} target="_blank">
+                                        <Button variant="outline" size="lg" className="gap-2 w-full sm:w-auto">
+                                            <Eye size={20} />
+                                            Voir mon menu
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+                        <CardContent className="p-6">
+                            <div className="text-center space-y-4">
+                                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                                    <Plus size={32} className="text-blue-600" />
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                                        Créer mon premier menu
+                                    </h2>
+                                    <p className="text-gray-600 mb-4">
+                                        Commencez par créer votre menu digital
+                                    </p>
+                                </div>
+                                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 gap-2">
+                                    <Plus size={20} />
+                                    Créer un menu
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+
+                {/* Aide */}
+                <Card className="bg-blue-50 border-blue-200">
+                    <CardContent className="p-6">
+                        <div className="flex items-start gap-3">
+                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-blue-600 font-bold text-sm">?</span>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-blue-900 mb-1">Comment ça marche ?</h4>
+                                <p className="text-sm text-blue-800">
+                                    {menu
+                                        ? 'Cliquez sur "Gérer mon menu" pour ajouter des catégories et des plats à votre carte.'
+                                        : 'Cliquez sur "Créer un menu" pour commencer. Nous vous guiderons étape par étape.'
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </PageContainer>
+    )
 }
 
 export default Menus
