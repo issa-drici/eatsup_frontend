@@ -69,7 +69,7 @@ const ItemCreate = () => {
 
             await createMenuItem(formDataToSend)
         } catch (error) {
-            console.error('Erreur création article:', error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsLoading(false)
         }

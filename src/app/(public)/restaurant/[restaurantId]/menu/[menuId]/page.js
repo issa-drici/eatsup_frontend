@@ -1,10 +1,6 @@
 import Footer from './components/Footer'
 import MenuDataFetcher from './components/MenuDataFetcher'
 import { LanguageProvider } from './context/LanguageContext'
-import {
-    getPublicWebsiteByRestaurantId,
-    getRestaurantById,
-} from '@/utils/api-requests'
 
 // export async function generateMetadata({ params }) {
 //     const { data: website } = await getPublicWebsiteByRestaurantId(

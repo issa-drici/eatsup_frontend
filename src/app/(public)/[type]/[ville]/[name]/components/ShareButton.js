@@ -24,9 +24,9 @@ export default function ShareButton({ websiteTitle }) {
                     text: messageToShare,
                     url: linkToShare,
                 })
-                .catch(error =>
-                    console.log('Partage annulé ou erreur : ', error),
-                )
+                .catch(() => {
+                    // Partage annulé ou erreur
+                })
         } else {
             navigator.clipboard.writeText(linkToShare).then(
                 () => {
@@ -35,8 +35,9 @@ export default function ShareButton({ websiteTitle }) {
                         setIsOpen(false)
                     }, 1500)
                 },
-                error =>
-                    console.error('Erreur lors de la copie du lien :', error),
+                () => {
+                    // Erreur lors de la copie du lien
+                }
             )
         }
     }

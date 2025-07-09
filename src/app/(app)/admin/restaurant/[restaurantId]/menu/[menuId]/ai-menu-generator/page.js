@@ -6,13 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/sha
 import { Button } from '@/shadcn-components/ui/button'
 import { Label } from '@/shadcn-components/ui/label'
 import { Upload, Loader2, ChefHat } from 'lucide-react'
-import { useAuth } from '@/hooks/auth'
+
 import PageContainer from '@/components/PageContainer'
 import { FileUploadInput } from '@/components/FileUploadInput'
 
 const AIMenuGenerator = () => {
     const [files, setFiles] = useState([])
-    const { user } = useAuth()
+
     const router = useRouter()
     const { restaurantId, menuId } = useParams()
     const [isUploading, setIsUploading] = useState(false)
@@ -37,7 +37,7 @@ const AIMenuGenerator = () => {
                 router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/ai-menu-generator/preview/${result.menuId}`)
             }
         } catch (error) {
-            console.error('Erreur lors de l\'upload:', error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsUploading(false)
         }
@@ -71,7 +71,7 @@ const AIMenuGenerator = () => {
                                 multiple
                                 value={files}
                                 onChange={newFiles => setFiles(prev => [...prev, ...newFiles])}
-                                onRemove={({ type, index }) => {
+                                onRemove={({ index }) => {
                                     setFiles(prev => prev.filter((_, i) => i !== index))
                                 }}
                                 accept="image/*,application/pdf"

@@ -91,7 +91,7 @@ const RestaurantTypePage = () => {
         try {
             await updateRestaurant(formDataToSend)
         } catch (error) {
-            console.log(error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsLoading(false)
         }

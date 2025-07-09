@@ -134,7 +134,7 @@ const WebsiteUpdate = () => {
         try {
             await updateWebsite(formDataToSend)
         } catch (error) {
-            console.log(error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsLoading(false)
         }

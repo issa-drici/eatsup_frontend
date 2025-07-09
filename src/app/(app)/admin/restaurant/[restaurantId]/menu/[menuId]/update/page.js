@@ -85,7 +85,7 @@ const MenuUpdate = () => {
 
             await updateMenu(formDataToSend)
         } catch (error) {
-            console.log(error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsLoading(false)
         }

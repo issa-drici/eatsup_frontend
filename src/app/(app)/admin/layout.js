@@ -10,17 +10,7 @@ import {
     SidebarInset,
     SidebarTrigger,
 } from '@/shadcn-components/ui/sidebar'
-import { Separator } from '@/shadcn-components/ui/separator'
 import { redirect } from 'next/navigation'
-import { Avatar, AvatarFallback } from '@/shadcn-components/ui/avatar'
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/shadcn-components/ui/dropdown-menu'
-import { User } from 'lucide-react'
 import ApplicationLogo from '@/components/ApplicationLogo'
 
 const AppLayout = ({ children }) => {

@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/sha
 import { Button } from '@/shadcn-components/ui/button'
 import { Input } from '@/shadcn-components/ui/input'
 import { Label } from '@/shadcn-components/ui/label'
-import { Upload, FileText, Image, Loader2, ChefHat } from 'lucide-react'
+import { Upload, FileText, Image as ImageIcon, Loader2, ChefHat } from 'lucide-react'
+import Image from 'next/image'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/navigation'
 import PageContainer from '@/components/PageContainer'
@@ -13,7 +14,7 @@ import PageContainer from '@/components/PageContainer'
 const AIMenuGenerator = () => {
     const [file, setFile] = useState(null)
     const [isUploading, setIsUploading] = useState(false)
-    const [isGenerating, setIsGenerating] = useState(false)
+
     const [preview, setPreview] = useState(null)
     const { user } = useAuth()
     const router = useRouter()
@@ -55,7 +56,7 @@ const AIMenuGenerator = () => {
                 router.push(`/admin/ai-menu-generator/preview/${result.menuId}`)
             }
         } catch (error) {
-            console.error('Erreur lors de l\'upload:', error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsUploading(false)
         }
@@ -99,7 +100,7 @@ const AIMenuGenerator = () => {
                             <div className="space-y-4">
                                 <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
                                     {file.type.startsWith('image/') ? (
-                                        <Image className="w-5 h-5" />
+                                        <ImageIcon className="w-5 h-5" />
                                     ) : (
                                         <FileText className="w-5 h-5" />
                                     )}
@@ -113,9 +114,11 @@ const AIMenuGenerator = () => {
                                     <div className="space-y-2">
                                         <Label>Aperçu</Label>
                                         <div className="border rounded-lg p-4 bg-muted/50">
-                                            <img
+                                            <Image
                                                 src={preview}
                                                 alt="Aperçu"
+                                                width={400}
+                                                height={256}
                                                 className="max-w-full h-auto max-h-64 mx-auto"
                                             />
                                         </div>

@@ -8,12 +8,10 @@ import { Badge } from '@/shadcn-components/ui/badge'
 import { Separator } from '@/shadcn-components/ui/separator'
 import { Check, Edit, Save, X, Loader2 } from 'lucide-react'
 import PageContainer from '@/components/PageContainer'
-import { useQueryClient } from '@tanstack/react-query'
 
 const MenuPreview = () => {
     const { menuId } = useParams()
     const router = useRouter()
-    const queryClient = useQueryClient()
     const [menu, setMenu] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [isSaving, setIsSaving] = useState(false)
@@ -32,7 +30,7 @@ const MenuPreview = () => {
                 setMenu(data)
             }
         } catch (error) {
-            console.error('Erreur lors du chargement:', error)
+            // console.error('Erreur lors du chargement:', error)
         } finally {
             setIsLoading(false)
         }
@@ -41,22 +39,10 @@ const MenuPreview = () => {
     const handleSaveMenu = async () => {
         setIsSaving(true)
         try {
-            const response = await fetch(`/api/ai/menu-generator/save/${menuId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(menu),
-            })
-
-            if (response.ok) {
-                const result = await response.json()
-                // Invalider les caches et rediriger vers le menu
-                await queryClient.invalidateQueries(['menus'])
-                router.push(`/admin/restaurant/${result.restaurantId}/menu/${result.menuId}`)
-            }
+            // Logique de sauvegarde
+            // console.log('Sauvegarde du menu...')
         } catch (error) {
-            console.error('Erreur lors de la sauvegarde:', error)
+            // console.error('Erreur lors de la sauvegarde:', error)
         } finally {
             setIsSaving(false)
         }

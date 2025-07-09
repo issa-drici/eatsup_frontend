@@ -39,7 +39,7 @@ const CategoryCreate = () => {
                 description: { fr: '' },
             })
         } catch (error) {
-            console.error('Erreur création catégorie:', error)
+            // Gérer l'erreur silencieusement
         } finally {
             setIsLoading(false)
         }

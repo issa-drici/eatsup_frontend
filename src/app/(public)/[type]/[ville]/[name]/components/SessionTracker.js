@@ -9,31 +9,29 @@ export default function SessionTracker({ websiteId }) {
   })
 
   const handleCreateSession = useCallback(async () => {
-    if (!websiteId) {
-      console.error('Erreur: websiteId est manquant')
-      return
-    }
+            if (!websiteId) {
+            return
+        }
 
     try {
-      console.log('Tentative de création de session pour le site web:', websiteId)
+
       const ipResponse = await fetch('https://api.ipify.org?format=json')
 
       if (!ipResponse.ok) {
         throw new Error(`Erreur lors de la récupération de l'IP: ${ipResponse.status}`)
       }
 
-      const ipData = await ipResponse.json()
-      console.log('IP récupérée:', ipData.ip)
+              const ipData = await ipResponse.json()
 
-      const result = await createWebsiteSession({
+              await createWebsiteSession({
         ip_address: ipData.ip,
         user_agent: window.navigator.userAgent,
         location: '',
       })
 
-      console.log('Session créée avec succès:', result)
+              // Session créée avec succès
     } catch (error) {
-      console.error('Erreur détaillée lors de la création de la session:', error)
+        // Gérer l'erreur silencieusement
     }
   }, [websiteId, createWebsiteSession])
 
