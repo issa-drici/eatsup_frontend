@@ -2,22 +2,21 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { BreadcrumbCustom } from '@/components/BreadcrumbCustom'
 import { Button } from '@/shadcn-components/ui/button'
-import Label from '@/components/Label'
-// import Input from '@/components/Input'
-// import InputError from '@/components/InputError'
+import { Card, CardContent } from '@/shadcn-components/ui/card'
 import { useQueryClient } from '@tanstack/react-query'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { FileUploadInput } from '@/components/FileUploadInput'
 import { useFindMenuById } from '@/services/menu/useFindMenuById'
 import { useUpdateMenu } from '@/services/menu/useUpdateMenu'
+import { ArrowLeft, Menu, Save } from 'lucide-react'
+import PageContainer from '@/components/PageContainer'
+import Label from '@/components/Label'
 
 const MenuUpdate = () => {
     const { restaurantId, menuId } = useParams()
     const queryClient = useQueryClient()
     const router = useRouter()
-    // const [errors, setErrors] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [formData, setFormData] = useState({
         name: {
@@ -92,106 +91,109 @@ const MenuUpdate = () => {
         }
     }
 
+    const handleCancel = () => {
+        router.back()
+    }
+
     return (
-        <>
-            <div className="mb-4">
-                <BreadcrumbCustom
-                    items={[
-                        {
-                            title: 'Dashboard',
-                            href: '/admin/dashboard',
-                        },
-                        {
-                            title: 'Menu',
-                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`,
-                        },
-                        {
-                            title: 'Modifier',
-                            href: `/admin/restaurant/${restaurantId}/menu/${menuId}/update`,
-                        },
-                    ]}
-                />
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-4">
-                    {/* <div>
-                        <Label htmlFor="name">Nom*</Label>
-                        {isLoading || isFetching ? (
-                            <Skeleton className="h-10 w-full mt-1" />
-                        ) : (
-                            <Input
-                                id="name"
-                                type="text"
-                                value={formData.name.fr}
-                                onChange={e => handleChange('name', 'fr', e.target.value)}
-                                className="mt-1 w-full"
-                                required
-                                autoFocus
-                            />
-                        )}
-                        <InputError messages={errors.name} className="mt-2" />
-                    </div> */}
-
-                    {/* <div>
-                        <Label htmlFor="status">Statut</Label>
-                        {isLoading || isFetching ? (
-                            <Skeleton className="h-10 w-full mt-1" />
-                        ) : (
-                            <select
-                                id="status"
-                                value={formData.status}
-                                onChange={e => handleChange('status', null, e.target.value)}
-                                className="mt-1 w-full border rounded-xl p-2">
-                                <option value="active">Actif</option>
-                                <option value="inactive">Inactif</option>
-                            </select>
-                        )}
-                    </div> */}
-
+        <PageContainer>
+            <div className="space-y-6">
+                {/* En-tête avec retour */}
+                <div className="flex items-center gap-4">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleCancel}
+                        className="gap-2">
+                        <ArrowLeft size={16} />
+                        Retour
+                    </Button>
                     <div>
-                        <Label htmlFor="banners">Publicités sur le menu</Label>
-                        {isLoadingMenu || isFetchingMenu ? (
-                            <Skeleton className="h-40 w-full mt-1" />
-                        ) : (
-                            <div className="mt-2">
-                                <FileUploadInput
-                                    id="banners"
-                                    multiple
-                                    value={bannerFiles}
-                                    existingImages={existingBanners}
-                                    onChange={files => {
-                                        setBannerFiles(prev => [...prev, ...files])
-                                    }}
-                                    onRemove={({ type, id, index }) => {
-                                        if (type === 'existing') {
-                                            setBannersToRemove(prev => [...prev, id])
-                                            setExistingBanners(prev => prev.filter((_, i) => i !== index))
-                                        } else {
-                                            setBannerFiles(prev => prev.filter((_, i) => i !== index))
-                                        }
-                                    }}
-                                    accept="image/*"
-                                    maxSize="5MB"
-                                />
-                            </div>
-                        )}
+                        <h1 className="text-2xl font-bold text-gray-900">
+                            Modifier le menu
+                        </h1>
+                        <p className="text-gray-600">
+                            Personnalisez l'apparence de votre menu
+                        </p>
                     </div>
                 </div>
 
-                <div className="flex justify-end gap-2">
-                    <Button
-                        variant="outline"
-                        onClick={event => {
-                            event.preventDefault()
-                            router.back()
-                        }}>
-                        Annuler
-                    </Button>
-                    <Button isLoading={isLoading} type="submit">Mettre à jour le menu</Button>
-                </div>
-            </form>
-        </>
+                {/* Formulaire principal */}
+                <Card className="border-2 border-green-100 shadow-lg">
+                    <CardContent className="p-8">
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <div className="text-center">
+                                <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                                    <Menu
+                                        size={40}
+                                        className="text-green-600"
+                                    />
+                                </div>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                                    Modifiez votre menu
+                                </h2>
+                                <p className="text-gray-600 text-lg">
+                                    Ajoutez des publicités pour attirer plus de clients
+                                </p>
+                            </div>
+
+                            <div className="w-full space-y-6">
+                                {/* Publicités */}
+                                <div>
+                                    <Label className="text-lg font-medium">
+                                        Publicités sur le menu
+                                    </Label>
+                                    {isLoadingMenu || isFetchingMenu ? (
+                                        <Skeleton className="h-40 w-full mt-3" />
+                                    ) : (
+                                        <div className="mt-3">
+                                            <FileUploadInput
+                                                id="banners"
+                                                multiple
+                                                value={bannerFiles}
+                                                existingImages={existingBanners}
+                                                onChange={files => {
+                                                    setBannerFiles(prev => [...prev, ...files])
+                                                }}
+                                                onRemove={({ type, id, index }) => {
+                                                    if (type === 'existing') {
+                                                        setBannersToRemove(prev => [...prev, id])
+                                                        setExistingBanners(prev => prev.filter((_, i) => i !== index))
+                                                    } else {
+                                                        setBannerFiles(prev => prev.filter((_, i) => i !== index))
+                                                    }
+                                                }}
+                                                accept="image/*"
+                                                maxSize="5MB"
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4 pt-6">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={handleCancel}
+                                    className="flex-1 h-12 text-lg">
+                                    Annuler
+                                </Button>
+                                <Button
+                                    isLoading={isLoading}
+                                    type="submit"
+                                    className="flex-1 h-12 text-lg gap-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
+                                    <Save size={20} />
+                                    {isLoading
+                                        ? 'Modification...'
+                                        : 'Sauvegarder'}
+                                </Button>
+                            </div>
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+        </PageContainer>
     )
 }
 

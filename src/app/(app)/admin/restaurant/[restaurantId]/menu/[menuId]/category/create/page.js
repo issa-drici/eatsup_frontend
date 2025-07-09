@@ -36,7 +36,7 @@ const CategoryCreate = () => {
             setIsLoading(true)
             await createMenuCategory({
                 name: { fr: categoryName.trim() },
-                description: { fr: '' }
+                description: { fr: '' },
             })
         } catch (error) {
             console.error('Erreur création catégorie:', error)
@@ -49,19 +49,19 @@ const CategoryCreate = () => {
         router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}`)
     }
 
-    const breadcrumbItems = [
-        {
-            title: 'Menus',
-            href: '/admin/menus'
-        },
-        {
-            title: 'Mon menu',
-            href: `/admin/restaurant/${restaurantId}/menu/${menuId}`
-        },
-        {
-            title: 'Nouvelle catégorie'
-        }
-    ]
+    // const breadcrumbItems = [
+    //     {
+    //         title: 'Menus',
+    //         href: '/admin/menus'
+    //     },
+    //     {
+    //         title: 'Mon menu',
+    //         href: `/admin/restaurant/${restaurantId}/menu/${menuId}`
+    //     },
+    //     {
+    //         title: 'Nouvelle catégorie'
+    //     }
+    // ]
 
     return (
         <PageContainer>
@@ -69,7 +69,7 @@ const CategoryCreate = () => {
                 title="Nouvelle catégorie"
                 description="Organisez vos plats par catégorie"
                 backUrl={`/admin/restaurant/${restaurantId}/menu/${menuId}`}
-                breadcrumbItems={breadcrumbItems}
+                // breadcrumbItems={breadcrumbItems}
             />
 
             {/* Formulaire principal */}
@@ -84,23 +84,26 @@ const CategoryCreate = () => {
                                 Créez une nouvelle catégorie
                             </h2>
                             <p className="text-gray-600 text-lg">
-                                Organisez votre menu pour une meilleure expérience client
+                                Organisez votre menu pour une meilleure
+                                expérience client
                             </p>
                         </div>
 
                         <div className="w-full max-w-lg mx-auto">
-                            <Label htmlFor="categoryName" className="text-lg font-medium">
+                            <Label
+                                htmlFor="categoryName"
+                                className="text-lg font-medium">
                                 Nom de la catégorie
                             </Label>
                             <Input
                                 id="categoryName"
                                 type="text"
                                 value={categoryName}
-                                onChange={(e) => setCategoryName(e.target.value)}
+                                onChange={e => setCategoryName(e.target.value)}
                                 placeholder="Ex: Entrées, Plats principaux, Desserts..."
                                 className="mt-3 text-lg h-12 border-2 focus:border-blue-500"
                                 autoFocus
-                                onKeyPress={(e) => {
+                                onKeyPress={e => {
                                     if (e.key === 'Enter') handleSubmit()
                                 }}
                             />
@@ -110,17 +113,17 @@ const CategoryCreate = () => {
                             <Button
                                 variant="outline"
                                 onClick={handleCancel}
-                                className="flex-1 h-12 text-lg"
-                            >
+                                className="flex-1 h-12 text-lg">
                                 Annuler
                             </Button>
                             <Button
                                 onClick={handleSubmit}
                                 disabled={isLoading || !categoryName.trim()}
-                                className="flex-1 h-12 text-lg gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
-                            >
+                                className="flex-1 h-12 text-lg gap-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
                                 <Plus size={20} />
-                                {isLoading ? "Création..." : "Créer la catégorie"}
+                                {isLoading
+                                    ? 'Création...'
+                                    : 'Créer la catégorie'}
                             </Button>
                         </div>
                     </div>

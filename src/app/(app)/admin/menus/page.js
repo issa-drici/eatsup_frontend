@@ -9,6 +9,7 @@ import Link from 'next/link'
 import PageContainer from '@/components/PageContainer'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { useAuth } from '@/hooks/auth'
+import AIGeneratorButton from '@/components/AIGeneratorButton'
 
 const Menus = () => {
     const { user } = useAuth()
@@ -102,12 +103,19 @@ const Menus = () => {
                                         Commencez par créer votre menu digital
                                     </p>
                                 </div>
-                                <Button
-                                    size="lg"
-                                    className="bg-blue-600 hover:bg-blue-700 gap-2">
-                                    <Plus size={20} />
-                                    Créer un menu
-                                </Button>
+                                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                    <Button
+                                        size="lg"
+                                        className="bg-blue-600 hover:bg-blue-700 gap-2">
+                                        <Plus size={20} />
+                                        Créer un menu
+                                    </Button>
+                                    <AIGeneratorButton
+                                        variant="outline"
+                                        size="lg"
+                                        className="border-blue-300 text-blue-700 hover:bg-blue-50"
+                                    />
+                                </div>
                             </div>
                         </CardContent>
                     </Card>
@@ -129,7 +137,7 @@ const Menus = () => {
                                 <p className="text-sm text-blue-800">
                                     {menu
                                         ? 'Cliquez sur "Gérer mon menu" pour ajouter des catégories et des plats à votre carte.'
-                                        : 'Cliquez sur "Créer un menu" pour commencer. Nous vous guiderons étape par étape.'}
+                                        : 'Cliquez sur "Créer un menu" pour commencer manuellement, ou utilisez notre générateur IA pour créer automatiquement votre menu à partir d\'une image ou d\'un PDF.'}
                                 </p>
                             </div>
                         </div>

@@ -12,12 +12,11 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-    SidebarRail,
     useSidebar,
 } from '@/shadcn-components/ui/sidebar'
 import { Avatar, AvatarFallback } from '@/shadcn-components/ui/avatar'
 import ApplicationLogo from '@/components/ApplicationLogo'
-import { Home, ChefHat, Store, QrCode } from 'lucide-react'
+import { Home, ChefHat, Store } from 'lucide-react'
 import useIsMobile from '@/hooks/useIsMobile'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -30,8 +29,6 @@ import {
 } from '@/shadcn-components/ui/dropdown-menu'
 import { User } from 'lucide-react'
 import { useAuth } from '@/hooks/auth'
-import { ChevronDown } from 'lucide-react'
-import { DotSquare } from 'lucide-react'
 import { EllipsisVertical } from 'lucide-react'
 
 export function AppSidebar(props) {
@@ -58,11 +55,6 @@ export function AppSidebar(props) {
                     url: '/admin/menus',
                     icon: <ChefHat size={20} />,
                 },
-                // {
-                //     title: 'QR Codes',
-                //     url: '/admin/qr-code',
-                //     icon: <QrCode size={20} />,
-                // },
                 {
                     title: 'Mon restaurant',
                     url: restaurantId
@@ -81,15 +73,11 @@ export function AppSidebar(props) {
             let isActive = false
             if (item.url && pathname) {
                 if (item.title === 'Mon menu') {
-                    // Plus spécifique : doit contenir /menu mais pas /restaurant/.../menu
                     isActive =
                         (pathname.includes('/menu') &&
                             pathname.includes('/restaurant/')) ||
                         pathname.includes('/menus')
-                } else if (item.title === 'QR Codes') {
-                    isActive = pathname.includes('/qr-code')
                 } else if (item.title === 'Mon restaurant') {
-                    // Plus spécifique : doit contenir /restaurant mais pas /menu
                     isActive =
                         pathname.includes('/restaurant') &&
                         !pathname.includes('/menu')
@@ -167,7 +155,6 @@ export function AppSidebar(props) {
                     </SidebarGroup>
                 ))}
             </SidebarContent>
-            {/* <SidebarRail /> */}
             <SidebarFooter className="p-4">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>

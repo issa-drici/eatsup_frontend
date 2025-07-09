@@ -20,8 +20,8 @@ AccordionItem.displayName = 'AccordionItem';
 
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> & { hideIcons?: boolean }
+>(({ className, children, hideIcons = false, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
@@ -32,8 +32,12 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <Plus className="h-6 w-6 shrink-0 text-violet-600 transition-transform duration-200 group-data-[state=open]:hidden" />
-      <Minus className="h-6 w-6 shrink-0 transition-transform duration-200 group-data-[state=closed]:hidden" />
+      {!hideIcons && (
+        <>
+          <Plus className="h-6 w-6 shrink-0 text-violet-600 transition-transform duration-200 group-data-[state=open]:hidden" />
+          <Minus className="h-6 w-6 shrink-0 transition-transform duration-200 group-data-[state=closed]:hidden" />
+        </>
+      )}
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

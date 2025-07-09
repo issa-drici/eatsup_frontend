@@ -8,6 +8,7 @@ import Link from 'next/link'
 import PageContainer from '@/components/PageContainer'
 import { useFindFirstMenuByRestaurantId } from '@/services/menu/useFindFirstMenuByRestaurantId'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import AIGeneratorButton from '@/components/AIGeneratorButton'
 
 const Dashboard = () => {
     const { user } = useAuth({ middleware: 'auth' })
@@ -63,15 +64,24 @@ const Dashboard = () => {
                                     }
                                 </p>
                             </div>
-                            <Link href={menu ? `/admin/restaurant/${restaurant?.id}/menu/${menu?.id}` : '/admin/menus'}>
-                                <Button
-                                    size="lg"
-                                    className="bg-orange-600 hover:bg-orange-700 gap-2"
-                                >
-                                    {menu ? 'Gérer mon menu' : 'Créer mon menu'}
-                                    <ChefHat size={20} />
-                                </Button>
-                            </Link>
+                            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                                <Link href={menu ? `/admin/restaurant/${restaurant?.id}/menu/${menu?.id}` : '/admin/menus'}>
+                                    <Button
+                                        size="lg"
+                                        className="bg-orange-600 hover:bg-orange-700 gap-2"
+                                    >
+                                        {menu ? 'Gérer mon menu' : 'Créer mon menu'}
+                                        <ChefHat size={20} />
+                                    </Button>
+                                </Link>
+                                {!menu && (
+                                    <AIGeneratorButton
+                                        variant="outline"
+                                        size="lg"
+                                        className="border-orange-300 text-orange-700 hover:bg-orange-50"
+                                    />
+                                )}
+                            </div>
                         </div>
                     </CardContent>
                 </Card>
@@ -106,7 +116,7 @@ const Dashboard = () => {
                                 <p className="text-sm text-blue-800">
                                     {menu
                                         ? 'Cliquez sur "Gérer mon menu" pour ajouter des catégories et des plats à votre carte.'
-                                        : 'Cliquez sur "Créer mon menu" pour commencer. Nous vous guiderons étape par étape.'
+                                        : 'Cliquez sur "Créer mon menu" pour commencer manuellement, ou utilisez notre générateur IA pour créer automatiquement votre menu à partir d\'une image ou d\'un PDF.'
                                     }
                                 </p>
                             </div>

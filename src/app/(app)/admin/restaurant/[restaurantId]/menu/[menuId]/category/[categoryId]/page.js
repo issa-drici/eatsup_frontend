@@ -1,13 +1,13 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { Button } from '@/shadcn-components/ui/button'
 import { Card, CardContent } from '@/shadcn-components/ui/card'
 import { useFindAllMenuItemsByMenuCategoryId } from '@/services/menu-item/useFindAllMenuItemsByMenuCategoryId'
 import { useFindMenuCategoryById } from '@/services/menu-category/useFindMenuCategoryById'
 import Link from 'next/link'
-import { Plus, ChefHat, Eye, Pen, Trash, ArrowUp, ArrowDown } from 'lucide-react'
+import { Plus, ChefHat, Eye, Pen, Trash, ArrowUp, ArrowDown, ArrowLeft } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import PageContainer from '@/components/PageContainer'
 import {
@@ -23,6 +23,7 @@ import { useUpdateMenuItemMoveDown } from '@/services/menu-item/useUpdateMenuIte
 
 const Category = () => {
     const { restaurantId, menuId, categoryId } = useParams()
+    const router = useRouter()
     const queryClient = useQueryClient()
 
     const {
@@ -68,15 +69,31 @@ const Category = () => {
         moveDownMenuItem({ itemId })
     }
 
+    const handleBack = () => {
+        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}`)
+    }
+
     return (
         <PageContainer>
             <div className="space-y-6">
-                {/* En-tête simple et clair */}
-                <div className="text-center">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                        {isLoadingMenuCategory ? 'Chargement...' : menuCategory?.name?.fr}
-                    </h1>
-                    <p className="text-gray-600">Gérez les articles de cette catégorie</p>
+                {/* En-tête avec bouton de retour */}
+                <div className="flex items-center gap-4">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={handleBack}
+                        className="gap-2">
+                        <ArrowLeft size={16} />
+                        Retour
+                    </Button>
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-900">
+                            {isLoadingMenuCategory ? 'Chargement...' : menuCategory?.name?.fr}
+                        </h1>
+                        <p className="text-gray-600">
+                            Gérez les articles de cette catégorie
+                        </p>
+                    </div>
                 </div>
 
                 {/* Actions rapides */}

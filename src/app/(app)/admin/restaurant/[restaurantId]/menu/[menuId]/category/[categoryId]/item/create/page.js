@@ -219,6 +219,7 @@ const ItemCreate = () => {
 
                             <div className="flex gap-4 pt-6">
                                 <Button
+                                    type="button"
                                     variant="outline"
                                     onClick={handleCancel}
                                     className="flex-1 h-12 text-lg"
