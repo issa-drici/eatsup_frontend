@@ -12,8 +12,7 @@ const MenuItem = ({ item, activeLanguage }) => {
         <>
             <Card
                 className="overflow-hidden flex p-0 cursor-pointer hover:shadow-md transition-shadow"
-                onClick={() => setIsDialogOpen(true)}
-            >
+                onClick={() => setIsDialogOpen(true)}>
                 {item.images && item.images.length > 0 && (
                     <Image
                         src={item.images[0].url}
@@ -31,10 +30,10 @@ const MenuItem = ({ item, activeLanguage }) => {
                     </div>
                     {item.description?.[activeLanguage] && (
                         <p className="text-sm text-[#64748B]">
-                            <span className="hidden sm:inline">
+                            {/* <span className="hidden sm:inline">
                                 {item.description?.[activeLanguage]}
-                            </span>
-                            <span className="sm:hidden line-clamp-3">
+                            </span> */}
+                            <span className="line-clamp-3">
                                 {item.description?.[activeLanguage]}
                             </span>
                         </p>

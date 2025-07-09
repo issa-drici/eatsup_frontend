@@ -142,7 +142,7 @@ const MenuUpdate = () => {
                                 id="status"
                                 value={formData.status}
                                 onChange={e => handleChange('status', null, e.target.value)}
-                                className="mt-1 w-full border rounded-md p-2">
+                                className="mt-1 w-full border rounded-xl p-2">
                                 <option value="active">Actif</option>
                                 <option value="inactive">Inactif</option>
                             </select>

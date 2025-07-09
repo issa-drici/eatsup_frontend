@@ -8,16 +8,16 @@ import { ChefHat, Plus, Eye } from 'lucide-react'
 import Link from 'next/link'
 import PageContainer from '@/components/PageContainer'
 import { Skeleton } from '@/shadcn-components/ui/skeleton'
+import { useAuth } from '@/hooks/auth'
 
 const Menus = () => {
-    const { data: restaurants, isLoading: isLoadingRestaurants } = useFindAllRestaurants()
-    const restaurant = restaurants?.[0] // Prend le premier restaurant
-
-    const { data: menus, isLoading: isLoadingMenus } = useFindAllMenusByRestaurantId(restaurant?.id)
+    const { user } = useAuth()
+    const { data: menus, isLoading: isLoadingMenus } =
+        useFindAllMenusByRestaurantId(user?.restaurant?.id)
     const menu = menus?.[0] // Prend le premier menu
-
+    console.log({ menus })
     // État de chargement
-    if (isLoadingRestaurants || isLoadingMenus) {
+    if (isLoadingMenus) {
         return (
             <PageContainer>
                 <div className="space-y-6">
@@ -36,7 +36,9 @@ const Menus = () => {
             <div className="space-y-6">
                 {/* En-tête simple */}
                 <div className="text-center">
-                    <h1 className="text-2xl font-bold text-gray-900 mb-2">Mes menus</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                        Mes menus
+                    </h1>
                     <p className="text-gray-600">Gérez vos menus digitaux</p>
                 </div>
 
@@ -46,25 +48,37 @@ const Menus = () => {
                         <CardContent className="p-6">
                             <div className="text-center space-y-4">
                                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                                    <ChefHat size={32} className="text-green-600" />
+                                    <ChefHat
+                                        size={32}
+                                        className="text-green-600"
+                                    />
                                 </div>
                                 <div>
                                     <h2 className="text-xl font-semibold text-gray-900 mb-2">
                                         {menu.name?.fr || 'Mon menu'}
                                     </h2>
                                     <p className="text-gray-600 mb-4">
-                                        Votre menu digital est prêt à être utilisé
+                                        Votre menu digital est prêt à être
+                                        utilisé
                                     </p>
                                 </div>
                                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                                    <Link href={`/admin/restaurant/${restaurant?.id}/menu/${menu?.id}`}>
-                                        <Button size="lg" className="bg-green-600 hover:bg-green-700 gap-2 w-full sm:w-auto">
+                                    <Link
+                                        href={`/admin/restaurant/${user?.restaurant?.id}/menu/${menu?.id}`}>
+                                        <Button
+                                            size="lg"
+                                            className="bg-green-600 hover:bg-green-700 gap-2 w-full sm:w-auto">
                                             <ChefHat size={20} />
                                             Gérer mon menu
                                         </Button>
                                     </Link>
-                                    <Link href={`/restaurant/${restaurant?.id}/menu/${menu?.id}`} target="_blank">
-                                        <Button variant="outline" size="lg" className="gap-2 w-full sm:w-auto">
+                                    <Link
+                                        href={`/restaurant/${user?.restaurant?.id}/menu/${menu?.id}`}
+                                        target="_blank">
+                                        <Button
+                                            variant="outline"
+                                            size="lg"
+                                            className="gap-2 w-full sm:w-auto">
                                             <Eye size={20} />
                                             Voir mon menu
                                         </Button>
@@ -88,7 +102,9 @@ const Menus = () => {
                                         Commencez par créer votre menu digital
                                     </p>
                                 </div>
-                                <Button size="lg" className="bg-blue-600 hover:bg-blue-700 gap-2">
+                                <Button
+                                    size="lg"
+                                    className="bg-blue-600 hover:bg-blue-700 gap-2">
                                     <Plus size={20} />
                                     Créer un menu
                                 </Button>
@@ -102,15 +118,18 @@ const Menus = () => {
                     <CardContent className="p-6">
                         <div className="flex items-start gap-3">
                             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <span className="text-blue-600 font-bold text-sm">?</span>
+                                <span className="text-blue-600 font-bold text-sm">
+                                    ?
+                                </span>
                             </div>
                             <div>
-                                <h4 className="font-medium text-blue-900 mb-1">Comment ça marche ?</h4>
+                                <h4 className="font-medium text-blue-900 mb-1">
+                                    Comment ça marche ?
+                                </h4>
                                 <p className="text-sm text-blue-800">
                                     {menu
                                         ? 'Cliquez sur "Gérer mon menu" pour ajouter des catégories et des plats à votre carte.'
-                                        : 'Cliquez sur "Créer un menu" pour commencer. Nous vous guiderons étape par étape.'
-                                    }
+                                        : 'Cliquez sur "Créer un menu" pour commencer. Nous vous guiderons étape par étape.'}
                                 </p>
                             </div>
                         </div>

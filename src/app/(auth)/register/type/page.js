@@ -122,7 +122,7 @@ const RestaurantTypePage = () => {
                                 key={type.value}
                                 onClick={() => setSelectedType(type.value)}
                                 className={`
-                                rounded-md cursor-pointer transition-all
+                                rounded-xl cursor-pointer transition-all
                                 ${
                                     selectedType === type.value
                                         ? 'text-primary bg-primary/10'

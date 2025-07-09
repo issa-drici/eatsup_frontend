@@ -283,7 +283,7 @@ export default function RestaurantPage() {
                                         <Link
                                             href={`/admin/restaurant/${restaurantId}/menu/${selectedMenuId}/category/${category.id}/item/create`}
                                             className="w-full">
-                                            <div className="h-fit border border-dashed bg-slate-50 hover:bg-slate-100 border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer w-full">
+                                            <div className="h-fit border border-dashed bg-slate-50 hover:bg-slate-100 border-slate-200 rounded-xl p-3 flex flex-col gap-3 cursor-pointer w-full">
                                                 <div className="flex flex-row gap-1 items-center">
                                                     <Plus width={15} />
                                                     <p className="text-sm text-slate-900 font-normal">

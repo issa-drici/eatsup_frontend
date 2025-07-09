@@ -18,7 +18,7 @@ const LoginLinks = () => {
                                 : '/admin/dashboard'
                         }
                         className="hidden md:block">
-                        <Button>Dashboard</Button>
+                        <Button>Mon espace</Button>
                     </Link>
                     <Link
                         href={
@@ -27,7 +27,7 @@ const LoginLinks = () => {
                                 : '/admin/dashboard'
                         }
                         className="md:hidden">
-                        <Button size='sm'>Dashboard</Button>
+                        <Button size='sm'>Mon espace</Button>
                     </Link>
                 </>
             ) : (

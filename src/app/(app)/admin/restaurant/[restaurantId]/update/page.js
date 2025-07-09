@@ -356,7 +356,7 @@ const RestaurantUpdate = () => {
                                     </div>
 
                                     {googleSearchResults.length > 0 && (
-                                        <div className="absolute z-10 w-full mt-1 bg-white border rounded-md shadow-lg">
+                                        <div className="absolute z-10 w-full mt-1 bg-white border rounded-xl shadow-lg">
                                             {googleSearchResults.map(place => (
                                                 <button
                                                     key={place.place_id}
@@ -384,7 +384,7 @@ const RestaurantUpdate = () => {
                         </div>
 
                         {formData.google_info?.name && (
-                            <div className="p-4 bg-gray-50 rounded-md">
+                            <div className="p-4 bg-gray-50 rounded-xl">
                                 <h4 className="font-medium">
                                     Fiche sélectionnée :
                                 </h4>

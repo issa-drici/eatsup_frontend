@@ -8,6 +8,7 @@ import { Button } from '@/shadcn-components/ui/button'
 import Link from 'next/link'
 import { Info } from 'lucide-react'
 import { useLanguage } from '@/app/(public)/restaurant/[restaurantId]/menu/[menuId]/context/LanguageContext'
+import { cn } from '@/lib/utils'
 
 const TitleBar = ({ restaurant }) => {
     const { activeLanguage, setActiveLanguage } = useLanguage()
@@ -24,9 +25,11 @@ const TitleBar = ({ restaurant }) => {
 
     return (
         <div
-            className={`flex justify-between items-center sticky top-0 z-50 bg-white ${
-                restaurant?.logo?.url ? 'py-2' : 'py-1'
-            } pl-3 pr-3`}
+            className={cn(
+                'flex justify-between items-center sticky top-0 z-50 md:z-10 bg-white md:bg-sidebar',
+                restaurant?.logo?.url ? 'py-2' : 'py-1',
+                'pl-3 pr-3',
+            )}
             id="titleBar">
             <div className="flex items-center gap-2">
                 {restaurant?.logo?.url && (

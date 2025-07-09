@@ -18,7 +18,7 @@ const Banner = ({ banners }) => {
                     key={banners[0].id}
                     src={banners[0].url}
                     alt="Banner"
-                    className="object-cover"
+                    className="object-cover md:object-contain"
                     priority
                     fill
                 />

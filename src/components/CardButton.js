@@ -35,7 +35,7 @@ export default function CardButton({
                 )}>
                 <div className="flex items-center justify-between">
                     {icon}
-                    <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-md px-2 py-1">
+                    <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl px-2 py-1">
                         <Lock size={14} className="md:w-4 md:h-4 text-slate-900" />
                         <p className="text-xs text-slate-900 font-medium">
                             Premium
@@ -58,7 +58,7 @@ export default function CardButton({
         <Link href={url} className={cn(widthFull && 'w-full')} asChild>
             <div
                 className={cn(
-                    'group relative overflow-hidden h-fit shadow-sm border bg-white hover:shadow-md hover:border-gray-300 border-gray-200 rounded-lg p-3 md:p-4 flex flex-col gap-2 md:gap-3 cursor-pointer transition-all duration-200',
+                    'group relative overflow-hidden h-fit shadow-sm border bg-white hover:shadow-md hover:border-gray-300 border-gray-200 rounded-xl p-3 md:p-4 flex flex-col gap-2 md:gap-3 cursor-pointer transition-all duration-200',
                     widthFull && 'w-full',
                 )}>
                 <div className="flex items-center justify-between">

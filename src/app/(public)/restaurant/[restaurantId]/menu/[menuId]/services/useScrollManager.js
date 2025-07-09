@@ -19,11 +19,15 @@ export const useScrollManager = (menuItems) => {
             const offsetTop =
                 section.getBoundingClientRect().top + window.pageYOffset
 
+            // Calculer l'offset en vérifiant l'existence des éléments
+            const titleBar = document.querySelector('#titleBar')
+            const categoryBar = document.querySelector('#categoryBar')
+
+            const titleBarHeight = titleBar ? titleBar.offsetHeight : 0
+            const categoryBarHeight = categoryBar ? categoryBar.offsetHeight : 0
+
             window.scrollTo({
-                top:
-                    offsetTop -
-                    (document.querySelector('#titleBar').offsetHeight +
-                        document.querySelector('#categoryBar').offsetHeight),
+                top: offsetTop - (titleBarHeight + categoryBarHeight),
                 behavior: 'smooth',
             })
             setActiveSection(sectionId)

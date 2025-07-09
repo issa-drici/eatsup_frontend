@@ -55,7 +55,7 @@ const AppLayout = ({ children }) => {
                 {/* <div className="flex items-center gap-3">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <button className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-md transition-colors">
+                                <button className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-xl transition-colors">
                                     <Avatar className="h-8 w-8">
                                         <AvatarFallback className="text-sm bg-blue-100 text-blue-700">
                                             {user?.name?.charAt(0)?.toUpperCase()}

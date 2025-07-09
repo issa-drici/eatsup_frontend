@@ -20,7 +20,7 @@ const Qrcode = () => {
                     ]}
                 />
             </div>
-            <div className="w-full flex flex-col items-center justify-center py-10 px-5 bg-slate-100 rounded-md">
+            <div className="w-full flex flex-col items-center justify-center py-10 px-5 bg-slate-100 rounded-xl">
                 <Image
                     src="/images/eatsy/hello.png"
                     alt="eatsy-hello"

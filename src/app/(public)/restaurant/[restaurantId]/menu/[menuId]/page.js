@@ -31,7 +31,7 @@ const MenuPage = async ({ params }) => {
 
     return (
         <LanguageProvider>
-            <div className="relative bg-slate-100 min-h-[100dvh] md:bg-white md:max-w-lg md:mx-auto">
+            <div className="relative bg-slate-100 min-h-[100dvh] md:bg-white  md:mx-auto">
                 <div className="text-xs h-full pb-5">
                     <MenuDataFetcher
                         restaurantId={restaurantId}

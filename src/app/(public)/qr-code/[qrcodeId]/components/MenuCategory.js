@@ -9,7 +9,7 @@ const MenuCategory = ({ categoryData, activeLanguage, sectionRef }) => {
                 <p className="text-lg font-bold mb-3">
                     {categoryData.category.name?.[activeLanguage]}
                 </p>
-                <div className="flex flex-col gap-y-3">
+                <div className="flex flex-col md:grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 md:gap-x-3 gap-y-3">
                     {categoryData.items?.map(item => (
                         <MenuItem
                             key={item.id}

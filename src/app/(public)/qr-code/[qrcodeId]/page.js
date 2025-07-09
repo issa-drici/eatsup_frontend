@@ -189,7 +189,7 @@ const Menu = () => {
             <div className="w-full bg-slate-900 py-1 gap-1 flex items-center justify-center absolute bottom-0">
                 <p className="text-white text-xs">Menu propulsé par</p>
                 <Link href={`/`} legacyBehavior>
-                    <a className="text-white bg-white rounded-md px-1 no-underline hover:text-white hover:no-underline">
+                    <a className="text-white bg-white rounded-xl px-1 no-underline hover:text-white hover:no-underline">
                         <Image
                             src="/images/logo.png"
                             className="h-6 object-contain"

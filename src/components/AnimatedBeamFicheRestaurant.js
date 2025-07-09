@@ -38,7 +38,7 @@ const AnimatedBeamFicheRestaurant = () => {
                         ref={div1Ref}
                         src="/images/instagram.jpeg"
                         alt="instagram"
-                        className="z-10 rounded-md border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                        className="z-10 rounded-xl border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
                         width={150}
                         height={150}
                     />
@@ -46,7 +46,7 @@ const AnimatedBeamFicheRestaurant = () => {
                         ref={div5Ref}
                         src="/images/gmb.jpeg"
                         alt="google-my-business"
-                        className="z-10 rounded-md border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                        className="z-10 rounded-xl border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
                         width={150}
                         height={150}
                     />
@@ -56,7 +56,7 @@ const AnimatedBeamFicheRestaurant = () => {
                         ref={div4Ref}
                         src="/images/menu.jpeg"
                         alt="menu"
-                        className="z-10 rounded-md border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                        className="z-10 rounded-xl border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
                         width={250}
                         height={250}
                     />
@@ -66,7 +66,7 @@ const AnimatedBeamFicheRestaurant = () => {
                         ref={div3Ref}
                         src="/images/storefront.jpeg"
                         alt="storefront"
-                        className="z-10 rounded-md border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                        className="z-10 rounded-xl border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
                         width={150}
                         height={150}
                     />
@@ -74,7 +74,7 @@ const AnimatedBeamFicheRestaurant = () => {
                         ref={div7Ref}
                         src="/images/facebook.jpeg"
                         alt="facebook"
-                        className="z-10 rounded-md border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
+                        className="z-10 rounded-xl border-2 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]"
                         width={150}
                         height={150}
                     />

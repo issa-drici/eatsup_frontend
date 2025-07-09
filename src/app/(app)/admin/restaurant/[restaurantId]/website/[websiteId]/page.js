@@ -56,7 +56,7 @@ const WebsiteDashboard = () => {
                             <Tooltip open={isOpenTooltipCopy}>
                                 <TooltipTrigger asChild>
                                     <div
-                                        className="group relative overflow-hidden h-fit shadow-md border bg-white hover:shadow-inner border-slate-200 rounded-md p-3 flex flex-col gap-3 cursor-pointer"
+                                        className="group relative overflow-hidden h-fit shadow-md border bg-white hover:shadow-inner border-slate-200 rounded-xl p-3 flex flex-col gap-3 cursor-pointer"
                                         onClick={() => {
                                             setIsOpenTooltipCopy(true)
                                             navigator.clipboard.writeText(

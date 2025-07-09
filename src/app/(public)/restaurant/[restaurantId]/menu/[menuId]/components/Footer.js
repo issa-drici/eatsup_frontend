@@ -14,7 +14,7 @@ const Footer = () => {
                 {translations.poweredBy[activeLanguage] || translations.poweredBy.fr}
             </p>
             <Link href={`/`} legacyBehavior>
-                <a className="text-white bg-white rounded-md px-1 no-underline hover:text-white hover:no-underline">
+                <a className="text-white bg-white rounded-xl px-1 no-underline hover:text-white hover:no-underline">
                     <Image
                         src="/images/logo.png"
                         className="h-6 object-contain"

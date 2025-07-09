@@ -30,6 +30,9 @@ import {
 } from '@/shadcn-components/ui/dropdown-menu'
 import { User } from 'lucide-react'
 import { useAuth } from '@/hooks/auth'
+import { ChevronDown } from 'lucide-react'
+import { DotSquare } from 'lucide-react'
+import { EllipsisVertical } from 'lucide-react'
 
 export function AppSidebar(props) {
     const pathname = usePathname()
@@ -55,11 +58,11 @@ export function AppSidebar(props) {
                     url: '/admin/menus',
                     icon: <ChefHat size={20} />,
                 },
-                {
-                    title: 'QR Codes',
-                    url: '/admin/qr-code',
-                    icon: <QrCode size={20} />,
-                },
+                // {
+                //     title: 'QR Codes',
+                //     url: '/admin/qr-code',
+                //     icon: <QrCode size={20} />,
+                // },
                 {
                     title: 'Mon restaurant',
                     url: restaurantId
@@ -78,11 +81,18 @@ export function AppSidebar(props) {
             let isActive = false
             if (item.url && pathname) {
                 if (item.title === 'Mon menu') {
-                    isActive = pathname.includes('/menu')
+                    // Plus spécifique : doit contenir /menu mais pas /restaurant/.../menu
+                    isActive =
+                        (pathname.includes('/menu') &&
+                            pathname.includes('/restaurant/')) ||
+                        pathname.includes('/menus')
                 } else if (item.title === 'QR Codes') {
                     isActive = pathname.includes('/qr-code')
                 } else if (item.title === 'Mon restaurant') {
-                    isActive = pathname.includes('/restaurant')
+                    // Plus spécifique : doit contenir /restaurant mais pas /menu
+                    isActive =
+                        pathname.includes('/restaurant') &&
+                        !pathname.includes('/menu')
                 } else {
                     isActive = pathname.startsWith(item.url)
                 }
@@ -161,7 +171,7 @@ export function AppSidebar(props) {
             <SidebarFooter className="p-4">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl transition-colors shadow-lg">
+                        <button className="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 rounded-xl transition-colors shadow-sm border">
                             <Avatar className="h-8 w-8">
                                 <AvatarFallback className="text-sm bg-blue-100 text-blue-700">
                                     {user?.name?.charAt(0)?.toUpperCase()}
@@ -172,9 +182,10 @@ export function AppSidebar(props) {
                                     {user?.name}
                                 </span>
                                 <span className="text-xs text-gray-500">
-                                    Propriétaire
+                                    {user?.email}
                                 </span>
                             </div>
+                            <EllipsisVertical className="ml-auto w-4 h-4" />
                         </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-56">
