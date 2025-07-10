@@ -34,7 +34,9 @@ const ItemCreate = () => {
 
     const handleCallbackSuccess = async () => {
         await queryClient.invalidateQueries(['menuCategoryItems', categoryId])
-        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`)
+        router.push(
+            `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
+        )
     }
 
     const { mutateAsync: createMenuItem } = useCreateMenuItem({
@@ -93,7 +95,9 @@ const ItemCreate = () => {
     }
 
     const handleCancel = () => {
-        router.push(`/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`)
+        router.push(
+            `/admin/restaurant/${restaurantId}/menu/${menuId}/category/${categoryId}`,
+        )
     }
 
     return (
@@ -105,14 +109,17 @@ const ItemCreate = () => {
                         variant="outline"
                         size="sm"
                         onClick={handleCancel}
-                        className="gap-2"
-                    >
+                        className="gap-2">
                         <ArrowLeft size={16} />
                         Retour
                     </Button>
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900">Nouvel article</h1>
-                        <p className="text-gray-600">Ajoutez un nouveau plat à votre menu</p>
+                        <h1 className="text-2xl font-bold text-gray-900">
+                            Nouvel article
+                        </h1>
+                        <p className="text-gray-600">
+                            Ajoutez un nouveau plat à votre menu
+                        </p>
                     </div>
                 </div>
 
@@ -122,20 +129,26 @@ const ItemCreate = () => {
                         <form onSubmit={handleSubmit} className="space-y-8">
                             <div className="text-center">
                                 <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                                    <ChefHat size={40} className="text-green-600" />
+                                    <ChefHat
+                                        size={40}
+                                        className="text-green-600"
+                                    />
                                 </div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-3">
                                     Créez votre nouveau plat
                                 </h2>
                                 <p className="text-gray-600 text-lg">
-                                    Remplissez les informations pour attirer vos clients
+                                    Remplissez les informations pour attirer vos
+                                    clients
                                 </p>
                             </div>
 
                             <div className="w-full space-y-6">
                                 {/* Nom du plat */}
                                 <div>
-                                    <Label htmlFor="name" className="text-lg font-medium">
+                                    <Label
+                                        htmlFor="name"
+                                        className="text-lg font-medium">
                                         Nom du plat*
                                     </Label>
                                     <Input
@@ -143,7 +156,11 @@ const ItemCreate = () => {
                                         type="text"
                                         value={formData.name.fr}
                                         onChange={e =>
-                                            handleChange('name', 'fr', e.target.value)
+                                            handleChange(
+                                                'name',
+                                                'fr',
+                                                e.target.value,
+                                            )
                                         }
                                         className="mt-3 text-lg h-12 border-2 focus:border-green-500"
                                         required
@@ -175,7 +192,9 @@ const ItemCreate = () => {
 
                                 {/* Prix */}
                                 <div>
-                                    <Label htmlFor="price" className="text-lg font-medium">
+                                    <Label
+                                        htmlFor="price"
+                                        className="text-lg font-medium">
                                         Prix (€)*
                                     </Label>
                                     <Input
@@ -184,7 +203,11 @@ const ItemCreate = () => {
                                         step="0.01"
                                         value={formData.price}
                                         onChange={e =>
-                                            handleChange('price', null, e.target.value)
+                                            handleChange(
+                                                'price',
+                                                null,
+                                                e.target.value,
+                                            )
                                         }
                                         className="mt-3 text-lg h-12 border-2 focus:border-green-500"
                                         required
@@ -203,11 +226,16 @@ const ItemCreate = () => {
                                             multiple
                                             value={imageFiles}
                                             onChange={files => {
-                                                setImageFiles(prev => [...prev, ...files])
+                                                setImageFiles(prev => [
+                                                    ...prev,
+                                                    ...files,
+                                                ])
                                             }}
                                             onRemove={({ index }) => {
                                                 setImageFiles(prev =>
-                                                    prev.filter((_, i) => i !== index),
+                                                    prev.filter(
+                                                        (_, i) => i !== index,
+                                                    ),
                                                 )
                                             }}
                                             accept="image/*"
@@ -217,22 +245,22 @@ const ItemCreate = () => {
                                 </div>
                             </div>
 
-                            <div className="flex gap-4 pt-6">
+                            <div className="flex flex-col-reverse md:flex-row gap-4 pt-6">
                                 <Button
                                     type="button"
-                                    variant="outline"
+                                    variant="ghost"
                                     onClick={handleCancel}
-                                    className="flex-1 h-12 text-lg"
-                                >
+                                    className="flex-1 h-12 text-lg">
                                     Annuler
                                 </Button>
                                 <Button
                                     isLoading={isLoading}
                                     type="submit"
-                                    className="flex-1 h-12 text-lg gap-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
-                                >
+                                    className="flex-1 h-12 text-lg gap-3 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
                                     <Plus size={20} />
-                                    {isLoading ? "Création..." : "Créer l'article"}
+                                    {isLoading
+                                        ? 'Création...'
+                                        : "Créer l'article"}
                                 </Button>
                             </div>
                         </form>

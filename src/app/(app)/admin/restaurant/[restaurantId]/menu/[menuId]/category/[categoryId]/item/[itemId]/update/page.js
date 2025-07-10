@@ -343,10 +343,10 @@ const ItemUpdate = () => {
                                 </div>
                             </div>
 
-                            <div className="flex gap-4 pt-6">
+                            <div className="flex flex-col-reverse md:flex-row gap-4 pt-6">
                                 <Button
                                     type="button"
-                                    variant="outline"
+                                    variant="ghost"
                                     onClick={handleCancel}
                                     className="flex-1 h-12 text-lg">
                                     Annuler

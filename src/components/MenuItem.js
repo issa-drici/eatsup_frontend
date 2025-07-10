@@ -29,12 +29,12 @@ const MenuItem = ({
 
     const { mutate: moveUpMenuItem } = useUpdateMenuItemMoveUp({
         handleCallbackSuccess,
-        itemId: item.id,
+        itemId: null,
     })
 
     const { mutate: moveDownMenuItem } = useUpdateMenuItemMoveDown({
         handleCallbackSuccess,
-        itemId: item.id,
+        itemId: null,
     })
 
     const handleDeleteClick = async () => {
@@ -43,11 +43,11 @@ const MenuItem = ({
     }
 
     const handleMoveUpClick = async () => {
-        await moveUpMenuItem()
+        await moveUpMenuItem({ itemId: item.id })
     }
 
     const handleMoveDownClick = async () => {
-        await moveDownMenuItem()
+        await moveDownMenuItem({ itemId: item.id })
     }
 
     return (
