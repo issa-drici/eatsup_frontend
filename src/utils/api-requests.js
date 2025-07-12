@@ -434,3 +434,14 @@ export async function getOnboardingStatus(restaurantId) {
     )
     return response.data
 }
+
+/**
+ * Crée un menu à partir du générateur IA
+ * @param {string} restaurantId - ID du restaurant
+ * @param {string} menuId - ID du menu
+ * @param {object} data - Données du menu IA
+ */
+export async function postCreateMenuFromAIGenerator(restaurantId, menuId, data) {
+    const response = await axios.post(`/api/restaurant/${restaurantId}/menu/${menuId}/ai-menu-generator/create`, data)
+    return response.data
+}
