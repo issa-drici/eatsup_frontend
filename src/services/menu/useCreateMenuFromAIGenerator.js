@@ -10,7 +10,7 @@ export const useCreateMenuFromAIGenerator = ({
     const { toast } = useToast()
     const [status, setStatus] = useState('idle') // idle | loading | processing | success | error
     const [statusMessage, setStatusMessage] = useState('')
-    const [setJobId] = useState(null)
+    const [, setJobId] = useState(null)
     const pollingRef = useRef(null)
     const [isPublishing, setIsPublishing] = useState(false)
     const [publishResult, setPublishResult] = useState(null)
@@ -73,7 +73,16 @@ export const useCreateMenuFromAIGenerator = ({
                     setIsPublishing(false)
                     setPublishResult(res.data?.data)
                     setProgress(100)
-                    if (onSuccess) onSuccess(res.data?.data)
+                    if (typeof onSuccess === 'function') {
+                        onSuccess(res.data?.data)
+                    } else if (onSuccess !== undefined) {
+                        // Log de debug si jamais onSuccess n'est pas une fonction
+                        // eslint-disable-next-line no-console
+                        console.error(
+                            "onSuccess n'est pas une fonction:",
+                            onSuccess,
+                        )
+                    }
                 } else if (statusPayload === 'failed') {
                     clearInterval(pollingRef.current)
                     setStatus('error')
