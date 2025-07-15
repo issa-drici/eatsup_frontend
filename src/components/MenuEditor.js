@@ -1,7 +1,5 @@
 'use client'
 
-
-
 import { Input } from '@/shadcn-components/ui/input'
 import { Button } from '@/shadcn-components/ui/button'
 import { Textarea } from '@/shadcn-components/ui/textarea'
@@ -135,9 +133,9 @@ const MenuEditor = forwardRef(({ data, onDataChange }, ref) => {
         setLastAddedCategory(newData.categories.length - 1)
     }
 
-        return (
+    return (
         <div className="space-y-6">
-                        <div className="space-y-8">
+            <div className="space-y-8">
                 {/* En-tête avec bouton d'ajout */}
                 <div className="flex items-center justify-between">
                     <div>
@@ -155,7 +153,7 @@ const MenuEditor = forwardRef(({ data, onDataChange }, ref) => {
                     {data.categories?.map((category, categoryIndex) => (
                         <div
                             key={categoryIndex}
-                            className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
+                            className="sm:bg-white sm:border sm:border-gray-200 sm:rounded-lg sm:p-6 sm:shadow-sm"
                             ref={categoryIndex === data.categories.length - 1 ? lastCategoryRef : null}
                         >
                             {/* En-tête de catégorie */}
@@ -199,31 +197,31 @@ const MenuEditor = forwardRef(({ data, onDataChange }, ref) => {
                                 {category.items?.map((item, itemIndex) => (
                                     <div
                                         key={itemIndex}
-                                        className="bg-gray-50 rounded-lg p-4 border border-gray-100"
+                                        className="bg-gray-50 border border-gray-100 rounded-lg p-3 mb-2 space-y-4 sm:space-y-4 sm:p-4 sm:border sm:border-gray-200 sm:rounded-lg sm:mb-0"
                                         ref={
                                             itemIndex === category.items.length - 1
                                                 ? el => (lastItemRefs.current[categoryIndex] = el)
                                                 : null
                                         }
                                     >
-                                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                            {/* Nom du plat */}
-                                            <div className="col-span-2">
-                                                <label className="text-sm font-medium text-gray-700 mb-2 block">Nom du plat</label>
-                                                <Input
-                                                    value={item.name || ''}
-                                                    onChange={(e) => updateData(`categories.${categoryIndex}.items.${itemIndex}.name`, e.target.value)}
-                                                    placeholder="Nom du plat (obligatoire)"
-                                                    className="bg-white"
-                                                    ref={el => {
-                                                        if (!itemNameRefs.current[categoryIndex]) itemNameRefs.current[categoryIndex] = []
-                                                        itemNameRefs.current[categoryIndex][itemIndex] = el
-                                                    }}
-                                                    required
-                                                />
-                                            </div>
+                                        {/* Nom du plat */}
+                                        <div>
+                                            <label className="text-sm font-medium text-gray-700 mb-2 block">Nom du plat</label>
+                                            <Input
+                                                value={item.name || ''}
+                                                onChange={(e) => updateData(`categories.${categoryIndex}.items.${itemIndex}.name`, e.target.value)}
+                                                placeholder="Nom du plat (obligatoire)"
+                                                className="bg-white"
+                                                ref={el => {
+                                                    if (!itemNameRefs.current[categoryIndex]) itemNameRefs.current[categoryIndex] = []
+                                                    itemNameRefs.current[categoryIndex][itemIndex] = el
+                                                }}
+                                                required
+                                            />
+                                        </div>
 
-                                            {/* Prix */}
+                                        {/* Prix et bouton supprimer */}
+                                        <div className="grid grid-cols-2 gap-4">
                                             <div>
                                                 <label className="text-sm font-medium text-gray-700 mb-2 block">Prix (€)</label>
                                                 <Input
@@ -244,7 +242,6 @@ const MenuEditor = forwardRef(({ data, onDataChange }, ref) => {
                                                 />
                                             </div>
 
-                                            {/* Bouton supprimer */}
                                             <div className="flex items-end">
                                                 <Button
                                                     size="sm"
@@ -253,20 +250,21 @@ const MenuEditor = forwardRef(({ data, onDataChange }, ref) => {
                                                     className="text-red-600 border-red-200 hover:bg-red-50 w-full"
                                                 >
                                                     <Trash2 className="w-4 h-4 mr-2" />
-                                                    Supprimer
+                                                    <span className="hidden sm:inline">Supprimer</span>
+                                                    <span className="sm:hidden">Suppr.</span>
                                                 </Button>
                                             </div>
                                         </div>
 
                                         {/* Description */}
-                                        <div className="mt-4">
+                                        <div>
                                             <label className="text-sm font-medium text-gray-700 mb-2 block">Description</label>
                                             <Textarea
                                                 value={item.description || ''}
                                                 onChange={(e) => updateData(`categories.${categoryIndex}.items.${itemIndex}.description`, e.target.value)}
                                                 placeholder="Description du plat (optionnel)"
                                                 className="bg-white"
-                                                rows={2}
+                                                rows={3}
                                             />
                                         </div>
                                     </div>

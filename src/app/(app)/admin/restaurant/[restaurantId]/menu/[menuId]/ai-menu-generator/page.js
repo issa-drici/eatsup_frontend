@@ -286,21 +286,19 @@ const AIMenuGenerator = () => {
 
                 {/* Affichage du résultat de l'analyse */}
                 {analysisResult && (
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>Résultat de l'analyse</CardTitle>
-                            <CardDescription>
-                                Voici ce que l'IA a détecté dans vos images
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
+                    <div className="sm:bg-white sm:border sm:border-gray-200 sm:rounded-lg sm:shadow-sm">
+                        <div className="sm:p-6">
+                            <div className="mb-6">
+                                <h3 className="text-xl font-semibold text-gray-900">Résultat de l'analyse</h3>
+                                <p className="text-gray-600 mt-1">Voici ce que l'IA a détecté dans vos images</p>
+                            </div>
                             <MenuEditor
                                 ref={menuEditorRef}
                                 data={analysisResult}
                                 onDataChange={setAnalysisResult}
                             />
-                        </CardContent>
-                    </Card>
+                        </div>
+                    </div>
                 )}
                 {/* Résumé de création après succès */}
                 {publishStatus === 'success' && publishResult && (
